@@ -1,0 +1,494 @@
+<!-- BEGIN menu -->
+
+	<div class="pn_menu" align="center">
+		.:: <a class="pn_menu" href="{menu.U_MAIN}">{menu.S_MAIN}</a>
+		:: <a class="pn_menu" href="{menu.U_ADD}">{menu.S_ADD}</a>
+		:: <a class="pn_menu" href="{menu.U_ARTS}">{menu.S_ARTS}</a>
+		:: <a class="pn_menu" href="{menu.U_GLRY}">{menu.S_GLRY}</a>
+		:: <a class="pn_menu" href="{menu.U_UPLD}">{menu.S_UPLD}</a>
+		:: <a class="pn_menu" href="{menu.U_SECS}">{menu.S_SECS}</a>
+		:: <a class="pn_menu" href="{menu.U_CATS}">{menu.S_CATS}</a>
+		:: <a class="pn_menu" href="{menu.U_BLKS}">{menu.S_BLKS}</a>
+		:: <a class="pn_menu" href="{menu.U_CFG}">{menu.S_CFG}</a>
+		::.
+		<br /><hr />
+	</div>
+<!-- END menu -->
+
+<!-- BEGIN glry_menu -->
+	<div class="table1" align="center">
+		{glry_menu.S_FORMSTART}
+		<br />
+		1. <a class="pn_menu" href="{glry_menu.U_ALBUM}">{glry_menu.S_ALBUM}</a>
+		 &nbsp; > &nbsp; 2. <a class="pn_menu" href="{glry_menu.U_BAT_UP}">{glry_menu.S_BAT_UP}</a>
+		 &nbsp; > &nbsp; 3. <a class="pn_menu" href="{glry_menu.U_BAT_ADD}">{glry_menu.S_BAT_ADD}</a>
+		<br /><br />
+		{glry_menu.S_FORMEND}
+	</div>
+<!-- END menu -->
+
+<!-- BEGIN main -->
+	<div class="pn_content" align="center">{main.S_MSG}</div>
+<!-- END main -->
+
+<!-- BEGIN pn_msg -->
+	<div class="pn_content" align="center">{pn_msg.S_MSG}</div>
+<!-- END pn_msg -->
+
+<!-- BEGIN cfg_form -->
+	{cfg_form.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr><td colspan="3"><b>{cfg_form.L_DSPLYSTG}</b></td></tr>
+		<tr><td>{cfg_form.S_PERPAGE}</td><td>{cfg_form.T_PERPAGE}</td><td onmouseover="tip('_PERPAGE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_USROVRPP}</td><td>{cfg_form.T_USROVRPP} <span class="pn_tiny">- {cfg_form.L_USROVRPP}</span></td><td onmouseover="tip('_USROVRPP')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td colspan="3"><br /><b>{cfg_form.L_ADVANCED}</b></td></tr>
+		<tr><td>{cfg_form.S_DSPLYBY}</td><td>{cfg_form.T_DSPLYBY}</td><td onmouseover="tip('_DSPLYBY')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ARTORDR} </td><td>{cfg_form.T_ARTORDR}</td><td onmouseover="tip('_ARTORDR')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_HDLINES}</td><td>{cfg_form.T_HDLINES}</td><td onmouseover="tip('_HDLINES')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_PERHDLINE}</td><td>{cfg_form.T_PERHDLINE}</td><td onmouseover="tip('_PERHDLINE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_1STHDLINE}</td><td>{cfg_form.T_1STHDLINE}</td><td onmouseover="tip('_1STHDLINE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_OTHHDLINE}</td><td>{cfg_form.T_OTHHDLINE}</td><td onmouseover="tip('_OTHHDLINE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ARTHOME}</td><td>{cfg_form.T_ARTHOME} <span class="pn_tiny">- {cfg_form.L_ARTHOME}</span></td><td onmouseover="tip('_ARTHOME')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_DEFTEMP}</td><td>{cfg_form.T_DEFTEMP}</td><td onmouseover="tip('_DEFTEMP')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_INTROLEN}</td><td>{cfg_form.T_INTROLEN}</td><td onmouseover="tip('_INTROLEN')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_CMNTLEN}</td><td>{cfg_form.T_CMNTLEN} <span class="pn_tiny"> {cfg_form.L_CMNTLEN}</span></td><td onmouseover="tip('_CMNTLEN')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SECATHDGS}</td><td>{cfg_form.T_SECATHDGS}</td><td onmouseover="tip('_SECATHDGS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SHOWICON}</td><td>{cfg_form.T_SHOWICON}</td><td onmouseover="tip('_SHOWICON')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_POSTBY}</td><td>{cfg_form.T_POSTBY}</td><td onmouseover="tip('_POSTBY')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_READCNT}</td><td>{cfg_form.T_READCNT}</td><td onmouseover="tip('_READCNT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_SHOWREADS}</td><td>{cfg_form.T_SHOWREADS}</td><td onmouseover="tip('_SHOWREADS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SMILIES}</td><td>{cfg_form.T_SMILIES}</td><td onmouseover="tip('_SMILIES')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_DISCUSS}</td><td>{cfg_form.T_DISCUSS}</td><td onmouseover="tip('_DISCUSS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_CNTCMNTS}</td><td>{cfg_form.T_CNTCMNTS}</td><td onmouseover="tip('_CNTCMNTS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_PERMALINK}</td><td>{cfg_form.T_PERMALINK}</td><td onmouseover="tip('_PERMALINK')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_EMAILF}</td><td>{cfg_form.T_EMAILF}</td><td onmouseover="tip('_EMAILF')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_PRINTF}</td><td>{cfg_form.T_PRINTF}</td><td onmouseover="tip('_PRINTF')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SOC_NET}</td><td>{cfg_form.T_SOC_NET}</td><td onmouseover="tip('_SOC_NET')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_RATINGS}</td><td>{cfg_form.T_RATINGS}</td><td onmouseover="tip('_RATINGS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ALBUM}</td><td>{cfg_form.T_ALBUM}</td><td onmouseover="tip('_ALBUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_USRFLDS}</td><td>{cfg_form.T_USRFLDS}</td><td onmouseover="tip('_USRFLDS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_RLTDARTS}</td><td>{cfg_form.T_RLTDARTS}</td><td onmouseover="tip('_RLTDARTS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_TXTONURL}</td><td>{cfg_form.T_TXTONURL} &nbsp; {cfg_form.S_LCASEURL} {cfg_form.T_LCASEURL} &nbsp; &nbsp; {cfg_form.S_HYPHENURL} {cfg_form.T_HYPHENURL}</td><td onmouseover="tip('_TXTONURL')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_SECCATURL}</td><td> &nbsp; &nbsp; {cfg_form.S_SECURL} {cfg_form.T_SECURL} &nbsp; &nbsp; {cfg_form.S_CATURL} {cfg_form.T_CATURL}</td><td>&nbsp;</td></tr>
+		<tr><td>{cfg_form.S_PERGLLRY}</td><td>{cfg_form.T_PERGLLRY} <span class="pn_tiny">{cfg_form.L_PERGLLRY}</span></td><td onmouseover="tip('_PERGLLRY')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr><td colspan="3"><strong>{cfg_form.S_IFSET}</strong></td></tr>
+		<tr><td>{cfg_form.S_FORUMDATE}</td><td>{cfg_form.T_FORUMDATE} <span class="pn_tiny">({cfg_form.U_FORUMDATE})</span></td><td onmouseover="tip('_FORUMDATE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_DATEFRMT}</td><td>{cfg_form.T_DATEFRMT}</td><td onmouseover="tip('_DATEFRMT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_POSTLINK}</td><td>{cfg_form.T_POSTLINK}</td><td onmouseover="tip('_POSTLINK')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_LMTFULART}</td><td>{cfg_form.T_LMTFULART}</td><td onmouseover="tip('_LMTFULART')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_MEMBERPAGE}</td><td>{cfg_form.T_MEMBERPAGE}</td><td onmouseover="tip('_MEMBERPAGE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SECINSEC}</td><td>{cfg_form.T_SECINSEC}</td><td onmouseover="tip('_SECINSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_MEMINSEC}</td><td>{cfg_form.T_MEMINSEC}</td><td onmouseover="tip('_MEMINSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_ARTINSEC}</td><td>{cfg_form.T_ARTINSEC}</td><td onmouseover="tip('_ARTINSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; &nbsp; &nbsp; {cfg_form.S_INCINTRO}</td><td>{cfg_form.T_INCINTRO}</td><td onmouseover="tip('_INCINTRO')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; &nbsp; &nbsp; {cfg_form.S_NUMARTSEC}</td><td>{cfg_form.T_NUMARTSEC}</td><td onmouseover="tip('_NUMARTSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ENBLRSS}</td><td>{cfg_form.T_ENBLRSS}</td><td onmouseover="tip('_ENBLRSS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_RSSINSEC}</td><td>{cfg_form.T_RSSINSEC}</td><td onmouseover="tip('_RSSINSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_CLRBLKS}</td><td>{cfg_form.T_CLRBLKS}</td><td onmouseover="tip('_CLRBLKS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ACTVSRTORD}</td><td>{cfg_form.T_ACTVSRTORD} <span class="pn_tiny"> - {cfg_form.L_ACTVSRTORD}</span></td><td onmouseover="tip('_ACTVSRTORD')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_TOPICLNK}</td><td>{cfg_form.T_TOPICLNK}</td><td onmouseover="tip('_TOPICLNK')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_FORUMTYPE} *</td><td>{cfg_form.T_FORUMTYPE}</td><td onmouseover="tip('_FORUMTYPE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_FRMTYPBYCAT}</td><td>{cfg_form.T_FRMTYPBYCAT}</td><td onmouseover="tip('_FRMTYPBYCAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_CALTYPE} *</td><td>{cfg_form.T_CALTYPE} &nbsp; {cfg_form.S_CALOFST} {cfg_form.T_CALOFST} {cfg_form.L_CALOFST}</td><td onmouseover="tip('_CALTYPE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr><td colspan="3"><strong>{cfg_form.L_SRCHSET}</strong></td></tr>
+		<tr><td>{cfg_form.S_SRCHNUMLIST}</td><td>{cfg_form.T_SRCHNUMLIST}</td><td onmouseover="tip('_SRCHNUMLIST')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SRCHNUMARTS}</td><td>{cfg_form.T_SRCHNUMARTS}</td><td onmouseover="tip('_SRCHNUMARTS')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SRCHTMPLT}</td><td>{cfg_form.T_SRCHTMPLT}</td><td onmouseover="tip('_SRCHTMPLT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SRCHSHOWIMG}</td><td>{cfg_form.T_SRCHSHOWIMG}</td><td onmouseover="tip('_SRCHSHOWIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SRCHINTROLEN}</td><td>{cfg_form.T_SRCHINTROLEN}</td><td onmouseover="tip('_SRCHINTROLEN')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr><td colspan="3"><strong>{cfg_form.S_IMGSET}</strong></td></tr>
+		<tr><td>{cfg_form.S_ALLUPL}</td><td>{cfg_form.T_ALLUPL}</td><td onmouseover="tip('_ALLUPL')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_MAXW} *</td><td>{cfg_form.T_MAXW}</td><td onmouseover="tip('_MAXW')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_MAXH} *</td><td>{cfg_form.T_MAXH}</td><td onmouseover="tip('_MAXH')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_MAXIMG}</td><td>{cfg_form.T_MAXIMG}</td><td onmouseover="tip('_MAXIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SHOWNOIMG}</td><td>{cfg_form.T_SHOWNOIMG}</td><td onmouseover="tip('_SHOWNOIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+
+		<tr><td colspan="3">&nbsp;</td></tr>
+		<tr><td colspan="3"><strong>{cfg_form.S_ADMINSTTNGS}</strong></td></tr>
+		<tr><td>{cfg_form.S_AUTOAPPRV}</td><td>{cfg_form.T_AUTOAPPRV}</td><td onmouseover="tip('_AUTOAPPRV')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_EDITTIME}</td><td>{cfg_form.T_EDITTIME}</td><td onmouseover="tip('_EDITTIME')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td valign="top">{cfg_form.S_MODERATE}</td><td>{cfg_form.T_MODERATE}</td><td valign="top" onmouseover="tip('_MODERATE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ADMINHTML}</td><td>{cfg_form.T_ADMINHTML}</td><td onmouseover="tip('_ADMINHTML')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_PERADMNPAGE}</td><td>{cfg_form.T_PERADMNPAGE}</td><td onmouseover="tip('_PERADMNPAGE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_NOTIFYAMPA}</td><td>{cfg_form.T_NOTIFYAMPA}</td><td onmouseover="tip('_NOTIFYAMPA')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_SENDMAILPA}</td><td>{cfg_form.T_SENDMAILPA}</td><td onmouseover="tip('_SENDMAILPA')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<!-- IF cfg_form.G_MULTILANG -->
+			<tr><td></td><td>{cfg_form.S_MULTILANG_WARN}<br /><span class="pn_tiny">{cfg_form.S_MULTILANG_WARN2}</span></td><td>&nbsp;</td></tr>
+		<!-- ENDIF -->
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_SUBJMAILPA}</td><td>{cfg_form.T_SUBJMAILPA}</td><td>&nbsp;</td></tr>
+		<tr><td valign="top"> &nbsp; &nbsp; {cfg_form.S_MESSBODYPA}</td><td>{cfg_form.T_MESSBODYPA}</td><td>&nbsp;</td></tr>
+		<tr><td>{cfg_form.S_NOTIFYUSER}</td><td>{cfg_form.T_NOTIFYUSER}</td><td onmouseover="tip('_NOTIFYUSER')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<!-- IF cfg_form.G_MULTILANG -->
+			<tr><td></td><td>{cfg_form.S_MULTILANG_WARN}<br /><span class="pn_tiny">{cfg_form.S_MULTILANG_WARN2}</span></td><td>&nbsp;</td></tr>
+		<!-- ENDIF -->
+		<tr><td> &nbsp; &nbsp; {cfg_form.S_SUBJAPPRV}</td><td>{cfg_form.T_SUBJAPPRV} <span style="color:grey;">{cfg_form.L_SUBJAPPRV}</span></td><td>&nbsp;</td></tr>
+		<tr><td valign="top"> &nbsp; &nbsp; {cfg_form.S_MESSAPPRV}</td><td><span style="color:grey;">{cfg_form.L_MESSAPPRV}</span>{cfg_form.T_MESSAPPRV} <span style="color:grey;">{cfg_form.M_MESSAPPRV}</span></td><td>&nbsp;</td></tr>
+	</table>
+	<br /><div align="center"><span style="color: red">(*) {cfg_form.S_WARNING}</span></div>
+	<br />{cfg_form.S_SAVE}&nbsp;
+	{cfg_form.G_SAVE}
+	{cfg_form.G_ENDFORM}
+<!-- END cfg_form -->
+<script type="text/javascript">
+<!--
+maketip('_PERPAGE','','_(PERPAGE_HLP)');
+maketip('_USROVRPP','','_(USROVRPP_HLP)');
+maketip('_DSPLYBY','','_(DSPLYBY_HLP)');
+maketip('_ARTORDR','','_(ARTORDR_HLP)');
+maketip('_HDLINES','','_(HDLINES_HLP)');
+maketip('_PERHDLINE','','_(PERHDLINE_HLP)');
+maketip('_1STHDLINE','','_(1STHDLINE_HLP)');
+maketip('_OTHHDLINE','','_(OTHHDLINE_HLP)');
+maketip('_ARTHOME','','_(ARTHOME_HLP)');
+maketip('_DEFTEMP','','_(DEFTEMP_HLP)');
+maketip('_INTROLEN','','_(INTROLEN_HLP)');
+maketip('_CMNTLEN','','_(CMNTLEN_HLP)');
+maketip('_SECATHDGS','','_(SECATHDGS_HLP)');
+maketip('_SHOWICON','','_(SHOWICON_HLP)');
+maketip('_POSTBY','','_(POSTBY_HLP)');
+maketip('_READCNT','','_(READCNT_HLP)');
+maketip('_SHOWREADS','','_(SHOWREADS_HLP)');
+maketip('_SMILIES','','_(SMILIES_HLP)');
+maketip('_DISCUSS','','_(DISCUSS_HLP)');
+maketip('_CNTCMNTS','','_(CNTCMNTS_HLP)');
+maketip('_PERMALINK','','_(PERMALINK_HLP)');
+maketip('_EMAILF','','_(EMAILF_HLP)');
+maketip('_PRINTF','','_(PRINTF_HLP)');
+maketip('_SOC_NET','','_(SOC_NET_HLP)');
+maketip('_RATINGS','','_(RATINGS_HLP)');
+maketip('_ALBUM','','_(ALBUM_HLP)');
+maketip('_USRFLDS','','_(USRFLDS_HLP)');
+maketip('_RLTDARTS','','_(RLTDARTS_HLP)');
+maketip('_TXTONURL','','_(TXTONURL_HLP)');
+maketip('_PERGLLRY','','_(PERGLLRY_HLP)');
+maketip('_FORUMDATE','','_(FORUMDATE_HLP)');
+maketip('_DATEFRMT','','_(DATEFRMT_HLP)');
+maketip('_POSTLINK','','_(POSTLINK_HLP)');
+maketip('_LMTFULART','','_(LMTFULART_HLP)');
+maketip('_MEMBERPAGE','','_(MEMBERPAGE_HLP)');
+maketip('_SECINSEC','','_(SECINSEC_HLP)');
+maketip('_MEMINSEC','','_(MEMINSEC_HLP)');
+maketip('_ARTINSEC','','_(ARTINSEC_HLP)');
+maketip('_NUMARTSEC','','_(NUMARTSEC_HLP)');
+maketip('_ENBLRSS','','_(ENBLRSS_HLP)');
+maketip('_RSSINSEC','','_(RSSINSEC_HLP)');
+maketip('_CLRBLKS','','_(CLRBLKS_HLP)');
+maketip('_ACTVSRTORD','','_(ACTVSRTORD_HLP)');
+maketip('_TOPICLNK','','_(TOPICLNK_HLP)');
+maketip('_FORUMTYPE','','_(FORUMTYPE_HLP)');
+maketip('_FRMTYPBYCAT','','_(FRMTYPBYCAT_HLP)');
+maketip('_CALTYPE','','_(CALTYPE_HLP)');
+maketip('_ALLUPL','','_(ALLUPL_HLP)');
+maketip('_MAXW','','_(MAXW_HLP)');
+maketip('_MAXH','','_(MAXH_HLP)');
+maketip('_MAXIMG','','_(MAXIMG_HLP)');
+maketip('_SHOWNOIMG','','_(SHOWNOIMG_HLP)');
+maketip('_AUTOAPPRV','','_(AUTOAPPRV_HLP)');
+maketip('_MODERATE','','_(MODERATE_HLP)');
+maketip('_EDITTIME','','_(EDITTIME_HLP)');
+maketip('_ADMINHTML','','_(ADMINHTML_HLP)');
+maketip('_PERADMNPAGE','','_(PERADMNPAGE_HLP)');
+maketip('_NOTIFYAMPA','','_(NOTIFYAMPA_HLP)');
+maketip('_SENDMAILPA','','_(SENDMAILPA_HLP)');
+maketip('_NOTIFYUSER','','_(NOTIFYUSER_HLP)');
+maketip('_IMPORT','','_(IMPORT_HLP)');
+maketip('_SRCHTMPLT','','_(SRCHTMPLT_HLP)');
+maketip('_SRCHNUMARTS','','_(SRCHNUMARTS_HLP)');
+maketip('_SRCHINTROLEN','','_(SRCHINTROLEN_HLP)');
+maketip('_SRCHSHOWIMG','','_(SRCHSHOWIMG_HLP)');
+maketip('_SRCHNUMLIST','','_(SRCHNUMLIST_HLP)');
+ -->
+</script>
+
+<!-- BEGIN import_form -->
+	<br /><br />
+	{import_form.G_STARTFORM}
+	{import_form.S_IMPORT}&nbsp;
+	{import_form.G_IMPORT}<img src="images/pro_news/help.png" alt="" class="pn_help" onmouseover="tip('_IMPORT')" onmouseout="untip()"/>
+	{import_form.G_ENDFORM}
+	<br />
+<!-- END import_form -->
+
+<!-- BEGIN cat_form -->
+	{cat_form.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr><td>{cat_form.S_TITLE}</td><td>{cat_form.T_TITLE}</td><td onmouseover="tip('_CTITLE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td valign="">{cat_form.S_DESC}</td><td>{cat_form.T_DESC}</td><td onmouseover="tip('_CDESC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cat_form.S_SEC}</td><td>{cat_form.T_SEC}</td><td onmouseover="tip('_CSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cat_form.S_ICON}</td><td>{cat_form.T_ICON}</td><td onmouseover="tip('_CICON')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td colspan="3"><br /><b>{cat_form.L_ADVANCED}</b></td></tr>
+		<!-- IF cat_form.G_FPRONAME -->
+			<tr><td>{cat_form.S_FPRONAME}</td><td>{cat_form.T_FPRONAME} {cat_form.T_CHANGE}</td><td onmouseover="tip('_CFPRONAME')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<!-- ENDIF -->
+		<tr><td>{cat_form.S_FORUM}</td><td>{cat_form.T_FORUM} <span class="pn_tiny">{cat_form.U_FORUM}</span></td><td onmouseover="tip('_CFORUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+	</table>
+	<br />
+	{cat_form.G_ID}
+	{cat_form.G_SAVE}
+	{cat_form.G_ENDFORM}
+<!-- END cat_form -->
+<a name="cat_tbl"></a>
+<!-- BEGIN cat -->
+	{cat.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr style="bgcolor: {cat.S_COLOR}">
+			<td><strong>{cat.L_SECTION}</strong></td>
+			<td colspan="2"><strong>{cat.L_SEQ}</strong></td>
+			<td><strong>{cat.L_TITLE}/{cat.L_DESC}</strong></td>
+			<td><strong>{cat.L_CAT}</strong></td>
+			<td><strong>{cat.L_FORUM}</strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<!-- BEGIN cat_list -->
+			<!-- IF cat.cat_list.G_SECTIONBRK -->
+				<tr><td colspan="8"><hr /></td></tr>
+			<!-- ENDIF -->
+			<tr {cat.cat_list.S_COLOR}>
+				<td>{cat.cat_list.S_SECTION}</td>
+				<td>{cat.cat_list.S_SEQUP}</td>
+				<td>{cat.cat_list.S_SEQDN}</td>
+				<td>{cat.cat_list.S_TITLE}<br /><span class="pn_tiny">{cat.cat_list.S_DESC}</span></td>
+				<td><img src="images/pro_news/icons/{cat.cat_list.S_ICON}" alt="{cat.cat_list.S_TITLE}" /></td>
+				<td align="center"><span class="pn_tiny">{cat.cat_list.S_FORUM}</span></td>
+				<td align="right">{cat.cat_list.S_LINKS}</td>
+			</tr>
+		<!-- END cat_list -->
+	</table>
+	{cat.G_ENDFORM}
+	<br />
+<!-- END cat -->
+<script type="text/javascript">
+<!--
+maketip('_CTITLE','','_(CTITLE_HLP)');
+maketip('_CDESC','','_(CDESC_HLP)');
+maketip('_CSEC','','_(CSEC_HLP)');
+maketip('_CICON','','_(CICON_HLP)');
+maketip('_CFPRONAME','','_(CFPRONAME_HLP)');
+maketip('_CFORUM','','_(CFORUM_HLP)');
+ -->
+</script>
+
+<!-- BEGIN sec_form -->
+	{sec_form.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr><td>{sec_form.S_TITLE}</td><td>{sec_form.T_TITLE}</td><td onmouseover="tip('_STITLE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_DESC}</td><td>{sec_form.T_DESC}</td><td onmouseover="tip('_SDESC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td colspan="3"><br /><b>{sec_form.L_ADVANCED}</b></td></tr>
+		<tr><td>{sec_form.S_VIEW}</td><td>{sec_form.T_VIEW}</td><td onmouseover="tip('_SVIEW')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_POST}</td><td>{sec_form.T_POST}</td><td onmouseover="tip('_SPOST')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_ADMIN}</td><td>{sec_form.T_ADMIN}</td><td onmouseover="tip('_SADMIN')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_MOD}</td><td>{sec_form.T_MOD}</td><td onmouseover="tip('_SMOD')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_TEMPLATE} *</td><td>{sec_form.T_TEMPLATE} <span class="pn_tiny">({sec_form.U_TEMPLATE})</span></td><td onmouseover="tip('_STEMPLATE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_SECDSPLYBY} *</td><td>{sec_form.T_SECDSPLYBY} <span class="pn_tiny">({sec_form.U_SECDSPLYBY})</span></td><td onmouseover="tip('_SSECDSPLYBY')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_ARTORD} *</td><td>{sec_form.T_ARTORD} <span class="pn_tiny">({sec_form.U_ARTORD})</span></td><td onmouseover="tip('_SARTORD')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_INHOME}</td><td>{sec_form.T_INHOME}</td><td onmouseover="tip('_SINHOME')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {sec_form.S_SECHEADLINES} *</td><td>{sec_form.T_SECHEADLINES} <span class="pn_tiny">{sec_form.L_SECHEADCMMT} - ({sec_form.U_HEADLINES})</span></td><td onmouseover="tip('_SSECHEADLINES')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {sec_form.S_SECTRUNC1HEAD} *</td><td>{sec_form.T_SECTRUNC1HEAD} <span class="pn_tiny">{sec_form.L_SECHEADCMMT} - ({sec_form.U_TRUNC1HEAD})</span></td><td onmouseover="tip('_SSECTRUNC1HEAD')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td> &nbsp; &nbsp; {sec_form.S_SECTRUNCHEAD} *</td><td>{sec_form.T_SECTRUNCHEAD} <span class="pn_tiny">{sec_form.L_SECHEADCMMT} - ({sec_form.U_TRUNCHEAD})</span></td><td onmouseover="tip('_SSECTRUNCHEAD')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<!-- IF sec_form.G_FPRONAME -->
+			<tr><td>{sec_form.S_FPRONAME}</td><td>{sec_form.T_FPRONAME} {sec_form.T_CHANGE}</td><td onmouseover="tip('_SFPRONAME')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<!-- ENDIF -->
+		<tr><td>{sec_form.S_FORUM}</td><td>{sec_form.T_FORUM}</td><td onmouseover="tip('_SFORUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td colspan="3"><br /><b>{sec_form.S_DEF_USR_FLDS}</b> <span class="pn_tiny">({sec_form.L_DEF_USR_FLDS})</span></td></tr>
+		<!-- IF sec_form.G_MULTILANG -->
+			<tr><td></td><td>{sec_form.S_MULTILANG_WARN}<br /><span class="pn_tiny">{sec_form.S_MULTILANG_WARN2}</span></td><td onmouseover="tip('_SMULTILANG_WARN')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<!-- ENDIF -->
+		<tr><td>{sec_form.S_USER_FLD_TTL}</td><td>{sec_form.T_USER_FLD_TTL}</td><td onmouseover="tip('_SUSER_FLD_TTL')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td align="center"><i>{sec_form.S_FIELDS}</i> - <span class="pn_tiny"><i>{sec_form.L_FIELDS}</i></span></td><td><hr /></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_0}</td><td>{sec_form.T_USER_FLD_0}<span class="pn_tinygrey"> 0</span></td><td onmouseover="tip('_SUSER_FLD_0')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{sec_form.S_USER_FLD_1}</td><td>{sec_form.T_USER_FLD_1}<span class="pn_tinygrey"> 1</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_2}</td><td>{sec_form.T_USER_FLD_2}<span class="pn_tinygrey"> 2</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_3}</td><td>{sec_form.T_USER_FLD_3}<span class="pn_tinygrey"> 3</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_4}</td><td>{sec_form.T_USER_FLD_4}<span class="pn_tinygrey"> 4</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_5}</td><td>{sec_form.T_USER_FLD_5}<span class="pn_tinygrey"> 5</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_6}</td><td>{sec_form.T_USER_FLD_6}<span class="pn_tinygrey"> 6</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_7}</td><td>{sec_form.T_USER_FLD_7}<span class="pn_tinygrey"> 7</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_8}</td><td>{sec_form.T_USER_FLD_8}<span class="pn_tinygrey"> 8</span></td><td>&nbsp;</td></tr>
+		<tr><td>{sec_form.S_USER_FLD_9}</td><td>{sec_form.T_USER_FLD_9}<span class="pn_tinygrey"> 9</span></td><td>&nbsp;</td></tr>
+		<tr><td></td><td><hr /></td><td>&nbsp;</td></tr>
+		<tr><td>_(PNDEFKKYFLD)</td><td>{sec_form.T_KEY_USR_FLD}<span class="pn_tiny">&nbsp; _(PNDEFKKFTXT)</span></td><td onmouseover="tip('_SPNDEFKKYFLD')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+	</table>
+	<div align="center"><span style="color: red">(*) {sec_form.L_SEC_WARN}</span></div>
+	<br />
+	{sec_form.G_ID}
+	{sec_form.G_SAVE}
+	{sec_form.G_ENDFORM}
+<!-- END sec_form -->
+<a name="sec_tbl"></a>
+<!-- BEGIN sec_list -->
+	{sec_list.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr style="bgcolor: {sec_list.G_BGCOLOR}">
+			<td width="30%"><strong>{sec_list.L_TITLE} / {sec_list.L_DESC}</strong></td>
+			<td ><strong>{sec_list.L_SEQ}</strong></td>
+			<td align="center"><strong>{sec_list.L_POST}</strong></td>
+			<td align="center"><strong>{sec_list.L_VIEW}</strong></td>
+			<td align="center"><strong>{sec_list.L_ADMIN}</strong></td>
+			<td align="center"><strong>{sec_list.L_MOD}</strong></td>
+			<td align="center"><strong>{sec_list.L_LBY}</strong></td>
+			<td align="center"><strong>{sec_list.L_ORDER}</strong></td>
+			<td align="center"><strong>{sec_list.L_TEMPLATE}</strong></td>
+			<td><strong>{sec_list.L_HOME}</strong></td>
+			<td align="center"><strong>{sec_list.L_DISCUSS}</strong></td>
+			<td></td>
+		</tr>
+		{sec_list.T_LIST}
+		<tr><td colspan="12" class="pn_tinygrey" align="center"><br />{sec_list.L_DEFAULTS}</td></tr>
+	</table>
+	<br />
+	{sec_list.G_ENDFORM}
+	<br />
+<!-- END sec_list -->
+<script type="text/javascript">
+<!--
+maketip('_STITLE','','_(STITLE_HLP)');
+maketip('_SDESC','','_(SDESC_HLP)');
+maketip('_SVIEW','','_(SVIEW_HLP)');
+maketip('_SPOST','','_(SPOST_HLP)');
+maketip('_SADMIN','','_(SADMIN_HLP)');
+maketip('_SMOD','','_(SMOD_HLP)');
+maketip('_STEMPLATE','','_(STEMPLATE_HLP)');
+maketip('_SSECDSPLYBY','','_(SSECDSPLYBY_HLP)');
+maketip('_SARTORD','','_(SARTORD_HLP)');
+maketip('_SINHOME','','_(SINHOME_HLP)');
+maketip('_SSECHEADLINES','','_(SSECHEADLINES_HLP)');
+maketip('_SSECTRUNC1HEAD','','_(SSECTRUNC1HEAD_HLP)');
+maketip('_SSECTRUNCHEAD','','_(SSECTRUNCHEAD_HLP)');
+maketip('_SFPRONAME','','_(SFPRONAME_HLP)');
+maketip('_SFORUM','','_(SFORUM_HLP)');
+maketip('_SMULTILANG_WARN','','_(SMULTILANG_WARN_HLP)');
+maketip('_SUSER_FLD_TTL','','_(SUSER_FLD_TTL_HLP)');
+maketip('_SUSER_FLD_0','','_(SUSER_FLD_0_HLP)');
+maketip('_SPNDEFKKYFLD','','_(SPNDEFKKYFLD_HLP)');
+ -->
+</script>
+
+<!-- BEGIN block_form -->
+	{block_form.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr><td>{block_form.S_TITLE}</td><td>{block_form.T_TITLE}</td><td onmouseover="tip('_BTITLE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{block_form.S_TYPES}</td><td>{block_form.T_TYPES}</td><td onmouseover="tip('_BTYPES')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{block_form.S_SEC}</td><td>{block_form.T_SEC}</td><td onmouseover="tip('_BSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>&nbsp;</td><td>- <i>{block_form.L_OR}</i> -</td><td>&nbsp;</td></tr>
+		<tr><td>{block_form.S_CAT} *</td><td>{block_form.T_CAT}</td><td>&nbsp;</td></tr>
+		<tr><td>{block_form.S_NUM} *</td><td>{block_form.T_NUM}</td><td onmouseover="tip('_BNUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td colspan="3"><br /><span class="pn_tiny">{block_form.L_TEXT}</span></td></tr>
+	</table>
+	{block_form.G_ID}{block_form.G_SAVE}
+	{block_form.G_ENDFORM}
+<!-- END block_form -->
+<!-- BEGIN block_list -->
+	{block_list.G_STARTFORM}
+	<table class="table1" width="100%" summary="">
+		<tr style="bgcolor: {block_list.G_BGCOLOR}">
+			<td><strong>{block_list.L_ID}</strong></td>
+			<td><strong>{block_list.L_TITLE}</strong></td>
+			<td><strong>{block_list.L_TYPE}</strong></td>
+			<td><strong>{block_list.L_SECCAT}</strong> -<i> {block_list.L_OR} </i>- <strong>{block_list.L_CAT}</strong></td>
+			<td colspan="2"><strong>{block_list.L_NUM}</strong></td>
+		</tr>
+		{block_list.T_LIST}
+	</table>
+	{block_list.G_ENDFORM}
+	<br />
+<!-- END block_list -->
+<script type="text/javascript">
+<!--
+maketip('_BTITLE','','_(BTITLE_HLP)');
+maketip('_BTYPES','','_(BTYPES_HLP)');
+maketip('_BSEC','','_(BSEC_HLP)');
+maketip('_BNUM','','_(BNUM_HLP)');
+ -->
+</script>
+
+<!-- BEGIN artlist_top -->
+	{artlist_top.G_STARTFORM}
+	<div align="center">
+		{artlist_top.S_MSG}<br />
+		<span class="pn_tinygrey">{artlist_top.P_MSG}</span><br /><br />
+		{artlist_top.T_CATS}
+		<br /><br />
+		{artlist_top.S_DSPLYBY}
+		{artlist_top.T_DSPLYBY}{artlist_top.T_SUBMIT}
+	</div>
+	{artlist_top.G_ENDFORM}
+<!-- END artlist_top -->
+<!-- BEGIN sub_list -->
+	<!-- IF sub_list.IS_USER -->
+		<center>{sub_list.G_STARTFORM}{sub_list.U_SUBMIT}{sub_list.G_ENDFORM}</center>
+	<!-- ENDIF -->
+<!-- END sub_list -->
+<!-- BEGIN artlist -->
+	{artlist.G_STARTFORM}
+	<div align="center">{artlist.S_SECTITLE}:&nbsp;<strong>{artlist.U_SECTITLE}</strong>{artlist.S_CATTITLE}:&nbsp;<strong>{artlist.U_CATTITLE}</strong></div><br />
+	{artlist.S_ARTFOUND}
+	<table class="table1" width="100%" summary="">
+		<tr style="bgcolor: {artlist.G_BGCOLOR}">
+			<td align="right">#</td>
+			<td></td>
+			<td><strong>{artlist.L_TITLE}</strong></td>
+			<td><strong>{artlist.L_OWNER}</strong></td>
+			<td align="center"><strong>{artlist.L_DISPLAY}</strong></td>
+			<td align="center"><strong>{artlist.L_DATE}</strong></td>
+			<td align="center"><strong>{artlist.L_APPROVED}</strong></td>
+			<td align="center"><strong>{artlist.L_ACTIVE}</strong></td>
+			<!-- IF artlist.G_LANG -->
+				<td align="center"><strong>{artlist.L_LANG}</strong></td>
+			<!-- ENDIF -->
+			<td></td>
+		</tr>
+		{artlist.S_LIST}
+	</table>
+	<div align="right"  class="pn_tinygrey">{artlist.S_LEGEND}</div>
+	&nbsp; &nbsp; &nbsp;  &nbsp;<img src="{THEME_PATH}/images/pro_news/arrow_ltr.png" alt="" />
+	{artlist.L_CHKALL}&nbsp;/&nbsp;{artlist.L_UCHKALL}
+	<br /><br />
+	<div align="right">
+		{artlist.L_APPROVE}&nbsp;&nbsp;
+		{artlist.L_ACTIVATE}&nbsp;&nbsp;
+		{artlist.L_DEL}&nbsp;&nbsp;
+		{artlist.L_COPY}&nbsp;&nbsp;
+		{artlist.L_MOVE}&nbsp;&nbsp;
+		<i>{artlist.L_TARGETCAT}:</i>&nbsp;&nbsp;
+		{artlist.L_CATLIST}&nbsp;&nbsp;
+	</div>
+	{artlist.G_ENDFORM}
+<!-- END artlist -->
+
+
+<!-- BEGIN upload_form -->
+	{upload_form.G_STARTFORM}
+	<table class="table1" summary="">
+		<tr><td><b>{upload_form.L_TARGET}</b>: {upload_form.S_TARGET}</td><td>{upload_form.T_TARGET}</td></tr>
+		<tr>
+			<td>{upload_form.S_TEXT}<br /><span class="pn_tiny">{upload_form.T_TEXT}</span></td>
+			<td valign="top">{upload_form.G_ID}</td>
+		</tr>
+		<tr>
+			<td>{upload_form.L_NUMFILES}<br /><span class="pn_tiny">{upload_form.S_NUMFILES}: {upload_form.T_NUMFILES}</span></td>
+			<td><!-- This is where the output will appear --><div id="files_list"></div></td>
+		</tr>
+		<tr><td colspan="2">{upload_form.S_TYPES}: {upload_form.T_TYPES}<br /><span class="pn_tiny">{upload_form.S_MAX} <b>{upload_form.T_MAX}</b></span></td></tr>
+		<tr><td><br /></td><td align="center" class="pn_red">_(PNPDFWARN)</td></tr>
+		<tr><td colspan="2"><br />{upload_form.G_SAVE}</td></tr>
+	</table>
+	<script language="javascript" type="text/javascript">
+		var multi_selector = new MultiSelector( document.getElementById( 'files_list' ), -1 );
+		multi_selector.addElement( document.getElementById( 'first_file_element' ) );
+	</script>
+	{upload_form.G_ENDFORM}
+<!-- END upload_form -->
+
+<!-- BEGIN upload -->
+<center><table class="table1" cellspacing="5" summary="">
+	<tr><th colspan="3">{upload.L_TITLE}</th></tr>
+	{upload.T_UPLOAD}
+	{upload.T_ERRORS}
+	<tr><td colspan="3" align="center"><br />{upload.S_MSG}</td></tr>
+</table></center>
+<!-- END upload -->

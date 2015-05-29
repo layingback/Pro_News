@@ -1,0 +1,52 @@
+*********************************************
+  Part of Pro News Module for Dragonfly CMS
+*********************************************
+  Copyright © 2008-2009 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+  
+  $Revision: 1.2 $
+  $Date: 2010-06-23 10:02:27 $
+  Author: layingback
+**********************************************
+
+IMPORTANT:  The following hack is for the standard Forums module (CPG-BB) included with DragonflyCMS to provide a link to the Pro_News Article Promote feature in Pro_News 2.3 or later.  You only need to install this hack if you wish to take advantage of the Article Promote feature (see the documentation files released with Pro_News 2.3 or later for more details).
+
+**********************************************
+
+1. Insert the following 5 lines into version 9.2.1 of Forums, in file modules/Forums/viewtopic.php after the '$topic_mod' template declarations (at line 453, but your line numbers may differ):
+
+//-- mod : promote to Pro_News article - layingback.net -----------------------------------------
+	if (is_active('Pro_News')) {
+		$topic_mod .= '<a href="'.getlink("Pro_News&amp;mode=prmte&amp;id=".$topic_id).'"><img src="'.$images['topic_mod_promote'].'" alt="'.$lang['Promote_topic'].'" title="'.$lang['Promote_topic'].'" style="border:0;" /></a>&nbsp;';
+	}
+//-- fin mod : promote to Pro_News article - layingback.net -------------------------------------
+
+
+
+2. Add the following line to the penultimate line of language/english/forums.php (before the final ');' line):
+
+	'Promote_topic' => 'Promote this topic to Pro_News article',
+
+
+
+3. Then insert the following 3 lines into version 9.2.1, in file themes/{theme}/template/forums/images.cfg at line 110 (after the '$topic_modmerge declarations):
+
+//-- mod : promote to Pro_News article - layingback.net -----------------------------------------
+$images['topic_mod_promote'] = "$current_template_path/topic_promote.gif";
+//-- fin mod : promote to Pro_News article - layingback.net merge ------------------------------
+
+
+
+4. Finally, place the supplied promote icon image file, or an equivalent of your own creation, in location themes/default/images/forums/topic_promote.gif
+
+
+**********************************************
+
+Note 1: When you update, or reinstall, Forums/Dragonfly you will need to reapply this hack.
+
+Note 2: This modification *may* work on earlier versions of Forums BUT HAS NOT BEEN TESTED.  It will not work on any version of ForumsPro.
+
+Note 3: This modification may possibly work in ForumsPlus but has not been tested.

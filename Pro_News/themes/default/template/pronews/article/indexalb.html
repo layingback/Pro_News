@@ -1,0 +1,656 @@
+<!-- BEGIN newsnone -->
+<div class="pn_newsarticle">
+<div class="pn_content"><center>{newsnone.S_MSG}</center></div>
+</div><br />
+<!-- END newsnone -->
+
+<!-- BEGIN newshdline -->
+<!-- IF newshdline.G_SECBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><th>{newshdline.S_SECBRK}</th></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<!-- IF newshdline.G_CATBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><td class="cat" style="align: center">{newshdline.S_CATBRK}</td></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<div class="pn_newsarticle">
+<table class="nolinetable" summary=""><tbody>
+<tr><td colspan="2">
+<!-- IF newshdline.G_ICONS -->
+<div class="pn_icon"><a href="{newshdline.S_CATLINK}"><img style="align: top; border: 0" src="images/pro_news/icons/{newshdline.S_ICON}" alt="{newshdline.T_ICON}" /></a></div>
+<!-- ENDIF -->
+<span class="pn_lgtitle">{newshdline.S_TITLE}</span><br />
+<!-- IF newshdline.G_POSTBY -->
+<span class="pn_postby">{newshdline.L_POSTBY}: <a href="{newshdline.T_POSTBY}">{newshdline.S_POSTBY}</a> {newshdline.L_POSTON} {newshdline.S_POSTTIME}</span>
+<!-- ENDIF -->
+</td></tr>
+<tr><td colspan="2"><div class="pn_content">{newshdline.S_INTRO}
+<!-- IF newshdline.G_MORELINK -->
+<a href="{newshdline.U_MORELINK}"> &nbsp; {newshdline.S_MORELINK}&nbsp;...</a>
+<!-- ENDIF -->
+</div></td></tr>
+<tr><td style="width: 25%"><div class="img-shadow"><a href="{newshdline.U_MORELINK}">{newshdline.S_IMAGE}</a></div></td>
+<td valign="top" align="right"><table class="hdlinetable" summary=""><tbody><tr><td><table class="nolinetable" summary=""><tbody>
+<!-- IF newshdline.G_HDLINES -->
+<tr><td colspan="2" style="align :right"><span class="pn_caption"><a href="{newshdline.U_ARTLINK}">{newshdline.L_HDLINES}</a> &nbsp; <a href="{newshdline.U_ALLLINK}">(&nbsp;{newshdline.S_HDLINES}&nbsp;)</a></span></td></tr>
+<!-- ENDIF -->
+	<!-- BEGIN hdline_addtl -->
+	<tr {newshdline.hdline_addtl.U_BGCOLOR}><td rowspan="2" style="width: 10%"><div class="img-shadow"><a href="{newshdline.hdline_addtl.U_MORELINK}">{newshdline.hdline_addtl.S_IMAGE}</a></div></td></tr>
+	<tr {newshdline.hdline_addtl.U_BGCOLOR}><td style="width: 90%"><span class="pn_title">{newshdline.hdline_addtl.S_TITLE}</span><br />
+	<div class="pn_content">{newshdline.hdline_addtl.S_INTRO}
+	<!-- IF newshdline.hdline_addtl.G_MORELINK -->
+	<a href="{newshdline.hdline_addtl.U_MORELINK}"> &nbsp; {newshdline.hdline_addtl.S_MORELINK}&nbsp;...</a>
+	<!-- ENDIF -->
+	</div></td></tr>
+	<!-- END hdline_addtl -->
+</tbody></table></td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<!-- END newshdline -->
+
+<!-- BEGIN newshome -->
+<!-- IF newshome.G_SECBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><th><strong>{newshome.S_SECBRK}</strong></th></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<!-- IF newshome.G_CATBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><td class="cat" style="align: center"><strong>{newshome.S_CATBRK}</strong></td></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<div class="pn_newsarticle">
+<!-- IF newshome.G_ICONS -->
+<div class="pn_icon"><a href="{newshome.S_CATLINK}"><img style="align: top; border: 0" src="images/pro_news/icons/{newshome.S_ICON}" alt="{newshome.T_ICON}" /></a></div>
+<!-- ENDIF -->
+<span class="pn_title">{newshome.S_TITLE}</span><br />
+<!-- IF newshome.G_POSTBY -->
+<span class="pn_postby">{newshome.L_POSTBY}: <a href="{newshome.T_POSTBY}">{newshome.S_POSTBY}</a> {newshome.L_POSTON} {newshome.S_POSTTIME}</span>
+<!-- ENDIF -->
+<hr />
+<div class="img-shadow">{newshome.S_IMAGE}</div>
+<div class="pn_content">{newshome.S_INTRO}
+<!-- IF newshome.G_MORELINK -->
+<a href="{newshome.U_MORELINK}"> &nbsp; {newshome.S_MORELINK}&nbsp;...</a>
+<!-- ENDIF -->
+</div><br />
+<table width="100%" summary=""><tr><td>
+<!-- IF newshome.G_DISCUSS -->
+<a href="{newshome.U_DISCUSS}">{newshome.S_DISCUSS}</a>
+<!-- ENDIF -->
+</td><td align="right">
+<!-- IF newshome.G_CANADMIN -->
+<!-- IF newshome.G_MORELINK -->
+<a href="{newshome.U_MORELINK}">{newshome.S_MORELINK}</a>
+<!-- ENDIF -->
+ [{newshome.T_CANADMIN}] <a href="{newshome.U_CANADMIN}">{newshome.S_CANADMIN}</a>
+<!-- ENDIF -->
+</td></tr></table>
+</div>
+<br />
+<!-- END newshome -->
+
+<!-- BEGIN newsarticle -->
+<div class="pn_newsarticle">
+	<div class="pn_icon"><img style="align: top" src="images/pro_news/icons/{newsarticle.S_ICON}" alt="{newsarticle.T_ICON}" /></div>
+	<span class="pn_title">{newsarticle.S_TITLE}</span><br />
+	<!-- IF newsarticle.G_POSTBY -->
+	<span class="pn_postby">{newsarticle.L_POSTBY}: <a href="{newsarticle.T_POSTBY}">{newsarticle.S_POSTBY}</a> {newsarticle.L_POSTON} {newsarticle.S_POSTTIME}</span>
+	<!-- ENDIF -->
+	<!-- IF newsarticle.G_SHOW_READS -->
+	&nbsp; ({newsarticle.T_READS} {newsarticle.S_READS})
+	<!-- ENDIF -->
+	<!-- IF newsarticle.G_SCORE -->
+	&nbsp;<span class="pn_postby">{newsarticle.S_SCORE}:</span> {newsarticle.T_SCORE}
+	<!-- ENDIF -->
+	<br /><hr />
+	<div class="container">
+		<div class="pn_spacer">&nbsp;</div>
+		<!-- IF newsarticle.G_PALBUM_0 -->
+		<div class="pn_floatright">
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_0}</span><br />{newsarticle.S_PALBUM_0}
+				</div>
+			</div>
+			<!-- IF newsarticle.G_PALBUM_1 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_1}</span><br />{newsarticle.S_PALBUM_1}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_2 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_2}</span><br />{newsarticle.S_PALBUM_2}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_3 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_3}</span><br />{newsarticle.S_PALBUM_3}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_4 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_4}</span><br />{newsarticle.S_PALBUM_4}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_5 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_5}</span><br />{newsarticle.S_PALBUM_5}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_6 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_6}</span><br />{newsarticle.S_PALBUM_6}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_7 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_7}</span><br />{newsarticle.S_PALBUM_7}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_8 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_8}</span><br />{newsarticle.S_PALBUM_8}
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_PALBUM_9 -->
+			<div class="pn_pframe">
+				<div class="pn_container">
+					<span class="img-shadow">{newsarticle.T_PALBUM_9}</span><br />{newsarticle.S_PALBUM_9}
+				</div>
+			</div>
+			<!-- ENDIF -->
+		</div>
+		<!-- ENDIF -->
+		<div>
+			<div class="pn_thumb"><span class="img-shadow">{newsarticle.S_IMAGE}</span><br />
+				<span class="pn_caption">{newsarticle.T_CAP}</span><br /><br />
+			</div>
+			<!-- IF newsarticle.G_FIELDS -->
+			<center><table style="width: 30%" summary="">
+			<tr><th colspan="2" style="align: center"><span style="font-weight: bold">{newsarticle.L_FIELDS}</span></th></tr>
+			<tr valign="bottom"><td><br /><span class="title"><span style="color: gray">{newsarticle.S_USER_FLD_0}</span></span></td><td align="right"><br /><span class="title">{newsarticle.T_USER_FLD_0}</span></td></tr>
+			<!-- IF newsarticle.G_FIELDS_1 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_1}</span></td><td align="right">{newsarticle.T_USER_FLD_1}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_2 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_2}</span></td><td align="right">{newsarticle.T_USER_FLD_2}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_3 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_3}</span></td><td align="right">{newsarticle.T_USER_FLD_3}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_4 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_4}</span></td><td align="right">{newsarticle.T_USER_FLD_4}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_5 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_5}</span></td><td align="right">{newsarticle.T_USER_FLD_5}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_6 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_6}</span></td><td align="right">{newsarticle.T_USER_FLD_6}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_7 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_7}</span></td><td align="right">{newsarticle.T_USER_FLD_7}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_8 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_8}</span></td><td align="right">{newsarticle.T_USER_FLD_8}</td></tr>
+			<!-- ENDIF -->
+			<!-- IF newsarticle.G_FIELDS_9 -->
+			<tr valign="bottom"><td><span style="color: gray">{newsarticle.S_USER_FLD_9}</span></td><td align="right">{newsarticle.T_USER_FLD_9}</td></tr>
+			<!-- ENDIF -->
+			</table></center>
+			<!-- ENDIF -->
+			<div class="pn_content">{newsarticle.S_INTRO}<br /><br />{newsarticle.S_CONTENT}</div>
+			<br />
+			<div class="pn_thumb"><span class="img-shadow">{newsarticle.S_IMAGE2}</span><br />
+				<span class="pn_caption">{newsarticle.T_CAP2}</span><br /><br />
+			</div>
+			<!-- IF newsarticle.G_SLIDESHOW -->
+			<div class="pn_floatright">
+				<div class="pn_pframe">
+					{newsarticle.S_SLIDESHOW}<br />{newsarticle.T_SLIDESHOW}
+				</div>
+			</div>
+			<!-- ENDIF -->
+		</div>
+		<div class="pn_spacer">&nbsp;</div>
+	</div>
+	<br style="clear: all" />
+	<br />
+	<div class="pn_container">
+		<div class="pn_spacer">&nbsp;</div>
+			<div class="pn_row">
+				<!-- IF newsarticle.G_DISCUSS -->
+				<span class="pn_left">
+					<a href="{newsarticle.U_DISCUSS}">{newsarticle.S_DISCUSS}</a>
+				</span>
+				<!-- ENDIF -->
+				<!-- IF newsarticle.G_SENDPRINT -->
+				<span class="pn_center">
+					<!-- IF newsarticle.G_EMAILF -->
+					<a href="{newsarticle.U_SENDART}"><img src="{THEME_PATH}/images/pro_news/friend.gif" alt="{newsarticle.S_SENDART}" title="{newsarticle.S_SENDART}" height="11" width="16" /></a>
+					<!-- ENDIF -->
+					&nbsp;
+					<!-- IF newsarticle.G_PRINTF -->
+					<a href="{newsarticle.U_PRINTART}"><img src="{THEME_PATH}/images/pro_news/print.gif" alt="{newsarticle.S_PRINTART}" title="{newsarticle.S_PRINTART}" height="11" width="16" /></a>
+					<!-- ENDIF -->
+				</span>
+				<!-- ENDIF -->
+				<!-- IF newsarticle.G_MOREPICS -->
+<!--
+				<span class="pn_right">
+					<a href="{newsarticle.U_MOREPICS}">{newsarticle.T_MOREPICS} </a>
+				</span>
+  -->
+				<!-- ENDIF -->
+			</div>
+		<div class="pn_spacer">&nbsp;</div>
+	</div>
+	<div class="pn_floatright">
+		<!-- IF newsarticle.G_CANADMIN -->
+		{newsarticle.T_CANADMIN} [ <a href="{newsarticle.U_CANADMIN}">{newsarticle.S_CANADMIN}</a> ]
+		<!-- ENDIF -->
+	</div>
+</div><br /><br />
+<!-- IF newsarticle.G_RATE -->
+<div class="pn_newsarticle">
+	{newsarticle.G_STARTFORM}
+	<span class="pn_floatright">
+		{newsarticle.S_RATE} {newsarticle.T_RATE}{newsarticle.T_SUBMIT}
+	</span>
+	{newsarticle.G_ENDFORM}
+</div>
+<!-- ENDIF -->
+<!-- END newsarticle -->
+
+<!-- BEGIN gallery -->
+<div class="pn_newsarticle">
+	<div class="pn_icon"><img style="align: top" src="images/pro_news/icons/{gallery.S_ICON}" alt="{gallery.T_ICON}" /></div>
+	<span class="pn_title">{gallery.S_TITLE}</span><br />
+	<!-- IF gallery.G_POSTBY -->
+	<span class="pn_postby">{gallery.L_POSTBY}: <a href="{gallery.T_POSTBY}">{gallery.S_POSTBY}</a> {gallery.L_POSTON} {gallery.S_POSTTIME}</span>
+	<!-- ENDIF -->
+	<br /><hr />
+	<div>
+		<div class="pn_thumb"><span class="img-shadow">{gallery.S_IMAGE}</span><br />
+			<span class="pn_caption">{gallery.T_CAP}</span><br /><br />
+		</div>
+		<!-- IF gallery.G_FIELDS -->
+		<center><table style="width: 40%" summary="">
+		<tr><th colspan="2" style="align: center"><span style="font-weight: bold">{gallery.L_FIELDS}</span></th></tr>
+		<tr valign="bottom"><td><br /><span class="pn_fldttl">{gallery.S_USER_FLD_0}</span></td><td align="right"><br /><span class="title">{gallery.T_USER_FLD_0}</span></td></tr>
+		<!-- IF gallery.G_FIELDS_1 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_1}</span></td><td align="right">{gallery.T_USER_FLD_1}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_2 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_2}</span></td><td align="right">{gallery.T_USER_FLD_2}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_3 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_3}</span></td><td align="right">{gallery.T_USER_FLD_3}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_4 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_4}</span></td><td align="right">{gallery.T_USER_FLD_4}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_5 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_5}</span></td><td align="right">{gallery.T_USER_FLD_5}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_6 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_6}</span></td><td align="right">{gallery.T_USER_FLD_6}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_7 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_7}</span></td><td align="right">{gallery.T_USER_FLD_7}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_8 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_8}</span></td><td align="right">{gallery.T_USER_FLD_8}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF gallery.G_FIELDS_9 -->
+		<tr valign="bottom"><td><span class="pn_fldttl">{gallery.S_USER_FLD_9}</span></td><td align="right">{gallery.T_USER_FLD_9}</td></tr>
+		<!-- ENDIF -->
+		</table></center>
+		<!-- ENDIF -->
+	</div>
+	<br />
+	<div class="pn_container">
+		<br /><br />
+		<div class="pn_spacer">&nbsp;</div>
+		<!-- IF gallery.G_PALBUM_0 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_0}</span><br />{gallery.S_PALBUM_0}
+					</div>
+				</div>
+			</div>
+			<!-- IF gallery.G_PALBUM_1 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_1}</span><br />{gallery.S_PALBUM_1}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_2 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_2}</span><br />{gallery.S_PALBUM_2}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_3 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_3}</span><br />{gallery.S_PALBUM_3}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_4 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_4}</span><br />{gallery.S_PALBUM_4}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_5 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_5}</span><br />{gallery.S_PALBUM_5}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_6 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_6}</span><br />{gallery.S_PALBUM_6}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_7 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_7}</span><br />{gallery.S_PALBUM_7}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_8 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_8}</span><br />{gallery.S_PALBUM_8}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_9 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_9}</span><br />{gallery.S_PALBUM_9}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_10 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_10}</span><br />{gallery.S_PALBUM_10}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_11 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_11}</span><br />{gallery.S_PALBUM_11}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_12 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_12}</span><br />{gallery.S_PALBUM_12}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_13 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_13}</span><br />{gallery.S_PALBUM_13}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_14 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_14}</span><br />{gallery.S_PALBUM_14}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_15 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_15}</span><br />{gallery.S_PALBUM_15}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_16 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_16}</span><br />{gallery.S_PALBUM_16}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_17 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_17}</span><br />{gallery.S_PALBUM_17}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_18 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_18}</span><br />{gallery.S_PALBUM_18}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_19 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_19}</span><br />{gallery.S_PALBUM_19}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_20 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_20}</span><br />{gallery.S_PALBUM_20}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_21 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_21}</span><br />{gallery.S_PALBUM_21}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_22 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_22}</span><br />{gallery.S_PALBUM_22}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_23 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_23}</span><br />{gallery.S_PALBUM_23}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_24 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_24}</span><br />{gallery.S_PALBUM_24}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_25 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_25}</span><br />{gallery.S_PALBUM_25}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_26 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_26}</span><br />{gallery.S_PALBUM_26}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_27 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_27}</span><br />{gallery.S_PALBUM_27}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_28 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_28}</span><br />{gallery.S_PALBUM_28}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_29 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_29}</span><br />{gallery.S_PALBUM_29}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_30 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_30}</span><br />{gallery.S_PALBUM_30}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+			<!-- IF gallery.G_PALBUM_31 -->
+			<div class="pn_floatleft">
+				<div class="pn_gframe">
+					<div class="pn_center">
+						<span class="img-shadow">{gallery.T_PALBUM_31}</span><br />{gallery.S_PALBUM_31}
+					</div>
+				</div>
+			</div>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+		<div class="pn_spacer">&nbsp;</div>
+	</div>
+	<div class="pn_thumb"><span class="img-shadow">{gallery.S_IMAGE2}</span><br />
+		<span class="pn_caption">{gallery.T_CAP2}</span><br /><br />
+	</div>
+	<br style="clear: all" />
+	<br />
+	<div class="pn_container">
+		<div class="pn_spacer">&nbsp;</div>
+			<div class="pn_row">
+				<span class="pn_left">
+					<a href="{gallery.U_BACK}">{gallery.T_BACK} </a>
+				</span>
+				<!-- IF gallery.G_MOREPICS -->
+				<span class="pn_right">
+					<a href="{gallery.U_MOREPICS}">{gallery.T_MOREPICS} </a>
+				</span>
+				<!-- ENDIF -->
+			</div>
+		<div class="pn_spacer">&nbsp;</div>
+	</div>
+</div><br /><br />
+<!-- END gallery -->
+
+<!-- BEGIN preview_article -->
+<div>
+<div class="pn_title"><center><img src="{THEME_PATH}/images/pro_news/arrow_ltr.png" alt="" />&nbsp;&nbsp;&nbsp;{preview_article.S_HEADING}&nbsp;&nbsp;&nbsp;<img src="{THEME_PATH}/images/pro_news/arrow_rtl.png" alt="" /></center></div>
+<div class="pn_postby"><center>{preview_article.S_MSG}</center></div>
+</div><br />
+<!-- END preview_article -->

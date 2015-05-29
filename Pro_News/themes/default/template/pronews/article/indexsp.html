@@ -1,0 +1,130 @@
+<!-- BEGIN newsnone -->
+<div class="pn_newsarticle">
+<div class="pn_content"><center>{newsnone.S_MSG}</center></div>
+</div><br />
+<!-- END newsnone -->
+
+<!-- BEGIN newshdline -->
+<!-- IF newshdline.G_SECBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><th>{newshdline.S_SECBRK}</th></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<!-- IF newshdline.G_CATBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><td class="cat" align="center">{newshdline.S_CATBRK}</td></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<div class="pn_newsarticle">
+<table class="nolinetable" summary=""><tbody>
+<tr><td colspan="2">
+<!-- IF newshdline.G_ICONS -->
+<div class="pn_icon"><a href="{newshdline.S_CATLINK}"><img align="top" src="images/pro_news/icons/{newshdline.S_ICON}" alt="{newshdline.T_ICON}" border="0" /></a></div>
+<!-- ENDIF -->
+<span class="pn_lgtitle">{newshdline.S_TITLE}</span><br />
+<!-- IF newshdline.G_POSTBY -->
+<span class="pn_postby">{newshdline.L_POSTBY}: {newshdline.S_POSTBY} {newshdline.L_POSTON} {newshdline.S_POSTTIME}</span>
+<!-- ENDIF -->
+</td></tr>
+<tr><td colspan="2"><div class="pn_content">{newshdline.S_INTRO}
+<!-- IF newshdline.G_MORELINK -->
+<a href="{newshdline.U_MORELINK}"> &nbsp; {newshdline.S_MORELINK}</a>
+<!-- ENDIF -->
+</div></td></tr>
+<tr><td width="25%"><div class="pn_thumb">{newshdline.S_IMAGE}</div></td>
+<td valign="top" align="right"><table class="hdlinetable" summary=""><tbody><tr><td><table class="nolinetable" summary=""><tbody>
+<!-- IF newshdline.G_HDLINES -->
+<tr><td colspan="2" align="right"><span class="pn_caption"><a href="{newshdline.U_ARTLINK}">{newshdline.L_HDLINES}</a> &nbsp; <a href="{newshdline.U_ALLLINK}">(&nbsp;{newshdline.S_HDLINES}&nbsp;)</a></span></td></tr>
+<!-- ENDIF -->
+	<!-- BEGIN hdline_addtl -->
+	<tr {newshdline.hdline_addtl.U_BGCOLOR}><td rowspan="2" width="10%"><div class="pn_thumb">{newshdline.hdline_addtl.S_IMAGE}</div></td></tr>
+	<tr {newshdline.hdline_addtl.U_BGCOLOR}><td width="90%"><span class="pn_title">{newshdline.hdline_addtl.S_TITLE}</span><br />
+	<div class="pn_content">{newshdline.hdline_addtl.S_INTRO}
+	<!-- IF newshdline.hdline_addtl.G_MORELINK -->
+	<a href="{newshdline.hdline_addtl.U_MORELINK}">{newshdline.hdline_addtl.S_MORELINK}</a>
+	<!-- ENDIF -->
+	</div></td></tr>
+	<!-- END hdline_addtl -->
+</tbody></table></td></tr></tbody></table>
+</td></tr>
+</tbody></table>
+</div>
+<br />
+<!-- END newshdline -->
+
+<!-- BEGIN newshome -->
+<!-- IF newshome.G_SECBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><th><strong>{newshome.S_SECBRK}</strong></th></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<!-- IF newshome.G_CATBRK -->
+<table class="forumline" width="100%" summary=""><tbody>
+<tr><td class="cat" align="center"><strong>{newshome.S_CATBRK}</strong></td></tr>
+</tbody></table>
+<br />
+<!-- ENDIF -->
+<div class="pn_newsarticle">
+<!-- IF newshome.G_ICONS -->
+<div class="pn_icon"><a href="{newshome.S_CATLINK}"><img align="top" src="images/pro_news/icons/{newshome.S_ICON}" alt="{newshome.T_ICON}" border="0" /></a></div>
+<!-- ENDIF -->
+<span class="pn_title">{newshome.S_TITLE}</span><br />
+<!-- IF newshome.G_POSTBY -->
+<span class="pn_postby">{newshome.L_POSTBY}: {newshome.S_POSTBY} {newshome.L_POSTON} {newshome.S_POSTTIME}</span>
+<!-- ENDIF -->
+<hr />
+<div class="pn_thumb">{newshome.S_IMAGE}</div>
+<div class="pn_content">{newshome.S_INTRO}
+<!-- IF newshome.G_MORELINK -->
+<a href="{newshome.U_MORELINK}"> &nbsp; {newshome.S_MORELINK}</a>
+<!-- ENDIF -->
+</div><br />
+<table width="100%" summary=""><tr><td>
+<!-- IF newshome.G_DISCUSS -->
+<a href="{newshome.U_DISCUSS}">{newshome.S_DISCUSS}</a>
+<!-- ENDIF -->
+</td><td align="right">
+<!-- IF newshome.G_CANADMIN -->
+{newshome.T_CANADMIN} [ <a href="{newshome.U_CANADMIN}">{newshome.S_CANADMIN}</a> ]
+<!-- ENDIF -->
+</td></tr></table>
+</div>
+<br />
+<!-- END newshome -->
+
+<!-- BEGIN newsarticle -->
+<div class="pn_newsarticle">
+<div class="pn_icon"><img align="top" src="images/pro_news/icons/{newsarticle.S_ICON}" alt="{newsarticle.T_ICON}" /></div>
+<span class="pn_title">{newsarticle.S_TITLE}</span><br />
+<!-- IF newsarticle.G_POSTBY -->
+<span class="pn_postby">{newsarticle.L_POSTBY}: {newsarticle.S_POSTBY} {newsarticle.L_POSTON} {newsarticle.S_POSTTIME}</span><br />
+<!-- ENDIF -->
+<hr />
+<div>
+<div class="pn_thumb">{newsarticle.S_IMAGE}</div>
+<span class="pn_caption">{newsarticle.T_CAP}</span><br /><br />
+<div class="pn_content">{newsarticle.S_INTRO}<br /><br />{newsarticle.S_CONTENT}</div>
+</div>
+<br />
+<table width="100%" summary=""><tr><td>
+<!-- IF newsarticle.G_DISCUSS -->
+<a href="{newsarticle.U_DISCUSS}">{newsarticle.S_DISCUSS}</a>
+<!-- ENDIF -->
+</td><td align="right">
+<!-- IF newsarticle.G_CANADMIN -->
+{newsarticle.T_CANADMIN} [ <a href="{newsarticle.U_CANADMIN}">{newsarticle.S_CANADMIN}</a> ]
+<!-- ENDIF -->
+</td></tr></table>
+</div>
+<br clear="all" />
+<!-- END newsarticle -->
+
+<!-- BEGIN preview_article -->
+<div>
+<div class="pn_title"><center><img src="{THEME_PATH}/images/pro_news/arrow_ltr.png" alt="" />&nbsp;&nbsp;&nbsp;{preview_article.S_HEADING}&nbsp;&nbsp;&nbsp;<img src="{THEME_PATH}/images/pro_news/arrow_rtl.png" alt="" /></center></div>
+<div class="pn_postby"><center>{preview_article.S_MSG}</center></div>
+</div><br />
+<!-- END preview_article -->

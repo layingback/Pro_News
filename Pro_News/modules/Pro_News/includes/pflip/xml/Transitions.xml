@@ -1,0 +1,160 @@
+<transitions>
+	<transition Id="Blinds" >
+	<param name="type" value="Blinds"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="numstrips" value="10"/>
+	<param name="dimension" value="0"/>
+	</transition>
+
+	<transition Id="Fade" >
+	<param name="type" value="Fade"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	</transition>
+
+	<transition Id="Fly" >
+	<param name="type" value="Fly"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="startPoint" value="9"/>
+	</transition>
+
+	<transition Id="FlyRight" >
+	<param name="type" value="Fly"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="startPoint" value="4"/>
+	</transition>
+
+	<transition Id="FlyLeft" >
+	<param name="type" value="Fly"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="startPoint" value="6"/>
+	</transition>
+
+	<transition Id="Iris">
+	<param name="type" value="Iris"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="startPoint" value="5"/>
+	<param name="shape" value="Iris.CIRCLE"/>
+	</transition>
+
+	<transition Id="Photo">
+	<param name="type" value="Photo"/>
+	<param name="duration" value="1"/>
+	<param name="easing" value="None.easeNone"/>
+	</transition>
+
+	<transition Id="PixelDissolve">
+	<param name="type" value="PixelDissolve"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="xSections" value="50"/>
+	<param name="ySections" value="50"/>
+	</transition>
+
+	<transition Id="Rotate">
+	<param name="type" value="Rotate"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="ccw" value="false"/>
+	<param name="degrees" value="720"/>
+	</transition>
+
+	<transition Id="Squeeze">
+	<param name="type" value="Squeeze"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="dimension" value="1"/>
+	</transition>
+
+	<transition Id="Wipe">
+	<param name="type" value="Wipe"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="startPoint" value="1"/>
+	</transition>
+
+	<transition Id="Zoom">
+	<param name="type" value="Zoom"/>
+	<param name="duration" value="3"/>
+	<param name="easing" value="None.easeNone"/>
+	</transition>
+
+	<transition Id="SlideRight">
+	<param name="type" value="Tween"/>
+	<param name="prop" value="_x"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="start" value="0"/>
+	<param name="end" value="1280"/>
+	<param name="seconds" value="2"/>
+	</transition>
+
+	<transition Id="SlideLeft">
+	<param name="type" value="Tween"/>
+	<param name="prop" value="_x"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="start" value="0"/>
+	<param name="end" value="-1280"/>
+	<param name="seconds" value="2"/>
+	</transition>
+
+	<transition Id="SlideUp">
+	<param name="type" value="Tween"/>
+	<param name="prop" value="_y"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="start" value="0"/>
+	<param name="end" value="-768"/>
+	<param name="seconds" value="1"/>
+	</transition>
+
+	<transition Id="SlideDown">
+	<param name="type" value="Tween"/>
+	<param name="prop" value="_y"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="start" value="-768"/>
+	<param name="end" value="0"/>
+	<param name="seconds" value="1"/>
+	</transition>
+
+	<transition Id="ExpandHoriz">
+	<param name="type" value="Tween"/>
+	<param name="prop" value="_width"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="start" value="0"/>
+	<param name="end" value="0"/>
+	<param name="seconds" value="3"/>
+	</transition>
+
+	<transition Id="Spin">
+	<param name="type" value="Custom_Spin"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="start" value="0"/>
+	<param name="end" value="720"/>
+	<param name="seconds" value="3"/>
+	</transition>
+
+	<transition Id="Wave">
+	<param name="type" value="Custom_Wave"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="prop" value="_y"/>
+	<param name="amplitude" value="10"/>
+	<param name="start" value="0"/>
+	<param name="end" value="720"/>
+	<param name="decay" value="0.01"/>
+	<param name="seconds" value="5"/>
+	</transition>
+
+	<transition Id="Pulse">
+	<param name="type" value="Custom_Pulse"/>
+	<param name="easing" value="None.easeNone"/>
+	<param name="prop" value="_alpha"/>
+	<param name="propMin" value="0"/>
+	<param name="propMax" value="100"/>
+	<param name="mark" value="1"/>
+	<param name="space" value="1"/>
+	</transition>
+</transitions>

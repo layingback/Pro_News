@@ -1,0 +1,114 @@
+<filters>
+	<filter Id="GreenGlow">
+	<param name="filter" value="GlowFilter"/>
+	<param name="blurX" value="10"/>
+	<param name="blurY" value="10"/>
+	<param name="alpha" value="100"/>
+	<param name="color" value="0x00FF00"/>
+	<param name="inner" value="false"/>
+	<param name="knockout" value="false"/>
+	<param name="strength" value="2"/>
+	<param name="quality" value="1"/>
+	</filter>
+
+	<filter Id="RedGlow">
+	<param name="filter" value="GlowFilter"/>
+	<param name="blurX" value="10"/>
+	<param name="blurY" value="10"/>
+	<param name="alpha" value="100"/>
+	<param name="color" value="0xFF0000"/>
+	<param name="inner" value="false"/>
+	<param name="knockout" value="false"/>
+	<param name="strength" value="2"/>
+	<param name="quality" value="1"/>
+	</filter>
+
+	<filter Id="BlueGlow">
+	<param name="filter" value="GlowFilter"/>
+	<param name="blurX" value="10"/>
+	<param name="blurY" value="10"/>
+	<param name="alpha" value="100"/>
+	<param name="color" value="0x0000FF"/>
+	<param name="inner" value="false"/>
+	<param name="knockout" value="false"/>
+	<param name="strength" value="2"/>
+	<param name="quality" value="1"/>
+	</filter>
+
+	<filter Id="RedBlueBevel">
+	<param name="filter" value="BevelFilter"/>
+	<param name="highlightColor" value="0xFF0000"/>
+	<param name="highlightAlpha" value="100"/>
+	<param name="shadowColor" value="0x0000FF"/>
+	<param name="shadowAlpha" value="100"/>
+	<param name="angle" value="225"/>
+	<param name="blurX" value="5"/>
+	<param name="blurY" value="5"/>
+	<param name="distance" value="5"/>
+ 	<param name="knockout" value="false"/>
+	<param name="quality" value="1"/>
+	<param name="strength" value="1"/>
+	<param name="type" value="outer"/>
+	</filter> 
+
+	<filter Id="SteelBevel">
+	<param name="filter" value="BevelFilter"/>
+	<param name="highlightColor" value="0xAAAAAA"/>
+	<param name="highlightAlpha" value="100"/>
+	<param name="shadowColor" value="0x444444"/>
+	<param name="shadowAlpha" value="100"/>
+	<param name="angle" value="225"/>
+	<param name="blurX" value="10"/>
+	<param name="blurY" value="10"/>
+	<param name="distance" value="10"/>
+ 	<param name="knockout" value="false"/>
+	<param name="quality" value="1"/>
+	<param name="strength" value="1"/>
+	<param name="type" value="outer"/>
+	</filter> 
+
+	<filter Id="GradientBevel">
+	<param name="filter" value="GradientBevelFilter"/>
+	<param name="alphas" value=".3,1,.3"/>
+	<param name="angle" value="225"/>
+	<param name="blurX" value="5"/>
+	<param name="blurY" value="5"/>
+	<param name="colors" value="0xFF0000,0x00FF00,0x0000FF"/>
+	<param name="distance" value="3"/>
+ 	<param name="knockout" value="false"/>
+	<param name="quality" value="5"/>
+	<param name="ratios" value="0,128,255"/>
+	<param name="strength" value="1"/>
+	<param name="type" value="outer"/>
+	</filter>
+
+	<filter Id="GradientGlow">
+	<param name="filter" value="GradientGlowFilter"/>
+	<param name="alphas" value=".3,1,.3"/>
+	<param name="angle" value="225"/>
+	<param name="blurX" value="5"/>
+	<param name="blurY" value="5"/>
+	<param name="colors" value="0xFF0000,0x00FF00,0x0000FF"/>
+	<param name="distance" value="5"/>
+ 	<param name="knockout" value="false"/>
+	<param name="quality" value="1"/>
+	<param name="ratios" value="0,128,255"/>
+	<param name="strength" value="1"/>
+	<param name="type" value="outer"/>
+	</filter>
+
+	<filter Id="DropShadow">
+	<param name="filter" value="DropShadowFilter"/>
+	<param name="distance" value="5"/>
+	<param name="angle" value="45"/>
+	<param name="color" value="0xAAAAAA"/>
+	<param name="alpha" value="100"/>
+	<param name="blurX" value="5"/>
+	<param name="blurY" value="5"/>
+	<param name="strength" value="1.3"/>
+	<param name="quality" value="1"/>
+	<param name="inner" value="false"/>
+	<param name="knockout" value="false"/>
+	<param name="hideObject" value="false"/>
+	</filter>
+</filters>

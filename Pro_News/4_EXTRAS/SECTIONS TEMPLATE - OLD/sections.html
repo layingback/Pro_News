@@ -1,0 +1,21 @@
+<table class="forumline" width="100%"><tbody>
+<tr><th colspan="2">Category</th><th>Articles</th></tr>
+<!-- BEGIN sec_list -->
+<tr><td class="cat" colspan="3">{sec_list.S_SECTION}</td></tr>
+<!-- BEGIN cat_list -->
+<tr>
+<td class="row1" width="20%"align="center" ><img src="images/pro_news/icons/{sec_list.cat_list.S_ICON}" alt="{sec_list.cat_list.S_TITLE}" /></td>
+<td class="row1" width="65%">{sec_list.cat_list.U_TITLE}<br /><div class="forumdesc">{sec_list.cat_list.S_DESC}</div></td>
+<td class="row2" width="25%" align="center"><p class="gensmall">{sec_list.cat_list.S_COUNT}</p></td>
+</tr>
+<!-- END cat_list -->
+<!-- END sec_list -->
+</tbody></table>
+
+<!-- BEGIN sub_list -->
+<!-- IF sub_list.IS_USER -->
+<br /><br /><center>{sub_list.G_STARTFORM}{sub_list.U_SUBMIT}{sub_list.G_ENDFORM}</center>
+<!-- ENDIF -->
+<!-- END sub_list -->
+<br /><br /><br />
+

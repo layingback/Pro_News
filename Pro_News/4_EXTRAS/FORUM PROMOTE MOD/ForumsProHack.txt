@@ -1,0 +1,78 @@
+*********************************************
+  Part of Pro News Module for Dragonfly CMS
+*********************************************
+  Copyright © 2008-2010 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+  
+  $Revision: 1.3 $
+  $Date: 2010-06-23 10:05:36 $
+  Author: layingback
+**********************************************
+
+IMPORTANT:  The following hack is for ForumsPro - only - to provide a link to the Pro_News Article Promote feature in Pro_News 2.3 or later.  You only need to install this hack if you wish to take advantage of the Article Promote feature (see the documentation files released with Pro_News 2.3 or later for more details).
+
+**********************************************
+
+1. Insert the following 4 lines into version 2.0.1.0 of ForumsPro, in file modules/ForumsPro/viewtopic.php
+     after the list of 'U_TOPIC' template declarations (at line 542, but your line numbers may differ):
+
+//-- mod : promote to Pro_News article - layingback.net -----------------------------------------
+		'L_TOPIC_PROMOTE' => _FPRO_PROMOTETOPIC,
+		'U_TOPIC_PROMOTE' => $auth_user[$forum_id]['auth_mod'] ? getlink("Pro_News&amp;mode=prmte&amp;id=".$topic_id.'&amp;fpro='.end(explode("_", rtrim($forumspro_prefix, "_")))) : '',
+//-- fin mod : promote to Pro_News article - layingback.net -------------------------------------
+
+
+
+2. Add the following line to the end of language/english/forumspro.php:
+
+define('_FPRO_PROMOTETOPIC','Promote this topic to Pro_News article');
+
+
+
+3. Then insert the following 3 lines into version 9.2.1, in file themes/{theme}/template/forums/images.cfg
+     at line 110 (after the '$topic_modmerge declarations) - note that you will already have done this step
+     if you installed the CPG-Forums version first:
+
+//-- mod : promote to Pro_News article - layingback.net -----------------------------------------
+$images['topic_mod_promote'] = "$current_template_path/topic_promote.gif";
+//-- fin mod : promote to Pro_News article - layingback.net merge ------------------------------
+
+
+
+4. In file themes/default/template/forumspro/theme.php add - before the closing ')' line - the line:
+
+	'I_TOPIC_PROMOTE' => "theme/$theme/images/forumspro/$language/admin/topic_promote.gif"'
+
+   If using any other theme make corresponding changes in each theme.php (may differ depending on theme).
+
+
+
+5. In /themes/default/templates/forumspro/viewtopic.html add inside of the <!-- IF CAN_MODERATE --> bracket,
+     next to DELETE, MOVE ETC codes for moderators:
+
+<a href="{U_TOPIC_PROMOTE}" title="{L_TOPIC_PROMOTE}"><img src="{I_TOPIC_PROMOTE}" alt="{L_TOPIC_PROMOTE}" title="{L_TOPIC_PROMOTE}" border="0" /></a>
+
+   Repeat this addition in viewtopic.html for each theme that you use.
+
+
+
+6. Upload the supplied promote icon image file, or an equivalent of your own creation, in location:
+
+     themes/default/images/forumspro/english/admin/topic_promote.gif
+
+   And repeat for any other themes which you may use.
+
+
+**********************************************
+
+Note 1: When you update, or reinstall, ForumsPro you will need to reapply this hack.
+
+Note 2: This modification *may* work on earlier versions of ForumsPro 2 BUT HAS NOT BEEN TESTED.
+        It is not expected to work on any version of ForumsPro prior to 2.0.
+
+Note 3: If you have created 2 instances of ForumsPro as described here:
+        http://www.myndworx.com/ForumsPro/viewtopic/t=1205.html by Sarah,
+        you will need to apply this hack to every copy of viewtopic.php.

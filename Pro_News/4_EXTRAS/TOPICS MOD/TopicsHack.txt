@@ -1,0 +1,52 @@
+If you employ the optional Topics link in Submit Article, then you may want to use
+the Topics module to display links to Pro_News Articles as well as News Stories.
+
+To accomplish this do the following.
+
+Append to the end of language/english/topics.php:
+
+define('_TOTARTS', 'Total Articles');
+
+
+Append to the end of modules/Topics/index.php:
+
+$result = $db->sql_query("SELECT t.topicid, t.topicimage, t.topictext, count(a.id) AS articles, SUM(a.counter) AS readcount
+	FROM {$prefix}_topics t
+	LEFT JOIN {$prefix}_pronews_articles a ON (a.df_topic = t.topicid)
+	GROUP BY t.topicid, t.topicimage, t.topictext
+	ORDER BY t.topictext");
+if ($db->sql_numrows($result) > 0) {
+	require_once('header.php');
+	OpenTable();
+	echo '<table border="0" width="100%" cellpadding="3">';
+	while ($row = $db->sql_fetchrow($result)) {
+		$topicid = $row['topicid'];
+		$topicimage = $row['topicimage'];
+		$topictext = $row['topictext'];
+		$t_image = (file_exists("themes/$CPG_SESS[theme]/images/topics/$topicimage") ? "themes/$CPG_SESS[theme]/" : '')."images/topics/$topicimage";
+		echo '<tr><td valign="top" style="width:25%; background:'.$bgcolor2.';">'."<img src=\"$t_image\" alt=\"$topictext\" title=\"$topictext\" style=\"margin:5px 0 0 5px;\" /><br /><br />
+		<span class=\"content\">
+		<strong>&#8226;</strong>&nbsp;<strong>"._TOPIC.":</strong> $topictext<br />
+		<strong>&#8226;</strong>&nbsp;<strong>"._TOTARTS.":</strong> $row[articles]<br />
+		<strong>&#8226;</strong>&nbsp;<strong>"._TOTREADS.":</strong> ".(isset($row['readcount']) ? $row['readcount'] : 0)."</span>
+		</td>
+		<td valign=\"top\" style=\"background:$bgcolor3;\">";
+
+		if ($row['articles'] > 0) {
+			$result2 = $db->sql_query('SELECT a.id, a.title FROM '.$prefix.'_pronews_articles a WHERE a.df_topic='.$topicid.' ORDER BY a.id DESC LIMIT 0,10');
+			while ($row2 = $db->sql_fetchrow($result2)) {
+				echo '<b>&#8226;</b>&nbsp;<a href="'.getlink('Pro_News&amp;aid='.$row2['id']).'">'.$row2['title'].'</a><br />';
+			}
+			if ($row['articles'] > 10) {
+				echo '<div style="text-align:right;"><b>&#8226;</b>&nbsp;<a href="'.getlink('News&amp;topic='.$topicid).'"><strong>'._MORE.' --&gt;</strong></a></div>';
+			}
+		} else {
+			echo sprintf(_ERROR_NONE_TO_DISPLAY, strtolower(_ARTICLES));
+		}
+		echo '</td></tr>';
+	}
+	echo '</table><br />';
+	CloseTable();
+} else {
+	cpg_error(sprintf(_ERROR_NONE_TO_DISPLAY, strtolower(_TopicsLANG)));
+}

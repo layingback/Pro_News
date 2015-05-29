@@ -1,0 +1,18 @@
+.img-shadow {
+  float:left;
+  background: url(../images/pro_news/shadowAlpha.png) no-repeat bottom right !important;
+  background: url(../images/pro_news/shadow.gif) no-repeat bottom right;
+  margin: 10px 0 0 10px !important;
+  margin: 10px 0 0 5px;
+}
+#pn_menutree, #pn_menutree ul {
+  list-style: none outside;
+  margin-left: 8px;
+}
+
+.pn_intro ul, .pn_content ul {
+/*  list-style: url('../images/bullet_ie.gif'); */
+}
+.pn_intro ul li ul, .pn_content ul li ul{
+/*  list-style: url('../images/dot_ie.gif'); */
+}

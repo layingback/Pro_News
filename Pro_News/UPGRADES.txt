@@ -1,0 +1,364 @@
+/*********************************************
+  Pro News Module for Dragonfly CMS
+  ********************************************
+  Original v1.0.0.1BETA Copyright © 2006 by D Mower aka Kuragari
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2012 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+
+  $Revision: 3.37 $
+  $Date: 2013-05-28 13:16:25 $
+   Author: layingback
+**********************************************/
+
+IMPORTANT: THIS SOFTWARE IS RELEASED UNDER GPL v2 OR LATER "AS-IS". USE AT YOUR OWN RISK.
+
+UPGRADE INSTRUCTIONS:  Copy all files to server, in their appropriate locations, and in
+Administration > Modules > Pro_News select Edit and then Upgrade to latest release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.9 Beta
+
+There are no database changes since the prior version release, so an upgrade is not required. 
+But if upgraing from an earlier release then an upgrade is required.
+
+It has been necessary to move a small number of CSS style statements from pro_news.css to 
+pn_specifics.css, therefore existing users will need to add the following lines to their 
+own copy of pn_specific.css (insert at the top, after the instructions):
+/* This provided section adds styles to the AllArts page for white/light backgrounds */
+/* comment out this section if using a dark background */
+.pn_catalog_section a:link {
+  color: #5F5F5F;
+}
+.pn_catalog_section a:visited {
+  color: #7F7F7F;
+}
+.pn_catalog_section a:hover {
+  color: #4F4F4F;
+}
+.pn_catalog_category .pn_desc {
+  color: grey;
+}
+.pn_catalog_category .pn_arttitle {
+  color: grey;
+}
+.pn_catalog_category .pn_seemore {
+  font-style: italic;
+}
+.pn_artcnt {
+  color: grey;
+}
+/* End section of styles for white/light backgrounds */
+
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.8 Beta
+
+There are database changes since the prior version release, so an upgrade is required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.7 Beta
+
+There are no database changes since the prior version release, but there are if upgrading
+from any release version of 3.4, so an upgrade is required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.6
+
+There are database changes since the prior version release, so an upgrade is required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.5
+
+There are database changes since the prior version release, so an upgrade is required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.4
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.3
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.2
+
+There are database changes since the prior version release, so an upgrade is required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.1
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.4.0
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.3.3
+
+There are database changes since the prior version release, so an upgrade is required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.3.2
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.3.1
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.3
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.8
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.7
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.6
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.5
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.4
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.3
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.2
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.1
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.2.0
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.1.1
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.1.0
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.3.0.0
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.2.1
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.2.0
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.1.1
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.1.0
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.0.5
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.0.4
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.0.3RC
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.0.2BETA
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.2.0.1BETA
+
+There are database changes since the prior version release, so an upgrade will be required.
+The addition of soc_net.html may require changes to any custom templates that you may
+have created in article/ directory to use eaerlier Social Networking links.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.1.0.0BETA
+
+There are database changes since the prior version release, so an upgrade will be required.
+The addition of Related FIelds will require changes to any custom submit templates that you may
+have created in submit/ directory.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 3.0.0.1
+
+There are database changes since the prior version release, so an upgrade will be required.
+The default settings of User Key Data Fields is now no field name, so they will not appear on
+Submit Article forms as in prior releases unless Field Names are first entered in Admin >
+Section.  The reason for the change is to suppress display of unneeded entry fields - only
+the first fields with Field Names will be presented to the user to complete.  (Suggest use of
+a single space character as the Field Name if you need nameless fields displayed.)
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 3.0.0.0
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.6
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.5
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.4
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.3RC2
+
+There are no database changes since the prior version release.
+The new templates index2alb.html and index2gly.html are updated versions of indexalb.html and
+indexgly.html respectively, serving the same function, but with improved CSS.
+In addtional ALL templates have been updated to handle the Intro text and the Content text (the
+balance of the full article separately, to achieve more template flexibility.  To update any
+custom templates that you may have built requires only changing the 1st 3 occurrences of
+S_CONTENT (when it appears alone) to S_INTRO.  (The 4th entry where it appears after the
+S_INTRO should be left unchanged).
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.2RC1
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.1BETA
+
+There are no database changes since the prior version release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.3.0.0BETA
+
+There are database changes since the prior version release, so an upgrade will be required.
+Note 1: In particular there was a small db error for clean installs on 2.2.0.0, this release will
+automatically detect and correct that.
+Note 2: This release now creates proper mini images for use in the Headlines display - prior
+releases relied on the browser resizing the image down.  This change improves image quality, plus
+it maintains the correct aspect ratio.  However it will only be apparant for new articles created
+in version 2.3 or later (in order to generate the new icon sized image).  To force the generation
+of new icon images for existing articles will require deleting the uploaded image in the
+respective article, and then immediately re-uploading to allow Pro_News to regnerate the mini image
+automatically, or alternatively you could use a graphics editing program to generate the required
+images which requires a filename of icon_xxxxxxxx, where thumb_xxxxxxxx is the name of the name of
+the small image, which should be <= 50 Pixels on the longest side.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.2.0.0
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.1.0.3
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 2.0.0.3
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+_____________________________________________________
+
+UPGRADING FROM PRO_NEWS 2.0.0.2
+
+There are no database changes since the prior release.
+
+______________________________________________________
+
+UPGRADING FROM PRO_NEWS 1.0.2.0
+
+There are database changes since the prior version release, so an upgrade will be required.
+
+______________________________________________________
+
+WARNING:  If you have created Article Templates of your own, make sure they are NOT named index*.html
+or they may get overwritten by the default Article Templates.  Re-name your own Article Templates to NOT start
+with index, and then (re-)select in Pro_News > Config.
+
+To UPGRADE simply copy the new files to your server, in Administration > Modules > select Edit.  The run the
+upgrade by clicking on the new version link offered.  Once the upgrade completes use Pro_News as before.
+
+WARNING:  If you chose to uninstall and then re-install Pro_News, rather than upgrade, you must delete all of
+your Pro_News blocks before the uninstall or after the re-install from Dragonfly Administration > Blocks, and
+then create new ones from within Administration > Pro_News > Blocks.
+
+Updates to your own Article Templates may be required if you based them on the supplied index.html,
+index2.html, indexsp.html, indexalb.html or indexgly.html.
+
+Full support for the new features is only afforded by the templates indexalb.html & indexgly.html.
+
+See CHANGES.txt for details on the changes since prior release.
+
+______________________________________________________
+
+
+/end

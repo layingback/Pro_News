@@ -1,0 +1,71 @@
+*********************************************
+  Extra Part of Pro News Module for Dragonfly CMS
+*********************************************
+  Copyright © 2009 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+  
+  $Revision: 1.2 $
+  $Date: 2012-11-28 08:02:27 $
+  Author: layingback
+**********************************************
+
+IMPORTANT:  The following hack is for the standard Coppermine module included with DragonflyCMS 9.2.1 to provide an alternate means of uploading images in batches.  This avoids needing to use ftp.  A link from the Pro_News Administration Menu is available to call this module directly or it can be called from any modified Coppermine Menu (see below).  This feature is developed and tested for Dragonfly 9.2.1 only.  Requires Pro_News 3.2.1 or later.  You only need to install this hack if you wish to take advantage of the Batch Upload feature.
+
+**********************************************
+
+1. Install the 2 included php files: batchupload.php and filesupload.php to folder modules/coppermine.
+
+2. Open /modules/coppermine/jspw.js and append the contents of the included jspw.txt file to the end of the existing contents of jspw.js and re-save it (keeping its original name).
+
+3. Edit /language/english/coppermine.php to add the following lines:
+// lang_batchupload_php
+define('BATUP_TITLE', 'Batch Upload Pictures');
+define('UNLIMITED', 'unlimited');
+define('FILE_LIMIT', 'File Limit');
+define('LIST_FILES', 'List of Files to Upload');
+define('STEP1','This is a 2 Step process - Step 1: Upload the images to server');
+
+// lang_filesupload_php
+define('ERRORS', 'Error');
+define('UPLOADED', 'Uploaded');
+define('INT_ERROR', 'internal error - on');
+define('FILE_TOOLARGE', 'file upload is too large for');
+define('UPLOAD_FAIL', 'File Upload Failed on');
+define('TRYAGAIN','Please try again');
+define('DIR_NOT_EXIST', 'does not exist or permissions are incorrect');
+define('FILE_EXISTS','Filename exists - please change your image filename');
+define('NOT_FILETYPE', 'is not an acceptable file type');
+define('IGNORED', 'has been ignored');
+define('STEP2','Step 2: Add newly uploaded images to your Album');
+
+At this point Batch Upload of images to your Coppermine Album Folder should be operational from Pro_News Administration Gallery Menu entry.
+
+4. (Optional) To make the feature accessible from within Coppermine, you may make 1 or more of the following code additions which add calls to the Batch Upload function for existing Coppermine menus, in each case adding it just before the Batch Add Pictures entry:
+
+/blocks/block-CPG_Stats.php around line 53:
+<b>&#8226;</b>&nbsp;<a href="'.getlink("$cpgdir&amp;file=batchupload").'">' . BATCHUPLD_LNK . '</a><br />
+
+/modules/coppermine/admin/index.inc around line 306:
+  <option value="batchupload">'.BATCHUPLD_LNK.'</option>
+
+/modules/coppermine/themes/default/admin_menu.inc around line 8:
+          <td class="admin_menu" width="15%"><a href="'.$CPG_URL.'&file=batchupload">'.BATCHUPLD_LNK.'</a>
+          </td>
+
+/themes/{your-theme-name}/coppermine/admin_menu.inc around line 8:
+          <td class="admin_menu" width="15%"><a href="'.$CPG_URL.'&file=batchupload">'.BATCHUPLD_LNK.'</a>
+          </td>
+
+/includes/coppermine/functions.inc around line 45:
+		            $dot.'<a href="'.getlink('&amp;file=batchupload').'">' . BATCHUPLD_LNK . '</a><br />' .
+
+**********************************************
+
+Note 1: When you update, or reinstall, Coppermine/Dragonfly you will need to reapply this hack.
+
+Note 2: This modification *may* work on earlier versions of Coppermine BUT HAS NOT BEEN TESTED.
+
+

@@ -1,0 +1,5 @@
+Please note that latest social network links are already built into the latest templates.
+
+This folder is left here for information, and to support those users still choosing 
+to use the earlier format (contained in sample_soc_net.html) or wishing to switch 
+to an earlier copy of the newer format (sample_soc_net_2.html) at a later date.

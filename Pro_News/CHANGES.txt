@@ -1,0 +1,1339 @@
+/*********************************************
+  Pro News Module for Dragonfly CMS
+  ********************************************
+  Original v1.0.0.1BETA Copyright © 2006 by D Mower aka Kuragari
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2013 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+
+  $Revision: 3.48 $
+  $Date: 2013-05-28 13:17:20 $
+   Author: layingback
+**********************************************/
+
+IMPORTANT: THIS SOFTWARE IS RELEASED UNDER GPL v2 OR LATER "AS-IS". USE AT YOUR OWN RISK.
+
+			PLEASE READ THESE INSTRUCTIONS IN THEIR ENTIRETY
+
+Install Notes:
+
+A Pro_News entry is placed in CPG Main menu for you, but needs to be assigned to a Menu category, eg. Home.
+
+If you have more than one theme available on your site you are going to need to copy over the following files into each of your
+additional themes:
+
+ - themes/{yourtheme}/style/
+ - themes/{yourtheme}/images/pro_news/
+ - themes/{yourtheme}/template/pronews/
+
+
+_________________________________________________________
+Known Issues:
+
+Impact of Moderator Changes
+The new (at v3.4.7) Moderate feature requires an update to any templates based upon index2xxx.html.  The release includes updates
+to the release templates, but you will need to update any of your own that you have created.  Edit is simple.  Find in newsarticle:
+	<div class="pn_floatright">
+		<!-- IF newsarticle.G_CANADMIN -->
+			{newsarticle.T_CANADMIN} | <a href="{newsarticle.U_CANADMIN}">{newsarticle.S_CANADMIN}</a>
+		<!-- ENDIF -->
+	</div>
+and append the new moderate peice after it like this:
+	<div class="pn_floatright">
+		<!-- IF newsarticle.G_CANADMIN -->
+			{newsarticle.T_CANADMIN} | <a href="{newsarticle.U_CANADMIN}">{newsarticle.S_CANADMIN}</a>
+		<!-- ENDIF -->
+	</div>
+	<div class="pn_moderate">
+		<!-- IF newsarticle.G_MOD -->
+			<a name="moderate"></a><a href="{newsarticle.T_PLINK}">_(PNCLSEMOD)</a>: &nbsp; {newsarticle.S_MOVLINK} {newsarticle.G_STARTMOVEFORM}{newsarticle.T_MOVLINK}{newsarticle.G_ENDMOVEFORM} &nbsp; {newsarticle.S_APPLINK} {newsarticle.T_APPLINK} {newsarticle.S_ACTLINK} {newsarticle.T_ACTLINK} &nbsp;
+		<!-- ENDIF -->
+	</div>
+No change is required for the Series3 templates index3xxx.html available at http://layingback.net to members of the Sponsors Group
+as the moderation is taken care of in the single article footer template.  Moderation support is NOT AVAILABLE for the following
+templates due to their exculsive table formatting:  index.html, index2.html and indexsp.html.  Please use later template equivalents.
+
+CPGNuCalendar Interface
+Pro_News interface to CPGNuCalendar supports only CPGNuCalendar version 2.1.0 or later.  Only these versions of CPGNuCalendar allow
+you to set the required TimeZone for your Calendar.  Use of earlier versions of CPGNuCalendar may produce unexpected results, as the
+Calendar will be on true GMT, with no allowance for user time zone. ISSUE: The Pro_News CPGNuCalendar interface does require you to
+set the correct timezone and daylight savings/summer time settings for both.  But for some installations there may still be an error
+- times selected in Pro_News may appear 1 hour earlier in CPGNuCalendar.  An option exists in Pro_News > Administration > Config to
+specify an Offset to be added - or subtracted - before the times are passed to CPGNuCalendar.  If you need to use this, please see
+the Sticky thread at http://layingback.net/Forums under Pro_News Support > 4.0 Support, and post the requested information.  With
+enough data points I may be able to determin how to apply this offset automatically.
+
+Submit Article Form
+The Submit Article screens are set to stay within an 800 pixel wide window when using the PH2 theme of pitcher.no or reDesign of Eestlane.
+When using other themes such as dragonfly the resulting template may be a little too wide (or too narrow).
+As the textareas for the main Intro and Content fields are based on character font widths not pixels, this is unavoidable.
+If you wish to adjust these, edit functions.php and admin/admin_functions.php:  search for the number 72 and change both
+occurrences to suit by experiment (likely values are in the 63 to 80 character range).
+NOTE:  Now reduced to 66 by default to better suit reDesign3 and screen/page width of 1024.
+
+Thumbnail Max/Min Width
+If you change the Max height or width for the thumbnails after images have been uploaded, broken links will occur for any images
+that were small enough not to need thumb versions built previously, but now do.  You will need to create these thumbs yourself.
+
+Different Block Installation
+IF YOU TRY TO INSTALL THE PRO_NEWS BLOCKS DIRECTLY FROM ADMIN > BLOCKS, THIS WILL FAIL!  Those blocks are just 'shells'.
+You need to go into Admin > Pro_News > Blocks and customize new blocks to your own requirements first.  Pro_News will then
+install your new blocks for you.  This method allows you to install more than 1 block per type (e.g. default, menu & headlines).
+
+Log in as Admin AND User
+In Pro_News, like many Dragonfly modules, you should not attempt to create articles, etc., logged in ONLY AS ADMINISTRATOR.
+You should always be logged in as a normal user whenever you are logged in as an Administrator.  Failure to observe this
+may result in articles being posted by 'Anonymous' as currently no user id exists.  In particular the scheduled posting
+of articles in Administration > Pro_News > Submit Article will not display the schedule times in your local timezone and
+daylight saving time (summer time), set in your user Preferences, if you are not also logged in as a user.  As Admin only,
+you will have to work in basic GMT timezone.
+
+Coppermine Thumbnail Size
+The inclusion of CPG Photo Gallery images in the article templates, e.g. index2alb.html, assumes the Coppermine generated
+thumbnails are at their default maximum size of 100px wide.  If you have adjusted this default setting in Adminstration >
+Coppermine then you may need to make corresponding adjustments to the width settings for .pn_pframe and .pn_gframe in
+(theme)/style/pro_news.css.
+
+Headlines Format Width
+The Headlines format in indexgly.html and indexalb.html is designed for a minimum of 600 pixels browser window with only
+1 block column, if you use both block columns, then you may need to adjust the "25%" for the first headline's image table
+entry to 35% or so.  Or use the later index2gly.htmnl or index2alb.html which do not have this limitation.
+
+_______________________________________________________
+Important Considerations:
+
+SINGLE ARTICLE CATGEORY DISPLAY
+A new feature is introduced at version 3.4.8 to display an article in FULL instead of the normal Intro form with more...
+link, if - and only if - the URL was of the form Pro_News/cid={number} AND there is only 1 record selectable for display.
+This allows a menu, for example, to link simply to Pro_News/cid=13 which contains 3 articles, the same article content
+but with one article each in English, French and Spanish.  Using this new feature the message displays in full because
+only one article is ever displayed for any one user - depending on their chosen language.  Without this new feature a
+separate menu entry would have been required for each language.
+(The legacy behaviour can be returned by resetting pronews disply_full setting in cms_config_custom in phpMyAdmin.)
+
+MODERATORS
+Launched with version 3.4.7 is the concept of Moderators.  As with Forums, moderators can take on some of the daily
+duties of the administrator(s) without having full configuration access, or needing to log in as an Admin.  Pro_News
+moderators are able to Approve, Un-Approve, De-Activate and/or Move articles between Sections/Categories.  Pro_News
+moderators can be 1 or more DragonflyCMS Groups.  A new Administration > Pro_News > Config option allows you to
+select 1 or more existing Groups as moderators.  (Create new moderator Groups first.)  More than 1 moderator groups
+is not required, but allows you to target different moderators for different Sections.  In use Moderators will see a
+moderate | edit option similar to the admin | edit shown to Admins.  If an Admin is part of the moderator group then
+he/she will see the moderate | edit when not logged in as an Admin.  The edit function uses the user side Submit/Edit
+Article screen but with the extra Admin-only options (Display Order, Display in Home and Scheduled Display) enabled.
+Use of the new Moderator block is recommended if Auto Approval is NOT enabled, in order to display Pending Articles
+needing approval.  Create through Administration > Pro_News > Blocks for all, or just a single Section or Category,
+and in Blocks Administration set it for viewing by your Moderator group only and display it only when Pro_News is
+running, to display Pending Articles waiting for Approval. Optionally repeat for different Moderators/Sections.
+Note this function also allows Admin to see Articles Pending Approval and to approve them without needing to log in
+as an Admin first, if they are members of a Moderators group.
+
+MODERATOR BY SECTION
+With version 3.4.8 comes the option to assign a different Moderator group to each and every Section.  This facilitates
+splitting administration responsibility by Section.  Note the Moderation Group option still needs to be set up to
+define the full set of Moderator Groups (for all Sections).  The Groups option can be disabled without resetting the
+individual Moderators by Section.  The default Moderator setting per Section is Administrator, so that the Admin can
+make use of the Moderator functions even if there are no Moderators (for that Section).
+
+MODERATOR PDF UPLOAD
+NOTE: to use Moderator PDF Upload you must copy the pdfl.html file from EXTRAS to themes/{your theme}/templates/.
+A version 3.4.8 an upload function for PDF documents is added which is almost identical to that already available for
+Administrators. A link to Pro_News&mode=upld needs to be added to your CPGMM menu and restricted to Moderators ONLY.
+(If not using CPGMM menu, you may edit blocks/block-ProNews_Moderators.php to enable link display within that block.)
+
+AUTO APPROVAL
+Launched with version 3.4.7 is the concept of Automatic Article Approval.  Auto Approval - if enabled - means that
+all Registered Members can Submit an Article and see it display immediately.  Moderators are able to Un-Approve,
+De-Activate, edit and/or Move articles which do not conform.  If the existing selection for Administration By is also
+set to Registered Members then they will also be able to edit their own articles, otherwise they will not.
+Note: The editing time period for an Article can be simply reset by an Edit and Save by an Admin or Moderator.
+
+LIMITED ARTICLE EDIT
+Launched with version 3.4.9/4.0 is the ability to limit the period in which users may edit their own articles.  A
+Registered Member who is a member of a Group specified in Administration By for that Section is able to edit
+his/her own Articles.  The new feature uses the newly added last update fields to optionally limit how long that
+Edit option is to be available: from 5 minutes to as long as 28 days.  The default remains as no limit.
+
+ARTICLE SEARCH
+Released with version 3.4.0 is a new dedicated Pro_News Search function, in addition to the inclusion in the standard
+Dragonfly Search.  This search allows you to select the articles with a much finer granularity, and provides the
+option to display the results as a simple list, or as templated articles.  Multi-page output is supported along
+with the ability to pick any page to display.  New configuration options are added to Config.
+To provide access to this Search module please add to Administration > General > CPG Main Menu as follows:
+Title: Search Articles
+URL: Pro_News&mode=srch  (select getlink option)
+Show this to: All Visitors or Registered Users Only
+Category: Search
+Active: Yes
+
+ALL ARTICLE TEMPLATE CHANGES
+At version 3.3.3.3 it was necessary to change the error reporting part of all article templates to avoid a conflict with
+News module templates.  All article templates released with Pro_News have been updated, and all add-on templates will be.
+IT IS NECESSARY TO UPDATE YOUR OWN TEMPLATES.  Simply change all 3 occurrences of newsempty to newsnone and save the template.
+
+SUBMIT TEMPLATE CHANGES
+In the (unlikely) event that you have created your own submit.html template or a derivative of it, please note that a small change
+will be necessary to operate successfully with Pro_News version 3.3.2.5 or later.  The change affects the User Key Data Fields
+only, and examination of the new submit.html template will make the changes required obvious.  The change places the HTML of
+the input field into the template rather than creating it in functions.php code.  This offers considerably more flexibility
+such as using display-only data fields.
+
+MODULE NAME
+At version 3.3.2.8 it is possible to install Pro_News with a module name other than Pro_News.  IMPORTANT NOTE: This does NOT
+allow you to install 2 copies of Pro_News (but there is no need, simply create a new Section).  To implement this, upload
+all the Pro_News files in the usual way to a folder name of your own choice but do not include spaces (underscore is OK).
+Locate the file languages/english/rename_me.php and rename this to the name of your module/folder in all lowercase, eg. if
+your new module name was to be Scoop, then you would name the folder Scoop and rename rename_me.php to scoop.php.
+
+SECTIONS LIST
+At version 3.3.2 the Section List which previously contained just a table of Sections and their Categories, is extended to
+display only those Sections displayed in Home, True Home or all Sections (or None).  A user option is added to display the
+latest articles links for each Section displayed.
+
+RSS
+At version 3.3.2 RSS is significantly extended with the addition of Configuration options to extend/limit RSS feed
+to top level, Sections displayed in Home, or All Sections, with or without Categories.  Support for RSS links by Section
+and/or Categories are now supported.  Upon install Pro_News is set to feed RSS, as are the other Dragonfly modules which
+support RSS syndication.  If you do not wish to syndicate Pro_News simply remove the file pro_news.php from the /rss directory.
+
+MEMBERS' PAGES
+With version 3.3.2 the concept of Members' Pages is introduced, which optionally permits each registered
+member, or member of a group, to create and publish their own Articles within the site.  Options exist to limit members
+to 1 or more pages per Category within Members' Pages Section.  The Members' Pages Section is a special pre-defined Section,
+but its name, access and administration rules can be modified in the same way as any other Section.
+Note: In order to add the link to the member's (first) Members' Page to the member's Your Account page, you must first create
+the required Custom User Field manually through Administration > Members > Members Config > Fields > Add Custom Field.
+
+Create the field as follows:
+	Fieldname:		user_page					(Note:  Do NOT Change - Change Desc. instead)
+	Type:			Text
+	Private:		No
+	Size:			100
+	Description:	        Member's Page		         		(Note this field can be any text)
+
+After the Field has been created, change its display from Visible to Hidden so that user cannot change it, and click Save Changes.
+
+RELATED ARTICLES
+The addition of related articles, and more recently latest article links in v3.3,  will require an update to any custom submit/
+templates which you may have created.  The related articles features can retrieve a large number of db records at create time.
+For this reason you may wish to keep the feature restricted to Admins Only (the default setting) at least for heavy use sites.
+
+BLOCKS
+Newly created blocks should be named as they are created, if you omit the name they will be named "ProNews Block", but you
+can rename them individually at any time in Administration > Blocks.  Note that if you create 2 blocks named "ProNews Block"
+at once, you may only be able to access the later one in Administration > Blocks under Dragonfly 9.2.  Once you rename that one,
+the other will be visible.  This was a Dragonfly bug, with a fix in CVS, not a Pro_News one.
+
+PHOTO GALLERY ACCESS
+By design the Pro_News Coppermine Photo Gallery option does NOT check gallery access privileges at display
+time - only at Article creation time, this allows the author to set up Coppermine Gallery albums to be hidden from normal viewing,
+yet still permit their display in Pro_News articles (subject to Pro_News access privileges).
+
+USER FIELDS LABELS
+There are 2 methods for assigning User Field field Labels:  You can enter field labels in Administration >
+Pro_News > Section and they will be used for that Section only, allowing per Section labels.  If you want all Sections to have
+the same labels, you can alternatively add the field labels to the /languages/{english}/pro_news.php file.  If your site
+requires Multi-language support, then you should not use the per Section labels, but instead update them directly in
+/languages/{english}/pro_news.php, and repeat for each language required.
+Starting with v3.1, unused User Fields are now hidden by default - to mark a User Field as in-use and to be displayed, enter a
+name for it in the appropriate Admin > Section screen.  (Or in the /languages/{english}/pro_news.php file.)  Use a single space
+if you wish to mark the Field as in-use, but not display any field name.
+You must use User Fields in order, starting with the first.  As a result of this change any unused User Fields will no longer
+display when user enters an Article through Submit Article.
+
+SECTION & CATEGORY TITLES/DESCRPTION MULTI-LANGUAGE SUPPORT
+In a manner similar to User Fields above, you can as of v3.3.2.7
+translate any Section and/or Category Titles and/or Descriptions into any supported language.  The translated texts need to be
+added to the same language files as for User Field Labels, identifying each respective Section or Category by its id number
+(identification number).  Easiest way to determine this id number is to roll you cursor over the respective Edit link in
+Admin > Messages > Pro_News > Sections or Categories and note the id number displayed at the end of the url on the status line
+of your browser.
+
+CSS STYLE SHEETS
+Edit themes/{your_theme}/style/pn_specific.css.  This file is released to you called:
+    NEW INSTALL ONLY - RENAME ME TO pn_specific.css
+which you should rename to pn_specific.css ON NEW INSTALLS ONLY.  Your renamed pn_specific.css may be placed in your current theme
+folder.  This allows a different pn_specific.css to be used for each theme. But pro_news.css, along with the rest of the Pro_News
+theme folder, can remain in the default theme folder, even if pn_specific.css is moved.
+DO NOT RENAME THIS FILE ON AN UPDATE or you may overwrite your edits!
+Any and all changes you which make to the styles used in Pro_News be made to this CSS file pn_specific.css in place of direct changes
+in pro_news.css (or pro_newsie.css).  Separating your changes from those in the standard release will make it much easier to upgrade
+to a future release of Pro_News.  (Thanks to Madis and his wonderful reDesign3 CSS themes for this idea.  If you haven't tried reDesign3
+theme yet, then you should!)
+
+TEMPLATES
+You can have a unique Article Template for each of your Sections if you wish.  It is therefore recommended that the
+Default Article Template chosen in Admin > Pro_News > Config should be the most commonly used template across all of your Sections,
+to be used as the default.
+
+Only the latest - index2alb.html and index2gly.html - template files support all features offered by Pro_News.  To use the latest features,
+you must select one of these as your template file in Administration > Pro_News > Config.  (The other templates are supplied
+for compatibility with earlier releases, and to demonstrate simpler display options to use in developing your own templates.)
+
+The supplied Article Templates, particularly the latest and most complex, index2alb.html and index2gly.html, are intended as a starting point.
+They are NOT intended to be turnkey for all users, but a base for your own development and tuning.  This is the whole reason for templates.
+Depending on your chosen Dragonfly theme, screen width, etc., slight changes are almost bound to be required for the exact display.
+When you do develop your own versions, you are encouraged to share them by contributing at
+http://www.layingback.net/Forums/viewforum/f=6.html.
+
+See UPGRADES.txt for information about a small change required to existing templates from Pro_News 2.2 or earlier.
+
+The supplied Article Templates having the following features/limitations:
+   index.html
+	- shows first graphic in both overview and full article
+   index2
+	- shows first graphic in full article, but none in overview
+   indexsp.html
+	- shows first graphic in overview and full article, and headlines
+   indexabl.html
+	- shows first graphic on overview, full article and headlines, plus second graphic in full article, and 10 album images
+		with links to slideshow; all images sport borders and drop-shadows.
+   indexgly
+	- is similar to indexalb.html, but with additional gallery pages; the full article page is formatted to more closely match
+		the gallery pages
+   index2alb.html
+    - can be used to replace indexabl.html offering better display, layout and xHTML conformance
+	- additionally eliminates any white space for unused images in the full article display
+	- support for scheduled events, CPGNuCalendar interface
+   index2gly.html
+    - can be used to replace indexgly.html offering better display, layout and xHTML conformance
+	- additionally eliminates any white space for unused images in the full article display
+	- support for scheduled events, CPGNuCalendar interface
+   index2alb-nh.html & index2gly-nh.html
+    - as their respective originals, but without a separate format for Headlines display
+        - allows 1 or more Sections to display in normal Home format in place of Headlines format.
+   indexp2gly.html
+    - same functionality as index2gly.html plus the addition below
+	- additionally supports the virtual pagination offered in release 3.3.3.3 or later.
+
+There are additional fields in the template system, designed for specific uses, which are not used - even in index2gly.html.
+	These extra options include but are not limited to:
+	- for the newshome (Intro) part of the template the 1st 3 User Fields are available (but not the field label names)
+		Select as follows:   {newshome.T_USER_FLD_0} {newshome.T_USER_FLD_1} {newshome.T_USER_FLD_2} respectively.
+		As of version 3.3.8 this is now 5 user fields, 0 through 4 along with their user field names.
+	- for the newshome (Intro) and newsarticle (full article) parts of the template the Dragonfly Topic Text Name and Image
+		are available where the image path and filename will be drawn from the template-specifc folder if present,
+		or the Dragonfly /images folder if not;
+		Select as follows:   {newshome.T_DFTOPIC} for the text, and {newshome.U_DFTOPIC} for the image filename
+				or   {newsarticle.T_DFTOPIC} for the text, and {newsarticle.U_DFTOPIC} for the image filename.
+	- for the newshdline (Headlines) the thumb and icon image paths are available suitable for img src= commands,
+		this allows for different display sizes or presentations to be set within the template system.
+
+Templates are not covered by GPL 2 in the same way that Themes are not covered by GPL 2 in DragonflyCMS.
+
+VIRTUAL PAGING TEMPLATE
+At version 3.3.3.3 a new variant of index2gly.html is included called indexp2gly.html.  It
+allows an otherwise long article to be broken into multiple virtual pages using Javacript.  The virtual page breaks
+incorporate First/Prev/GoTo/Next/Last buttons at both top and bottom.  As the page breaks are created in Javascript
+the paged display is instanteous and no calls to the server are involved (ie. the entire article is still downloaded
+in one go as usual).  The virtual page breaks are created by inserting a new BBCode [page].  BBCodes can be entered
+manually or a new NBBCode module with Page support (plus numerous other BBCodes) can be downloaded from layingback.net.
+The virtual pagination is in addition to displaying normal length articles, thus long and short articles can co-exist in
+the same section, with just the long articles including the virtual page breaks.
+
+ADDTIONAL LICENSED TEMPLATES
+Are available separately from http://layingback.net, some of which may require donations,
+purchase and/or membership.  (Including an indexp3gly.html supporting virtual pagination.)
+
+BLANK IMAGE
+The Headlines format is set to display a "No Image" image if the article in question does not contain an image.
+You may leave this behaviour as is, or alter it in one of 3 ways:
+  - to display a site-specific image, e.g. modified site logo, replace themes/{your_theme}/images/pro_news/imageholder.png
+	with the PNG image of your choice sized to match your thumbnails (do not change the filename), or
+  - remove (or rename) themes/{your_theme}/images/pro_news/imageholder.png to eliminate the "No Image" image
+	(Headlines format will change slightly without this place-keeper image in place), or
+  - disable the display of No Image placeholder in Admin > Config (v3.2 or later).
+Note that as of 2.3 it is possible to have a separate section-specific image for any section:  simply create a folder
+under /themes/{your_theme}/images/pro_news/ and give it the same name as your section title OMITTING any characters other
+than letters, numbers and _ (underscore) - no spaces, and converting all letters to lowercase, and place a suitably sized
+image in the new section folder with a filename of imageholder.png, for the thumb-sized version, and imageholdermini.png
+for the icon-sized version.
+	E.g. A Section called:	Do Y_Think It's Alright?	becomes a folder called:  doy_thinkitsalright
+Note:  If you used & in your Section name you will need to replace it with the 3 letters amp
+
+PROMOTE POST
+To enable access to the Promote feature a link and icon needs to be manually added to the Moderator area of Forums CPG-BB
+and/or ForumsPro
+  - the small amount of code required, the icon file, and the editing instructions are included in this release
+  - the edits are to templated parts of the forum code, so may survive version updates but are only intended for the versions stated.
+
+SOCIAL NETWORKS
+Sample code for enabling links to (up to) 72 social networks (e.g. facebook) is included with this release.  This
+code can now be enabled/disabled from Admin > Config, as well as easily added/remove from any of the included Article templates to
+display below the Ratings panel
+  - Use of all 72 social network calls is overkill, so edit out those not required in soc_net.html in the template folder.
+
+DUAL DOMAIN NAMES
+To take advantage of a different Home page display based on domain name you must first complete the following edits:
+(Do not bother with this unless you have 2 or more distinct domain names accessing the same website, and you require different
+Pro_News Sections to display on the Home page depending solely on which domain name the user uses to access the site.)
+ - At the top of /modules/Pro_News/functions.php change the line:
+	  $domain = array();
+   to:
+	  $domain = array(2=>'your_first_domain_name.com', 3=>'your_second_domain_name.com');
+   where your_*_domain_name would be changed to represent your own domain names.
+ - At the top of /modules/Pro_News/admin/admin_functions.php change the line:
+	  $domainlist = array();
+   to:
+	  $domainlist = array('your_first_domain_name.com', 'your_second_domain_name.com');
+ - The order of the domain names must match.  Note different formats for each php file.  There can be 2 or more domain names in the list.
+ - In Administration > Pro_News > Sections > Show in Home? select, for each Section, as follows:
+	'Yes'			- to always display in Home
+	'No'			- to never display in Home
+	'domain_name'	- to display in Home only if accessed via this domain name.
+
+DYN_META_TAGS
+spacebars' dyn_meta_tags (dynamic meta keyword tags) hack is included in code, AND IS NOW ENABLED by default from v3.4.4
+  - disable by searching for ProNews::dyn_meta_tags in modules/Pro_News/functions.php and adding // at beginning of line
+  - for more information see this link http://dragonflycms.org/Forums/viewtopic/t=20906/)
+  - revised as posted by Berty and fishingfan to drop minor words, sort to find most used and limiting to 30 max.
+  - should now provide the benefits seen to Google/Adsense, but reduce risk to SEO of too many keywords.
+
+BATCH UPLOAD
+An included hack for Coppermine allows batch uploading of photo album using a modified file upload routine (in place of ftp)
+  - links to this, Create New Album and Batch Add Pictures are now present in the Administration Menu if the batchupload.php file is present
+  - instructions for modifying Coppermine, and the additional files required, are in the EXTRAS folder.
+
+_________________________________________________________
+Possible Issues:
+
+DragonflyCMS 9.0.6.1 ONLY.  For basic Pagination to display, with 9.0.6.1 themes, you'll need a pagination-aware theme.
+Alternatively, you can copy over the appropriate sections from the 9.0.6.1 Dragonfly theme:
+ - the template at bottom of themes/dragonfly/template/news;
+ - CSS from near end of themes/dragonfly/style/style.css;
+ - the 3 images referenced in the CSS from themes/dragonfly/images.
+
+_________________________________________________________
+_________________________________________________________
+
+
+Current release is for Dragonfly 9.3.x, 9.2.x and 9.1.x (and 9.0.6.1 with simple manual changes) only.
+
+______________________________________________________
+Significant Changes in 4.0.0 Version (from 3.4.9 version):
+
+A small number of CSS style statements must be moved from pro_news.css to pn_specifics.css, therefore 
+existing users will need to add these lines to their existing pn_specifc.css files - see UPDATES>TXT for 
+the details.  Note this change is automatic for new insatlls of Pro_News.
+Light text colour styles moved to pn_specific.css so they can be disabled for dark background themes
+Fix bug in installer upgrade from 3.4.8
+Address coppermine db file SQL error in slideshow
+Support added for future Series 3 templates
+Fix user Submit message bug for DF 9.3+ so that Successful Post message displays
+Display correct alternative image file in templates for small images smaller than thumb size
+
+______________________________________________________
+Significant Changes in 3.4.9 Version (from 3.4.8 version):
+
+Add option to select Pro_News Menu block per Section (vs All Sections)
+9 more European Social Networks added to the Share soc_net.html
+Fix bug in Moderator Article Schedule option (introduced in 3.4.8)
+Fix long-standing bug resulting in More Pictures link to empty Gallery Page
+Bug fix for Series 3 submit templates for calendar popup for Scheduled articles
+Series 3 submit templates calendar popup now work in Internet Explorer 7, 8, & 9
+Add CPGNuCalendar Offset option in Pro_News > Config to deal with timezone/dst issue
+Increase range of CalendarPopup for Series3 templates to +/- 10 years
+Spurious Notice for Moderators Block eliminated
+Bug fix for MySQL version 5 for new install
+Support added for (future) Coppermine hack for remote galleries
+
+Please note Series3 templates include newer and better Footer and Submit forms, a 
+calendar pop-up for setting dates, and are available as a Thank-you gift to all 
+Supporters of Pro_News at http://www.layingback.net/Downloads/details/id=85.html
+______________________________________________________
+Significant Changes in 3.4.8 Version (from 3.4.7 version):
+
+Changes to index2alb.html + index2gly.html templates to support Moderation
+Add moderators selection by Section
+Adjustments to Section form display for new Mod column
+Moderator upload pdf option
+Display full article in cid= display if only 1 article
+Changed Your Account Members' Page entry to remove non-allowed HTML
+(Initially commented out) code added to Moderators Block to provide PDF Upload link
+Added support for renamed Pro_News module to the Pro_News Your Account block
+Minor fixes to Admin upload, plus language fixes
+Fix http:// editing error in soc_net.html
+Bug fix for admin section form
+Bug fix to standard block re approved/active display to Admins
+Bug fix for Section description display in blocks
+Bug fix for headline center blocks
+Bug fix for article count in center blocks
+Bug fix for submit article comment options for moderators
+Bug fix for Moderators edit on other users' articles
+
+______________________________________________________
+Significant Changes in 3.4.7 Version (from 3.4.6 version):
+
+Add option to Automatically Approve all Articles when created
+Add new Moderation function to allow Moderators to Approve/Activate/Move Articles
+Add Admin fields (3) to Moderators
+New Articles Awaiting Approval block
+Time limit for user side edit of own articles
+Added mode=newarts to display only new-since-last-session (like mode=allarts)
+Configuration options for auto approval
+Configuration option to set 1 or more moderation groups
+Configuration options for edit time limits
+Exclude Inactive articles from Pending (Un-Approved) lists
+Reorder Admin > Pro_News > Blocks to list in block title order
+Remove All Visitors and Anonymous Only from Administration By selection
+Add last update time and update by to full article template (only)
+Continued removal of PHP Notices.
+
+______________________________________________________
+Significant Changes in 3.4.6 Version (from 3.4.5 version):
+
+Add option to display Article Intro text in Section Lists (mode=allarts)
+Add Config option for above
+Suppress "No articles found" error if user not signed in as Admin
+Add text-on-url to Admin > Articles (for easier article linking)
+Add help info text to Batch Upload hack, and revise instructions
+Further reduce a few more PHP Notices
+Bug fix for RSS when module name not Pro_News
+Bug fix for Block when module name not Pro_News
+Updates for FCS template in Blocks (Block FCS template not supplied)
+
+______________________________________________________
+Significant Changes in 3.4.5 Version (from 3.4.4 version):
+
+Fix ProNews_Center block for Center Up blocks non-display issue
+
+______________________________________________________
+Significant Changes in 3.4.4 Version (from 3.4.3 version):
+
+Significant updates to spacebar's Dynamic Meta Tags (thanks Berty and fishingfan)
+  - NOW ENABLED BY DEFAULT
+Added additional permissions checks to Left/Right Blocks
+Added By Category selection option to Left/Right Blocks
+Improved code for title-on-url option for articles for non-LEO sites (thanks to Nano)
+Improved handled of page title breadcrumbs for reDesign theme
+Add support for pn_specific.css placed in default theme
+Revised instruction text for Admin > Blocks selections
+Improved Confirm Delete message in Admin > Article
+Support for Oldest option in Center blocks
+Include Section in page title breadcrumbs in Section List when Category specified
+Improved pagination code to reduce XHTML issues
+Support for alternate module name in javascript loader
+Improvement to CSS for Series 3 Footer
+Fix image for Pinterest Social Network share image
+Add Category Help to Admin Config
+Bug fix to Admin pagination
+Fix SQL error in Admin > Blocks for new block
+Fix XHTML warning in Admin > Sections
+Fix validation errors in Admin > Sections > Key Data Fields
+Correct Sort option error in Admin > Sections
+Fix message error in Admin > Gallery
+Clear PHP warning when displaying Section/Category in Admin
+
+______________________________________________________
+Significant Changes in 3.4.3 Version (from 3.4.2 version):
+
+Load Pro_News CSS in Center Block only if Pro_News not active module
+Handle Photo Album filenames containing \'
+Handle quotes in Article Titles shown in Blocks
+Fix to Article's More link in Headlines in Center Blocks (regression bug)
+Various XHTML fixes
+Point Template variable for Photo Album interim (400px) image to full size image if <== 400px
+
+______________________________________________________
+Significant Changes in 3.4.2 Version (from 3.4.1 version):
+
+Add support for output selection by Category (vs Section) in Blocks
+Added links on Section/Category names in Admin => Blocks for simple verification
+Your Account access privilege error fix (fixed in 3.4.1.1 release)
+
+______________________________________________________
+Significant Changes in 3.4.1 Version (from 3.4.0 version):
+
+Fix bug in pagination template call
+Check for template existence in default theme folder
+Fix last article check for templates
+
+______________________________________________________
+Significant Changes in 3.4.0 Version (from 3.3.3.3 version):
+
+Release Article Search for dedicated search
+Add pinterest to list of supported Social Networks
+Fix bug in text-on-url option for underscore separator
+Fixed bug in alternate date display format via Admin > Pro_News > Config
+Fix bug in discussThis interface to Forums/ForumsPro if user_id is null
+Add rating score to Home page (Intro) display of index2gly & index2alb templates
+Add text-on-url option for Default Pro_News Block
+Improved error handling in Center Block if user is admin
+______________________________________________________
+Significant Changes in 3.3.3.3 Version (from 3.3.3.2 version):
+
+Release indexp2gly.html Virtual Pagination template for long articles
+Add option to article pagination javascript to go to top-of-page
+Include a stripBBCode function for Headlines truncation to avoid split BBCodes
+Admin Blocks
+ - Option to select Default Section removed, 'All' is now the default selection
+ - Selection type (latest, menu, etc) is now displayed by type group (side, menu, center, comments)
+ - Edit will only let you change the Pro_News block type within the same type group
+ - After creating a new Block a link is provided to take you directly to Admin > Blocks to edit
+Update to dyn_meta_tags to bring into line with Pro_News v3.x
+Add sitename to replace fixed text name in dyn_meta_tags
+Fix Your Account update for 1st Member's Page link when > 1 article is allowed
+Rename CSS newsempty to newsnone to avoid News conflict
+Update soc_net.html to use %strings for http:// (XHTML validation)
+Add smaller spacers (pn_halfspacer & pn_slimspacer) to CSS
+Change Pro_News literal to $pn_module_name in Article List
+Indicate new articles in Latest Articles Center Block
+Add warning not to adjust block filename in Admin > Blocks for a Pro_News generated block
+Preparation for future Pro_News Search module
+
+______________________________________________________
+Significant Changes in 3.3.3.2 Version (from 3.3.3.1 version):
+
+Bug fix for new Your Account Block to correct userinfo displayed
+Bug fix for Search to display All option if Members Page section is used
+Add Section and Category titles to template variables for full article
+Add Section and Category titles to template variables for articles list
+Add Section and Category titles to template variables for headlines
+Add image and image2 filename and path to template variables for full article
+Add Section and Category Ids to template variables for Section List
+Typo in Help
+Support for page break in full story nbbcode only - requires new nbbcode hack and template
+
+______________________________________________________
+Significant Changes in 3.3.3.1 Version (from 3.3.3 version):
+
+New modules/Your_Account/blocks/pro_news.php showing Latest 10 Articles posted
+Fix a simple SQL retrieval bug (reason v3.3.3 was withdrawn)
+General reduction in PHP Notices
+Change Promote hack so that original poster is shown in Posted By not promoter
+Add Section and/or Category names to text-on-url feature
+Add Section and Category titles to default Block
+Add Article link to end of default Block
+Add text-on-url feature to images, footer, associated articles, email, print links, etc.
+Fix Section and Category Descriptions on article template variables list
+Add Section and Category Titles on related articles
+Fix $rss undefined error on Sections List
+Add Section and/or Category names to text-on-url configuration
+Add Help for text-on-url feature
+Fix bug in Date Format configuration option
+
+______________________________________________________
+Significant Changes in 3.3.3 Version (from 3.3.2.8 version):
+
+3 missing language entries added.
+New social network entry nowpublic added.
+Minor typos.
+
+______________________________________________________
+Significant Changes in 3.3.2.8 Version (from 3.3.2.7 version):
+
+Update name of module to 'Pro_News CM' to better reflect its capability
+Option to display an article's title as part of the URL
+Support for diacriticals in title as part of URL
+Option to make title in URL all lowercase and/or hyphenated
+Support for naming module something other than Pro_News
+Default Pro_News.html display of Sections/Categories/Articles now respects Section Sort Order
+Option to set the User Key Field which will trigger Read More (Default remains usrfld0)
+Img filenames for thumb and icon files for Image1 and Image2 added to Home template
+First 5 User Fields (was 3) added to Home display template, along with titles for all 5
+discussThis function (used for Forums-based comments) updated to support DF 9.2.3
+Bug fix for Admin > Sections when used with MySQL5 TRANS STRICT
+Bug fix for Admin > Import Articles when used with MySQL5 TRANS STRICT
+Support for Google+ Social Network (experimental)
+
+______________________________________________________
+Significant Changes in 3.3.2.7 Version (from 3.3.2.6 version):
+
+Multilingual support for translated Section & Category Titles & Descriptions through /language/{your_language}/pro_news.php
+Option to set Date Format in Config rather than by editing code
+Option to set displayed timezone to match CPG-BB Forum
+Improved handling of image upload errors, and improved error messages, which are now in the language file for translation
+Multilingual translation support added for the messages from "double bounce" duplicate post entry detection
+Removed the limitation of using User Key Data Fields starting from user_field_0
+Improved Photo Album selection in Article Submit by structuring album list by Category
+Display Section Name in place of module name when displaying all articles but for only a single section
+Improved CSS support for Pro_News blocks when Pro_News not currently active module
+Fixed occasional missing thumbnail display on Submit Article screen for small images
+greenday2k's optimisation for url's when display article lists by section and/or category
+Corrections and improvements to Help for Submit
+Improvements to article retrieval selection by group membership for blocks
+Added "OR" to search form between Section and Category selections for clarity
+Improved CSS support for Pro_News blocks when Pro_News not currently active module
+Fixed clean install errors occurring with version 3.3.2.6
+
+_________________________________________________________
+Significant Changes in 3.3.2.6 Version (from 3.3.2.5 version):
+
+Addition in Admin of Help Infoboxes at individual field level
+Correctly display duplicate article error message with duplicate Title & Intro
+Expansion of Section & Category Description to multi-line field with support for BBCode
+Additional of optional U_SECDESC & U_CATDESC template variables
+Support for full order by and selection options in Center Block Headlines
+Display Category Icon in Headlines
+Correct bug in loading IE specific CSS in Center Block
+Separate template display conditionally to prevent buffer contamination for Center Up/Down Blocks
+Rounded corners supported as standard for pn_newsarticle and for Series 3 footer
+Fix FCS Center Block display when only single article present to display
+
+_________________________________________________________
+Significant Changes in 3.3.2.5 Version (from 3.3.2.4 version):
+
+Addition in Config > Sections to change which User Field will be tested for content to trigger 'read more...'
+Minor changes/corrections to language file and CSS (affects functions.php and index.php)
+Added more table summary attribute to suppress (new) W3 Tidy Notice.
+
+_________________________________________________________
+Significant Changes in 3.3.2.4 Version (from 3.3.2.3 version):
+
+Add support Selected Articles display by Category as well as by Section (eg. Pro_News/cat=5.html)
+Add links to Selected Articles display to Section names listed in Sections display
+Add links to Section and Category names in Articles display
+Add link to article for image in Intro when image size < thumb size (to make UI consistent)
+Addition of thumb_ image to article template array
+Add tooltip to Section name in Articles display showing current Template name
+Fix bug for omitted Section name in pagetitle (bread crumb)
+Fix non-display bug for fcs in headlines when number of available articles > number set to display in Config/Section
+Fix bug in Section Override of List By 'Section and Category' when default is 'Section'
+Fix bug which prevented copying/moving templates (due to removal of Go button)
+Improvements to Calendar link times for cross-timezone events
+Fix bug to show true setting of Comments for articles when editing article in Admin
+Added IE-specific CSS to admin side
+Added table summary attribute to suppress (new) W3 Tidy Notice
+
+_________________________________________________________
+Significant Changes in 3.3.2.3 Version (from 3.3.2.2 version):
+
+Address style sheets load scheme if not in local theme
+Added support for tabbed submit screen (optional template)
+More xHTML fixes (all of them?)
+Updated Preview to support latest footers (optional extra)
+Fixed display of associated & related articles when toggled in Config
+Added a few overlooked text strings into language file.
+
+_________________________________________________________
+Significant Changes in 3.3.2.2 Version (from 3.3.2.1 version):
+
+Improved latest comments text display
+Includes improved sort & selection (missed from last update)
+Improved intro layout to Config
+Added option in Config to Allow HTML Input option for Admins
+More, minor, xHTML clean up
+Admin > Sections Move Up/Down now refreshes page staying within Sections List area
+Admin > Categories Move Up/Down now refreshes page staying within Categories List area
+Fix to pagination in Article List when using Sort option
+Update to Admin > Blocks to handle new Members Pages section
+Reduce size of Intro and Article textarea widths for better fit to reDesign3 (72 => 66)
+Improved timezone display in Submit Article
+Removed Go button on Submit Article > Category selection if JavaScript enabled
+Changed default value of Article Id in template from null to false for unsaved article
+Fix for Section display in Hdln mode with different display overrides (rosbif)
+Forced multi-Section Hdlns to use Default Template (not template of 1st Section displayed)
+Added "from the forums" to text for Promoted articles (newly Promoted Articles only)
+
+_________________________________________________________
+Significant Changes in 3.3.2.1 Version (from 3.3.2.0 version):
+
+Improved Sections List display when some RSS icons are absent
+Mode option added to Section List to allow display of single Section -
+  e.g. Pro_News/sec=1.html will display just entries for Members' Section
+  so that it can be used in Menus, etc..
+Section/Category selections (eg. in Submit Article) no longer need a "Go"
+  button press if JavaScript is ON
+User Field descriptions for input (submit/) templates are now in the template
+  not hard coded, allowing length of input field to be adjusted
+Center Up/Down blocks now support 'Sort by Expire Date' same as module
+  article display (allows articles to be displayed in Event Date order)
+Option to include/filter Related Articles by Section as well as by Category
+Cleaned up display for Related Articles (to match that of Associated Articles)
+Category Id added to input (submit/) template for custom use
+Preserve input field values when using Forum Type Change button in Admin > Sec and Cat
+Reduction of a few xHTML errors and many warnings
+Fixed regression bug in Menu block so the menus did not fold up correctly
+Default Block db error when Section = All was used
+Typo in icon-sized imageholder call prevented display in article
+Typo fixed in Blocks display by Most Popular & Highest Ratest
+
+_________________________________________________________
+Significant Changes in 3.3.2.0 Version (from 3.3.1.1 version):
+
+Added "Members' Pages" Section/Categories allowing page(s) per member
+Added optional Comment block, per Section or for ALL Sections
+Support for Comment Block to display initial comments from Forums (only)
+Included rosbif's "allarts" with options to include/not include articles
+Included RSS links in to "allarts" (former Sections List)
+Option to include Sections in allarts/section list based on display in Home
+Support for Series 3 footers with comment count, etc.
+Eliminate article click on image if no larger image exists
+Removed more deprecated HTML commands, and reduced xHTML errors/warnings
+Fixed bug where admin is logged in as other user
+Admin > Blocks displays Sections in Sequence order
+Added Default Template to bottom of Sections page
+Admin now correctly says Found 1 Article (not articles)
+Import Articles now attempts to preserve "Show In Home".
+Handle quotes in Article Titles, etc, during Import
+greenday2k's fix for Promote from ForumsPro
+Updated and corrected ForumPro Hack text information
+
+_________________________________________________________
+Significant Changes in 3.3.1.1 Version (from 3.3.1.0 version):
+
+Include calls to pn_specific in center and default blocks for when
+Pro_News is not currently active module
+
+_________________________________________________________
+Significant Changes in 3.3.1.0 Version (from 3.3.0.0 version):
+
+New option to display a single Pro_News Article in Home page.
+Option to disable blocks in Home page via Admin > Pro_News > Config.
+Fix for missing All, Latest Headlines links in hdlines display.
+Fix for IE8 reported undefined error from scripts.js.
+
+_________________________________________________________
+Significant Changes in 3.3.0.0 Version (from 3.2.2.1 version):
+
+Fix - hopefully - for per Section Order-by override in hdlines.
+Addition of pn_specific.css to hold all user style updates as CSS overrides,
+ - leaving pro_news.css unchanged for easier replacement at version update.
+Addition of Section and Category text title fields to article template fields.
+Added approved, active and multilingual access checks to related links.
+Added access security checks to existing related links & new latest links.
+Fixed various xHTML errors due to empty elements, etc.
+Reduced xHTML errors in Social Network links by urlencoding for &, etc.
+Removed xHTML warnings in Photo Album links by encoding spaces to %20.
+Fix BASEHREF bug in admin_functions.php.
+Article sort by Activate/Deactivate Article dates (Optional due to small performance hit).
+New information displays, incl. List BY column, in Admin > Pro_News > Sections.
+Slightly reworked extra image links for better/easier use in custom template.
+Added CPG captions to template info.
+Added first & last article flags (per Section) in templates for custom template usage.
+Fixed Category & Section Headings display bug, which prevented Category headings.
+Fixed template missing "crash".
+More social network choices added.
+New dynamic latest 5, 6, 10, 11, 12 or All links from Category or Section.
+Eliminated most xHTML errors and warnings from Admin screens.
+Fixed image 2 bug in gallery on index2alb.html.
+Converted index2xxx.html templates to use em instead of px to better match reDesign3.
+Removal of index2fcs.htrml template from release.
+
+_________________________________________________________
+Significant Changes in 3.2.2.1 Version (from 3.2.2.0 version):
+
+Added code for Article List By option added at Section level in headlines.
+Enabled links such as .../Pro_News/mode=home/sid=2.html (previously sid was ignored).
+Added more social network links - now 51 total.
+Bug fix to Section level Headlines text length adjustments in Admin.
+Minor bugs fixes and improvements,
+Removed the fix for the missing category icon issue in IE!
+
+_________________________________________________________
+Significant Changes in 3.2.2.0 Version (from 3.2.1.1 version):
+
+Cross-browser version of Featured Content Slider template.
+New more modern looking 'table-free' Section and Category list.
+Fixed bug preventing the display of Section and Category headings in home.
+Addition of Config option to turn off Section and Category headings in home.
+Article List By option added at Section level.
+Config option to allow adjustment of existing Intro Text Length parameter.
+Bug fix to Section level Headlines text length adjustments in Admin.
+Minor bugs fixes and improvements,
+and I think I've found and fixed the missing category icon issue in IE!
+_________________________________________________________
+Significant Changes in 3.2.1.1 Version (from 3.2.1.0 version):
+
+Addition of Featured Content Slider prelim template.
+
+_________________________________________________________
+Significant Changes in 3.2.1.0 Version (from 3.2.0.5 version):
+
+Fixes for Pro_News operation when MySQL is used in STRICT_TRANS_TABLE mode
+Inclusion of Batch Upload Pictures for Coppermine (optional)
+Addition of Featured Content Slider in new index2fcs.html template
+Template support for displaying Number of Reads in custom Home/Intro/Headlines templates
+Support for highlight then format in Submit Article for Internet Explorer (already present for other browsers)
+Bug fix for edit of article linked to Forum comment thread.
+Article Import attempts to bring over prior read counts.
+Minor corrections to current templates.
+_________________________________________________________
+Significant Changes in 3.2.0.5 Version (from 3.2.0.4 version):
+
+Fixes for access to entire Section as in sid=
+Set default to "Show in Home" for articles submitted through user side
+Minor corrections to current templates.
+
+_________________________________________________________
+Significant Changes in 3.2.0.4 Version (from 3.2.0.3 version):
+
+Allow Slideshow operation when there are no gallery images set on 1st page
+If slideshow enabled and number photos on 1st page = 1, set onclick for photo to slideshow display
+Disable Article link to image if no larger image to display
+Only display Headline horizontal line after 1 article if only 1 article is set to display
+Only show "No Article to Display in Section" warning to Admin when Display By is "By Section"
+Add style css call to Menu Block code for benefit of later versions of Internet Explorer
+Fix Calendar Date format for Windows PHP compatibility
+Minor bug fixes.
+
+_________________________________________________________
+Significant Changes in 3.2.0.3BETA Version (from 3.2.0.2 version):
+
+Further modifications to new Post by Section to improve interface for Anonymous users
+Update to prevent Registered users posting to Sections with Anonymous Only settings for Post.
+Fix to date handling to support execution under Windows version of PHP.
+Fix to non-display of Submit Article for users when template not present in submit/ folder.
+Minor bug fixes.
+
+_________________________________________________________
+Significant Changes in 3.2.0.2BETA Version (from 3.2.0.1 version):
+
+Added "Display in Home" visual indicator in Admin > Articles
+Improved email notification code, and made workable for multi-lang or single use
+ - Initial text held in language file, for multilingual use
+ - If site not set to Multilingual, copied to Admin > Pro_News > Config
+ - Flexibility for single language sites, capability for multi-language sites]
+Improved Admin > Block display
+ - Indicate blocks already deleted directly in Admin > Blocks
+ - Provide links directly to Admin > Blocks > Display (open in new window)
+build in social network links
+Add warnings for MultiLingual sites not to use Config but to use language file for
+ - Admin > Sections:  User Field Names and Titles
+ - Admin > Config:  Pendng and Approval emails
+Converted tiny class and grey style to CSS entries in pronews.css
+Added alternate Social Networking template in the currently popular "hover" style
+Added Social Networking into all current templates
+Added "Enable Social Networking" parameter to Admin > Config
+Various extra template fields added as per requests (fishingfan and masino_sinaga)
+Included index2alb-nh.html and index2gly-nh.html templates into the product.
+
+_________________________________________________________
+Significant Changes in 3.2.0.1BETA Version (from 3.1.0.0 version):
+
+Display in Home option added to Admin > Submit Article
+ - Display in Home (default)
+ - Do not display in Home
+ - Display only in Home.
+Access level restrictions for Article Posting added
+ - selectable per Section
+ - All Visitors, Registered Users Only, Administrators Only, Anonymous Users Only, Groups.
+Related Articles feature added, allowing links to be added per Article to existing Articles
+ - enabled through Admin > Config
+ - for Admin > Submit Article only (default), or for both admins and users
+ - related links display and function in Preview  (Courtesy of masino_sinaga).
+Per Category option for Forums, allowing different forums (or no Forum) to be assigned
+ - by Category as well as by Section,
+ - can be used even if no Forum assigned at Section level  (Courtesy of masino_sinaga).
+Forum Type (CPG-Forums, ForumsPro, etc.) selection no longer displayed
+ - unless Multiple Forums option has been selected in Admin > Config.
+Pagination in Admin > Articles  (Courtesy of masino_sinaga).
+Join in the discussion legend no longer displays in Article if Section/Category is set to No Forum.
+Revised layout for Admin > Sections to improved readability.
+Revised layout for Admin > Categories to improved readability.
+Currently selected forum indication added to Admin > Categories page.
+Option to notify user of his/her article being approved.
+Text for email notifications now changed via Admin > Config  Courtesy of masino_sinaga).
+Ability to hide "No Image" or other default image via Admin > Config   (Courtesy of masino_sinaga).
+Fixed/improved thumbnail generation for .png files without losing newly added transparency handling.
+Increase of Social Network site links to 35, revision of all icons to .png with transparent backgrounds.
+Numerous small changes to improve consistency, flow and/or user interface.
+
+_________________________________________________________
+Significant Changes in 3.1.0.0BETA Version (from 3.0.0.1 version):
+
+BETA CODE: Support for date insertion, and maintenance, with article back link similar to that with Forums,
+  into CPGNuCalendar v2.1.0 Calendar - all automatically.  Note: THIS IS BETA CODE!
+Per Section settings for Number of Articles per Headline, and Length of Headlimes (Courtesy of fishingfan).
+Suppression of unused (i.e. no Field Name present) User Data Fields in Submit Article form.
+Improved Submit Article layout for user and Admin, for easier completion.
+Center Block display with Oldest First.
+Support for changing User Data Fields Title per Section.
+Addition of icon_ image to all displays for use in custom templates.
+Added thumb_ and icon_ images to Block displays for use in custom templates.
+Limit Article Rating to Registered Users.
+Added a unique "Reference Number" (the article id) for use in custom templates.
+Multi-file PDF Upload capability added to Admin, for uploading PDF documents, avoiding the need for FTP access.
+Copy Article function now duplicates attached images so deletion of the original article has no impact.
+Enabled "2nd Level" menus for Pro_News in Administration.
+Admin Articles now display in the current Section''s Sort Order by default.
+Display Order and Template information added to Admin > Sections list.
+Submit Next Article button added to Admin Articles (uses same Category).
+Fixes to all bugs reported through layingback.net.
+Fix to image pop-up code for versions of Internet Explorer.
+Fix bug in Gallery templates for certain browers, e.g. Internet Explorer.
+Numerous small usability improvements to Admin as well as to user side.
+
+_________________________________________________________
+Significant Changes in 3.0.0.1 Version (from 3.0.0.0 version):
+
+Address display problem in Home and Headlines display when each Section has unique template.
+Fix bug disabling the display of different Section templates in Headlines.
+Update to Headlines display to not display 'full article' link if article < headline length.
+New option to set a Section back to use the Default Template.
+Add code to prevent any .html from end of cpgmm menu getlink call from causing an SQL error.
+Prevent display of notice messages related to unused topictext and topic image template entries.
+Addition of a new error report template basic.html.
+Small correction on line 46 of index2alb.html.
+
+_________________________________________________________
+Significant Changes in 3.0.0.0 Version (from 2.3.0.6 version):
+
+Change version to 3.0 to better reflect the modules increase in capability.
+Change suppression of breadcrumb/pagetitle if displayed on Home page to
+set it to 'Home', and extend to include list as well as headline formats.
+Update copyright to 2009.
+
+_________________________________________________________
+Significant Changes in 2.3.0.6 Version (from 2.3.0.5 version):
+
+Improvements to index2alb.html and index2gly.html to
+ - increase uniformity in Opera and IE
+ - avoid need for recreating icon images for existing articles
+ - avoid the 'horizontal scrollbar' bug in IE7
+ - display no image, or per-section, default images in list of articles
+ - eliminate white space in full article when no images are uploaded.
+Suppress breadcrumb/pagetitle if displayed on Home page.
+Resolved outstanding problem in which .png images were not resized under PHP5.
+_________________________________________________________
+Significant Changes in 2.3.0.5 Version (from 2.3.0.4 version):
+
+Addressed problems displaying "No Articles to Display" message.
+Suppressed "No Articles to Display" message unless user was Admin
+ - added Section name and id number , and if applicable category number.
+Cleaned up a couple of xHMTL errors and HTML warnings in Admin > Categories.
+
+_________________________________________________________
+Significant Changes in 2.3.0.4 Version (from 2.3.0.3 version):
+
+Revised indexalb.html and indexgly.html to form index2alb.html and index2gly.html respectively
+ - removed tables used as formatting for improved display and cross-browser consistency
+ - text wrap is now working correctly for Intros and Full Articles
+ - improved layout of HTML to facilitate editing for user customisation or enhancement.
+Separation of Intro and Content for all templates - see UPGRADES.txt for upgrade info.
+Addition of 22nd & 23rd Social Network links.
+Fix the recently introduced bug of no text displayed if gallery images shown.
+Fix db error when called for section display for section 0 (default section) with 0 articles.
+Fix header call (require_once) bug introduced with 2.3 release.
+Fix "No Articles to Display" messages to include normal header/page displat.
+Option (via code edit) to disable center blocks when Headlines displayed on Home page.
+Enable Headlines (when not on Home page) to display for just 1 single section.
+Fix width bug in Headlines display (removed code) for 1st headline entry.
+Disabled spacebars' dyn_meta_tags hack by default - see notes above.
+Added a 'None' option to Pro_News > Admin > Sections > Forum selection.
+
+_________________________________________________________
+Significant Changes in 2.3.0.3 Version (from 2.3.0.2 version):
+
+Improved pagetitle 'breadcrumb' with links.
+Revised image handling code to:
+ - Always generate correctly sized icon_ files for headlines
+ - Fix long-standing 'Failed to initialize GD system' error on square images.
+Add links to Section name in Admin > Cat display.
+
+_________________________________________________________
+Significant Changes in 2.3.0.2 Version (from 2.3.0.1 version):
+
+Optional support for default images in headlines on a per-Section basis
+ - in addition to existing No Image imageholder.png
+Create true image icons for Headlines 2nd, 3rd, 4th, ... articles
+Limit selectable Sections to just those for CPG-Forums in promote from CPG-Forum
+Added warning if same forum post is promoted a second time
+Restore Join in the discussion link for promoted articles
+Fix to sort db crash in Center Block Headlines
+Fix to All selection in Blocks Edit Section
+Reduce problem with inactive articles being unapproved in edit (reversed prior fix)
+Auto approve articles submitted through user Submit if user is Admin
+Significant changes/improvements to Email/Send to a Friend.
+
+_________________________________________________________
+Significant Changes in 2.3.0.1 Version (from 2.3.0.0 version):
+
+Rework of Send to a Friend to limit action to Registered Members
+ - Override of username and email limited to Admins only
+ - various improvements to display
+Fix to install for MySQL 5 in Strict Mode
+Fix for duplicate main menu display in Admin
+Various small fixes to new-for-2.3 release features.
+
+_________________________________________________________
+Significant Changes in 2.3.0.0 Version (from 2.2.0.0 version):
+
+Add Center Blocks for Random Article(s) or Latest Article(s) as either headlines or home display.
+Site-wide option to restrict access to full article to registered members only.
+Ability to display articles in Title, Rating, Number of Reads order as well as Date
+  - both Ascending and Descending for all 4 sort fields
+  - sort order selectable site-wide with separate override for each Section.
+'Real-time' re-order of Articles within Admin to assist in location of articles
+  - Date, Title, Rating, Number of Reads, Posted By, Active and Approved, Asc and Desc.
+A 'Promote' function to allow an Admin or Moderator to 'promote' a Forum article to Pro_News
+  - Promoted article links back to forum post as its discussion thread
+  - Simple hack (edit) provided for CPG-BB Forums and ForumsPro.
+A Pro_News center blocks can now be used when Pro_News is the currently displaying module
+  - to facilitate this the templates for the center block are removed from index*.html
+  - separate templates exist for Center Upper and Bottom blocks, but they can be identical
+  - supplied templates are ctrblk_up.html and ctrblk_dn.html (identical except for name).
+
+If run on Dragonfly 9.2.1 or later the page number template is switched to that of DF News
+  - for consistency and to take advantage of other alternative themes for Dragonfly
+  - older Pro_News template is included for pre-9.2.1 use, when News was not fully templated.
+Postedby now displayed as a clickable link (a la News).
+Dragonfly News Topic assignable to articles, by Administrators, users or both
+  - topictext name and image added to template for full article for use in user-created templates
+  - but not incorporated into any index*.html templates
+  - no additional db access overhead unless topics option is enabled in Admin > Config.
+First 3 User Data Fields included in template system for home display
+  - but not incorporated into any index*.html templates.
+
+spacebars' dyn_meta_tags hack included (see link http://dragonflycms.org/Forums/viewtopic/t=20906/).
+Category entry in top-level Section list (under Pro_News) now a clickable link.
+Ability to display differing Sections in home based on which domain name used to access site.
+Update to cpg_inst.php to allow fresh install on MySQL5 run in Strict mode.
+Numerous small aesthetic, display or usability improvements and bug fixes.
+
+_________________________________________________________
+Significant Changes in 2.2.0.0 Version (from 2.1.0.3 version):
+
+Fix to prevent SQL error in Admin > Articles if user did not select a Category.
+Additional checks in display article to ensure that user still has rights to view.
+Additional checks to prevent viewers/bots trimming the URL from triggering SQL errors.
+Fix for delete/move/copy article if using Default theme or a derivative.
+Set a default for number of articles in a block to prevent SQL errors upon display.
+Addressed Comments change issue at edit time from Admin.
+Resolved pop-up window problems with IE7.
+Template error in indexalb affecting Display Order settings in Admin > Submit Article.
+Installer fixed for MySQL5 run in Strict mode.
+Slideshow now works when page display is set to Number of Images = 0.
+Addition of support for Forum Moderators group in access groups code.
+Right blocks can be disabled again under 9.2, plus center blocks as well,
+  after Nano Caiordo added support back into the 9.2 blocks system.
+Documented Home-style article display for when Pro_News is not set as Home module.
+Re-word :Page 1 does not exist" message when reflecting no file accessible to viewer.
+Add back link to "Discuss" article lost from indexalb.html is prior release.
+Hard code link to Pro_News for Articles waiting for approval, in case Pro_News is not current module.
+
+Added a 'self-link' to list of template variables, so that users can enhance templates to post
+  article links to digg or facebook or similar.  [ N.B. Only the link is supported, not the HTML. ]
+Added Email to a friend with icon to Full Article display (indexalb and indexgly templates).
+Added Printer Friendly format with icon to Full Article display (indexalb and indexgly templates).
+Added Scheduled Activation - and Deactivation - option to Admin > Submit Article, with
+  support for subsequent edit including schedule change, copy, move and delete.
+
+_________________________________________________________
+Significant Changes in 2.1.0.3 Version (from 2.1.0.2 version):
+
+Various small corrections and bug fixes.
+
+_________________________________________________________
+Significant Changes in 2.1.0.2 Version (from 2.1.0.1 version):
+
+Various small corrections and bug fixes.
+
+_________________________________________________________
+Significant Changes in 2.1.0.1 Version (from 2.1.0.0 version):
+
+Various small corrections and bug fixes.
+
+_________________________________________________________
+Significant Changes in 2.1.0.0 Version (from 2.0.1.5 version):
+
+Addition of selectable submit/edit screen templates to match the corresponding output template for a Section
+Conversion of Admin > Pro_News > Submit Article to use the same template system as user submit.
+_________________________________________________________
+Significant Changes in 2.0.1.5 Version (from 2.0.1.4 version):
+
+Small changes to templates indexalb and indexgly to further differentiate them, and provide more control to Admin
+Updates to these instructions
+
+_________________________________________________________
+Significant Changes in 2.0.1.3 & 2.0.1.4 Version (from 2.0.1.1 version):
+
+Images from the linked Coppermine Album may now be shown as a gallery on additional pages if using the indexgly.html template
+Each Section can be assigned a different template (to the default template) via Administration > Pro_News > Sections
+The new themes/{your_theme}/submit/ folder holds various versions of submit.html named to match the output templates in
+  themes/{your_theme}/submit/
+  - feature is only for user-level Submit (Administration > Pro_News > Submit Articles always uses full submit.html
+  - to disable this function simply remove the corresponding html file in the themes/{your_theme}/submit/ folder
+
+_________________________________________________________
+Significant Changes in 2.0.1.1 and 2.0.1.2 Version (from 2.0.1.0 version):
+
+New pop-up slideshow display eliminates Coppermine display
+ - pop-up window size based on maximum size of displayed album images
+Images in Headlines using indexalb template are now click'able (same as full article)
+Alt tags corrected for displayed album images
+
+_________________________________________________________
+Significant Changes in 2.0.1.0 Version (from 2.0.0.3 version):
+
+Full Dragonfly 9.2 support (as tested against 9.2.0.0RC2)
+Add support for Gallery images and User Fields in Submit Article Preview
+Enable Gallery Images and User Fields for all users not just Admins (configurable)
+Article Rating system, equivalent to DragonFly News
+Selectable article read tracking and number of reads display, as in DragonFly News
+Revised Block system offering:
+ - Cross all sections blocks
+ - Most Popular, and Most Rated in addition to existing Most Recent
+ - 'All' in addition to existing 'per Section' blocks
+ - Menu block, displaying Sections and Categories
+ - Headlines Center block displaying templated articles
+User field titles can now be by Section completed through Administration > Pro_News > Section, or via
+prior method of editing /language/{english}/pro_news.php file to support multi-language sites.
+Access control on Start a Discussion enforced based on settings for link Forum/ForumPro
+Numerous small updates and fixes, to eliminate all possible PHP Warnings and Notices
+RSS updated to fully support anonymous user view
+All screens are fully XHTML 1.1 compliant
+
+_________________________________________________________
+Significant Changes in 2.0.0.3 Version (from 2.0.0.2 version):
+
+Updated block code to conform to new requirements of Dragonfly 9.2.0
+Fixed bug in block links in Pro_News blocks - removed an extra /
+Fixed bug in Config > Blocks which created a bogus block record on  1st use
+
+_________________________________________________________
+Significant Changes in 2.0.0.2 Version (from 2.0.0.1BETA version):
+
+Added check for presence of Forum/ForumsPro post before asking for it to be displayed
+    in case it has been subsequently deleted.
+
+_________________________________________________________
+Significant Changes in 2.0.0.1BETA Version (from 2.0.0.0BETA version):
+
+Improved fullsize image display in Articles, so all can share same browser pop-up window.
+Various small errors and corrections discovered during development of this version, including:
+    - Addition of 2nd Image to User Submit Articles (requires article html updates or use indexalb.html).
+
+_________________________________________________________
+Significant Changes in 2.0.0.0BETA Version (from 1.0.1.1RC version):
+
+Addition of support for ForumsPro, as an alternative, or in addition to DF Forum CPG-BB
+     - includes support for multiple ForumsPro using default and custom names
+     - Config option to specify Forum only, single ForumsPro only, and any mix..
+Uploaded images are now stored under a unique identifier rather than the original file name
+    - Fixes: If an image is uploaded with same name as an existing image, image will not be saved
+    - Addresses: Naming issues if non-Roman filename used for upload, e.g. Arabic.
+Login required to Submit Article message now displays correctly (in place of _PNLOGIN).
+Various updates to article/index*.html files to correct HTML to XHTML 1.0 Transitional.
+Incorporates previously posted fixes on layingback.net:
+     - Group membership selection now in SQL code so member sees at most only 1 copy of article
+     - Fix for newer Dragonfly Installs whose db does not includes a BBuicode field in POSTS_TEXT_TABLE
+     - Fixes to both disable button and to prevent access to Edit function if user is not Admin.
+     - At least 2 causes of Apache reported error Code 500 / 'Premature End of Script Headers.'
+Various small errors and corrections discovered during development of this version.
+Addition of 2nd Image to Articles (requires article html updates or use indexalb.html).
+White borders and drop shadows on images as supported by CSS compliant browsers.
+User selectable text truncation length in Headlines, separate for 1st and additional headlines.
+Article inserted into Forums at start of discussion is now just the Intro, plus a link to the Full Article.
+Option to insert just a link in Forum on initial discussion, instead of copying in entire article's Intro.
+Administrator only Submit Article options:
+     - Display up to 10 images from a Selected Coppermine Gallery, specifying just gallery, order, number.
+     - Display up to 10 user defined custom data fields (text), which can be named in /language/(english)/pro_news.php.
+
+_________________________________________________________
+Significant Changes in 1.0.2.0 Version (from 1.0.1.1RC version):
+
+Pagination selection now all done in SQL to keep page counts correct.
+Addition to home and Pro_news display to make "can admin" a link
+     - Approvals now possible from main screen (vs. Admin screens).
+     - Deletions now possible from main screen (vs. Admin screens).
+Article posting date & time now fixed.
+Articles with Sections now display correctly in Headlines.
+Additional text moved to language files (affects index.html and index2.html).
+
+_________________________________________________________
+Significant Changes in 1.0.1.1RC Version (from 1.0.1.0BETA version):
+
+Added search function - thanks go to Sarah for coding up the base search.inc.
+     - Advanced Search selections for Section & Category.
+     - Access restriction to view articles enforced for all Searches & selections.
+admin_functions.php:
+     - Update Import to match 1.0.1.1 cms_pronews_articles format.
+     - Changes to Blocks to handle revised Block format in 9.1.1 if used under that version.
+     - Fixes to Submit Article to handle single and double quotes in Article Titles.
+     - Permit HTML in Submit Article (for Administrators only).
+     - Correct postby attribution even if logged in only as Admin.
+import.inc:
+     - Preset Approved & Active for imported records.
+     - Fixed bug with import of articles with single or double quotes in an Article Title.
+cpg_inst.php:
+     - Removed code to install the default block (left for user to create & install).
+functions.php:
+     - '- ' added to front of each entry in Pro_News blocks;
+     - Corrected display-order field for user submitted articles.
+     - Display "Join Discussion" if comments already posted in Forums, else "Discuss" as before.
+     - Fixes to Submit ARticle to handle single and double quotes in Article Titles.
+     - Fixes to prevent members of first group (group # = 2) getting access to Admin-only sections.
+     - Switched view access restrictions in SQL code so that pagination always remains correct.
+template/pronews/article/index.html:
+     - Added template variant for hdlines.
+     - Added Section & Catgeory title breaks.
+template/pronews/article/index2.html:
+     - Added template variant for hdlines.
+     - Added Section & Catgeory title breaks.
+language/english/pro_news.php:
+     - More text moved into language file (mostly Import & Search).
+
+_________________________________________________________
+Main Changes in 1.0.1.0BETA Version (from Kuragari's 1.0.0.1BETA version):
+
+Additional copies of pro_news admin icons in existing folders
+
+functions.php: added true param to decode_bb_all calls to permit images, lines 52 & 230
+
+Created /Pro_News/scripts.js
+index.php: Added link to scripts.js
+index.php:  Modded stylesheet link to include current theme in path to Pro_News stylesheet
+functions.php: Determine picture size, OpenWin frame-only at size + 16
+functions.php:  Added Admin Edit button to lower right of Article & Articles screen, if user is Admin
+                      Implemented through template (& language) system so final display can be custom
+functions.php:  Added User Edit button to lower right of Article & Articles screen, iff user is in authorised Group AND is owner
+                      Implemented through template (& language) system so final display can be custom
+functions.php:  Set Article in Submit Article as Approved if user is in authorised Group
+index.html & article.html:  Reworked templates to support Admin Edit, Read More and Discuss on same (last) line
+admin_functions.php:  Added link to article titles to allow immediate viewing
+admin_functions.php (& /language/english/pro_news.php): Move existing texts "Choose a Category to Display" & "No Articles in this Category" to language file
+admin_functions.php:  Under Articles a correction to retain Category selection once it's been made
+admin_functions.php (& /themes/.../template/pronews/admin/admin.html): Corrected Category title in Articles list & added current Section title
+admin_functions.php:  Change workflow for Add & Articles to redisplay of the applicable Category Articles List after successful Add/Edit/Copy/Move
+/language/english/pro_news.php & /themes/.../template/pronews/admin/admin.html: Clean up the Articles List Copy/Move/Delete layout and structure lots of same
+/themes/.../template/pronews/admin/admin.html: Cleaned up Config template html
+admin_functions.php & functions.php:  Completed code to display Image Caption
+admin_functions.php: Cleaned up Admin > Sections > Sections display (removed align=right)
+admin_functions.php (& /themes/.../template/pronews/admin/admin.html & /language/english/pro_news.php): Added warning to Config re changing max w&h
+functions.php: Fixed image link to non-existent "thumb" for pictures which were too small for a thumb to have been generated
+functions.php (& index.html & article.html):  Added code to make existing Show Posted By? option in Config function
+New module /admin/adwait.inc (& add to /language/english/pro_news.php):  To show Pending Articles for approval
+admin_functions.php: Added Pending counts to Category selection pulldown to facilitate Article Approval.
+admin_functions.php:  Added blank option to Category icon selection to allow for a 'no icon' option.
+admin_functions.php: Corrected order of fields in admin_cat_form() so correct icon is select=selected in Category edit ($icon is 5th field not last).
+admin_functions.php: Corrected order of fields in admin_cat_form() func=save so icon is saved when Category is created ($icon is 5th field not last).
+functions.php:  Preset Active bit from user > Submit Article, so Administrator only needs to set Approved bit to release.
+functions.php (& /language/english/pro_news.php):  Included Submit Articles in language system.
+functions.php:  Added ability to delete an image, including removal of stored image and thumb.
+functions.php (& /themes/.../template/pronews/admin/article.html) + admin_functions.php (& /themes/.../template/pronews/admin/admin.html):  Add separate templating lines for Submit Article when existing image is displayed.
+admin_functions.php & functions.php:  Raise display priority by article using 1-10 a la News.
+index.php;  Changed page title to show $module_title instead of $module_name (ie use module's custom name if assigned).
+admin_functions.php:  Changed Article Selection SQL to inner join to handle db error when Section is empty (ie no Category yet).
+functions.php:  Changed Pro_News.html Selection SQL to inner join so as not to display empty Sections and/or Categories.
+admin_functions.php & functions.php:  Added ability to re-order Categories & Sections, incl. insert, move within, and delete.
+admin.html, submit.html, admin_functions.php & functions.php:  Adjust both Submit Article forms to fit in 800pixel wide browser window.
+functions.php:  Preview implemented for Submit Articles, Submit interlock added for Title/Category/Intro, with explanatory & error messages.
+admin_functions.php:  Preview implemented for Submit Articles (without the interlocks).
+functions.php:  Fixed bug which prevent bbcodes working in user Submit Article
+functions.php:  Added check_words to Title, Intro, and Story in user Submit Article.
+functions.php:  Added 'No Image" image to draw attention to a failed image upload, added error message display..
+admin_functions.php:  Default Can Admin for new Sections to Administrators Only (was All Visitors).
+functions.php, index.html, new module /include/pagination.php:  Added pagination to Article lists so entire list can be displayed.
+functions.php:  Corrected count of articles in default Section list by not counting unapproved or inactive articles.
+functions.php & admin.functions.php:  Added display In Home? option to Sections.
+functions.php & admin.functions.php: Set default for Comments in New Article form to correspond to current setting of Allow Discuss.
+functions.php & admin.functions.php: Enabled multilingual support a la News (display only articles written in current lang or 'all').
+functions.php:  introduced join to Admin Blocks to enable display of Section title rather than just the Id#.
+functions.php:  revised Section/Cat list (default from main menu) to discount unapproved, inactive, wrong language articles from count.
+admin_functions.php:  Moved Article templates (eg. index.html) into own directory (theme/template/pronews/article/) and
+added ability to include new Article templates by simply storing in that article/ folder (Pro_News Config will find them).
+functions.php:  Removed unused function display_articles().
+admin.functions.php & english/pro_news.php:  Add new texts for Save Category & Save Section in respective edit functions.
+admin.functions.php:  Added input checking the Admin > Category & Admin > Section.
+admin_functions.php & functions.php:  Add config switch to display/not display smilies in Submit Article(s)
+all:  Feature to allow display by Article, Article within Section, & Articel within Categgory within Section, with title breaks as needed
+functions.php & admin_functions.php:  Developed new Headline concept, and added same to IndexSP.html template
+various changes to the template files in /themes/.../template/pronews/admin/admin.html
+and the language files in /language/english/pro_news.php) for minor corrections or improvements.
+general minor code layout clean up, spaces to tabs, splitting SQL calls over multiple lines, etc.
+
+_______________________________________
+/end

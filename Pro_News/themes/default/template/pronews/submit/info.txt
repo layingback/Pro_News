@@ -1,0 +1,2 @@
+Place new Pro_News Submit Article (.html) templates in this directory, and
+they will be automatically detected by Pro_News > Admin > Config

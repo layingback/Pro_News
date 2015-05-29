@@ -1,0 +1,102 @@
+<!-- BEGIN cblkempty -->
+	<div class="pn_newsarticle">
+		<div class="pn_content"><center>{cblkempty.S_MSG}</center></div>
+	</div><br />
+<!-- END cblkempty -->
+
+<!-- BEGIN cblk_hdline -->
+	<!-- IF cblk_hdline.G_CBLK_UP -->
+		<!-- IF cblk_hdline.G_SECBRK -->
+			<hr />
+			<br />
+		<!-- ENDIF -->
+		<!-- IF cblk_hdline.G_CATBRK -->
+		<!-- ENDIF -->
+		<div class="pn_newsarticle">
+			<div class="pn_noborder">
+				<!-- IF cblk_hdline.G_ICONS -->
+					<div class="pn_icon"><a href="{cblk_hdline.S_CATLINK}"><img style="align: top; border: 0" src="images/pro_news/icons/{cblk_hdline.S_ICON}" alt="{cblk_hdline.T_ICON}" /></a></div>
+				<!-- ENDIF -->
+				<h3>{cblk_hdline.S_TITLE}</h3>
+				<!-- IF cblk_hdline.G_POSTBY -->
+					<div class="pn_postby">{cblk_hdline.L_POSTBY}: <a href="{cblk_hdline.T_POSTBY}">{cblk_hdline.S_POSTBY}</a> {cblk_hdline.L_POSTON} {cblk_hdline.S_POSTTIME}</div>
+				<!-- ENDIF -->
+			</div>
+			<div class="pn_content">{cblk_hdline.S_INTRO}
+				<!-- IF cblk_hdline.G_MORELINK -->
+					<a href="{cblk_hdline.U_MORELINK}"> &nbsp; {cblk_hdline.S_MORELINK}&nbsp;...</a>
+				<!-- ENDIF -->
+			</div>
+			<!-- IF cblk_hdline.S_IMAGE -->
+				<div class="pn_imgpanel">
+					<span class="img-shadow"><a href="{cblk_hdline.U_MORELINK}">{cblk_hdline.S_IMAGE}</a></span>
+				</div>
+			<!-- ENDIF -->
+			<div class="pn_panel">
+				<hr />
+				<!-- IF cblk_hdline.G_HDLINES -->
+					<span class="pn_caption"><a href="{cblk_hdline.U_ARTLINK}">{cblk_hdline.L_HDLINES}</a> &nbsp; <a href="{cblk_hdline.U_ALLLINK}">(&nbsp;{cblk_hdline.S_HDLINES}&nbsp;)</a></span>
+				<!-- ENDIF -->
+			</div>
+			<!-- BEGIN hdline_addtl -->
+				<div class="pn_padpanel" {cblk_hdline.hdline_addtl.U_BGCOLOR}>
+					<!-- IF cblk_hdline.hdline_addtl.S_IMAGE -->
+						<span class="img-shadow"><a href="{cblk_hdline.hdline_addtl.U_MORELINK}">{cblk_hdline.hdline_addtl.S_IMAGE}</a></span>
+					<!-- ENDIF -->
+					<h3>{cblk_hdline.hdline_addtl.S_TITLE}</h3>
+					<p>{cblk_hdline.hdline_addtl.S_INTRO}
+						<!-- IF cblk_hdline.hdline_addtl.G_MORELINK -->
+							<a href="{cblk_hdline.hdline_addtl.U_MORELINK}"> &nbsp; {cblk_hdline.hdline_addtl.S_MORELINK}&nbsp;...</a>
+						<!-- ENDIF -->
+					</p>
+				</div>
+			<!-- END hdline_addtl -->
+			<div class="pn_spacer"></div>
+		</div>
+		<br />
+	<!-- ENDIF -->
+<!-- END cblk_hdline -->
+
+<!-- BEGIN cblkhome -->
+	<!-- IF cblkhome.G_CBLK_UP -->
+		<!-- IF cblkhome.G_SECBRK -->
+		<!-- ENDIF -->
+		<!-- IF cblkhome.G_CATBRK -->
+		<!-- ENDIF -->
+		<div class="pn_newsarticle">
+			<!-- IF cblkhome.G_ICONS -->
+				<div class="pn_icon"><a href="{cblkhome.S_CATLINK}"><img style="align: top; border: 0" src="images/pro_news/icons/{cblkhome.S_ICON}" alt="{cblkhome.T_ICON}" /></a></div>
+			<!-- ENDIF -->
+			<h3>{cblkhome.S_TITLE}</h3>
+			<!-- IF cblkhome.G_POSTBY -->
+				<div class="pn_postby">{cblkhome.L_POSTBY}: <a href="{cblkhome.T_POSTBY}">{cblkhome.S_POSTBY}</a> {cblkhome.L_POSTON} {cblkhome.S_POSTTIME}</div>
+			<!-- ENDIF -->
+			<!-- IF cblkhome.T_ICONIMAGE -->
+				<div class="img-shadow"><a href="{cblkhome.U_MORELINK}"><img src="{cblkhome.T_ICONIMAGE}" alt=""/></a></div>
+			<!-- ENDIF -->
+			<div class="pn_content">{cblkhome.S_INTRO}
+				<!-- IF cblkhome.G_MORELINK -->
+					<a href="{cblkhome.U_MORELINK}"> &nbsp; {cblkhome.S_MORELINK}&nbsp;...</a>
+				<!-- ENDIF -->
+			</div>
+			<br />
+			<div class="pn_row">
+				<!-- IF cblkhome.G_DISCUSS -->
+					<div class="pn_floatleft">
+						<a href="{cblkhome.U_DISCUSS}">{cblkhome.S_DISCUSS}</a>
+					</div>
+				<!-- ENDIF -->
+				<div class="pn_floatright">
+						<!-- IF cblkhome.G_MORELINK -->
+							<a href="{cblkhome.U_MORELINK}">{cblkhome.S_MORELINK}</a>
+						<!-- ENDIF -->
+				</div>
+			</div>
+		</div>
+		<!-- IF cblkhome.G_CANADMIN -->
+			<div class="pn_floatright">{cblkhome.T_CANADMIN} | <a href="{cblkhome.U_CANADMIN}">{cblkhome.S_CANADMIN}</a></div>
+			<div class="pn_spacer"></div>
+		<!-- ENDIF -->
+		<br />
+	<!-- ENDIF -->
+<!-- END cblkhome -->

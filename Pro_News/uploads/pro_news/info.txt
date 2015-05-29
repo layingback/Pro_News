@@ -1,0 +1,1 @@
+chmod this directory 755 (777 on some systems) to allow image uploads.

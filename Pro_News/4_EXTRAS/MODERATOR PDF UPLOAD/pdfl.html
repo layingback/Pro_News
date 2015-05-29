@@ -1,0 +1,31 @@
+<!-- BEGIN upload_form -->
+	{upload_form.G_STARTFORM}
+	<table class="table1" summary="">
+		<tr><td><b>{upload_form.L_TARGET}</b>:</td><td>&nbsp;</td></tr>
+		<tr>
+			<td>{upload_form.S_TEXT}<br /><span class="pn_tiny">{upload_form.T_TEXT}</span></td>
+			<td valign="top">{upload_form.G_ID}</td>
+		</tr>
+		<tr>
+			<td>{upload_form.L_NUMFILES}<br /><span class="pn_tiny">{upload_form.S_NUMFILES}: {upload_form.T_NUMFILES}</span></td>
+			<td><!-- This is where the output will appear --><div id="files_list"></div></td>
+		</tr>
+		<tr><td>{upload_form.S_TYPES}: {upload_form.T_TYPES}<br /><span class="pn_tiny">{upload_form.S_MAX} <b>{upload_form.T_MAX}</b></span></td><td>&nbsp;</td></tr>
+		<tr><td><br /></td><td align="center" class="pn_red">_(PNPDFWARN)</td></tr>
+		<tr><td>{upload_form.G_SAVE}</td><td>&nbsp;</td></tr>
+	</table>
+	<script language="javascript" type="text/javascript">
+		var multi_selector = new MultiSelector( document.getElementById( 'files_list' ), -1 );
+		multi_selector.addElement( document.getElementById( 'first_file_element' ) );
+	</script>
+	{upload_form.G_ENDFORM}
+<!-- END upload_form -->
+
+<!-- BEGIN upload -->
+<center><table class="table1" cellspacing="5" summary="">
+	<tr><th colspan="3">{upload.L_TITLE}</th></tr>
+	{upload.T_UPLOAD}
+	{upload.T_ERRORS}
+	<tr><td colspan="3" align="center"><br />{upload.S_MSG}</td></tr>
+</table></center>
+<!-- END upload -->

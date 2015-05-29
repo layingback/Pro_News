@@ -1,0 +1,34 @@
+<!-- BEGIN comment_blk -->
+	<div class="pn_noborder">
+		<div style="text-align:center"><b>{comment_blk.T_TITLE}</b>
+		<!-- IF comment_blk.G_MORECMNTS -->
+			 &nbsp; &nbsp; - &nbsp; &nbsp; <span class="pn_tiny"><a href="{comment_blk.U_ALLLINK}">{comment_blk.T_NUMCMNTS}</a></span>
+		<!-- ENDIF -->
+		</div>
+		<br />
+		<b>{comment_blk.S_TITLE}</b>
+		<b> &nbsp; - &nbsp; <a href="{comment_blk.T_CMNTLINK}">{comment_blk.L_CMNTLINK}</a></b>
+	</div>
+	<!-- BEGIN comment_txt -->
+		<div class="pn_cmntpanel{comment_blk.comment_txt.G_EVNODD}">
+			<a href="{comment_blk.comment_txt.U_POSTLINK}"><img src="{comment_blk.comment_txt.T_ICON}" alt="" /></a>
+			<!-- IF comment_blk.comment_txt.G_ATTCH -->
+				<img src="{comment_blk.comment_txt.T_ATTCHICN}" alt="" />
+			<!-- ENDIF -->
+			<a href="{comment_blk.comment_txt.U_POSTLINK}"><b>{comment_blk.comment_txt.S_TITLE}</b></a>
+			<!-- IF comment_blk.comment_txt.G_MORELINK -->
+				 &nbsp; - &nbsp; <span class="pn_tiny"><a href="{comment_blk.comment_txt.U_POSTLINK}">{comment_blk.comment_txt.L_POSTLINK}</a></span>
+			<!-- ENDIF -->
+		<!-- IF comment_blk.G_POSTBY -->
+			<div class="pn_postby"><i>{comment_blk.comment_txt.L_POSTBY} <a href="{comment_blk.comment_txt.T_POSTBY}">{comment_blk.comment_txt.S_POSTBY}</a> &nbsp;{comment_blk.comment_txt.L_POSTON} {comment_blk.comment_txt.S_POSTTIME}</i></div>
+		<!-- ENDIF -->
+			{comment_blk.comment_txt.S_INTRO}<!-- IF comment_blk.comment_txt.G_MORELINK -->&nbsp;&nbsp;<a href="{comment_blk.comment_txt.U_MORELINK}"><i>{comment_blk.comment_txt.S_MORELINK}</i></a><!-- ENDIF -->
+		</div>
+	<!-- END comment_txt -->
+		<span class="pn_cmntbtn"><span class="pn_tinygrey">{comment_blk.S_CMNTLINK}:</span><br /><input type="button" name="addart" value="{comment_blk.L_CMNTLINK}" onclick="location.href=('{comment_blk.T_CMNTLINK}')" /></span>
+		<!-- IF comment_blk.G_MORECMNTS -->
+			<span class="pn_morecmnts">
+				<a href="{comment_blk.U_ALLLINK}"><b>{comment_blk.T_NUMCMNTS} ...</b></a>
+			</span>
+		<!-- ENDIF -->
+<!-- END comment_blk -->

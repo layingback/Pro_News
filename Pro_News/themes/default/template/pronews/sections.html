@@ -1,0 +1,52 @@
+<div class="pn_newsarticle">
+	<!-- BEGIN sec_title -->
+		<!-- IF sec_title.G_DISPARTS -->
+			<div class="pn_center">{sec_title.T_DISPARTS}</div>
+		<!-- ENDIF -->
+		<h2><!-- IF sec_title.T_RSS --><span class="pn_rss">{sec_title.T_RSS}</span><!-- ENDIF --> {sec_title.S_ART_TITLE}</h2>
+	<!-- END sec_title -->
+	<!-- BEGIN sec_list -->
+		<div class="pn_catalog_section">
+			<div class="pn_title"><!-- IF sec_list.T_RSSSEC --><span class="pn_rss">{sec_list.T_RSSSEC}</span><!-- ENDIF --> {sec_list.S_SECTION}</div>
+			<!-- BEGIN cat_list -->
+				<div class="pn_catalog_category">
+					<img src="images/pro_news/icons/{sec_list.cat_list.S_ICON}" alt="{sec_list.cat_list.S_TITLE}" />
+					<div class="pn_title"><!-- IF sec_list.cat_list.T_RSSCAT --><span class="pn_rss">{sec_list.cat_list.T_RSSCAT}</span><!-- ENDIF --> {sec_list.cat_list.U_TITLE}<span class="pn_artcnt">({sec_list.cat_list.S_COUNT} {sec_list.cat_list.L_COUNT} )</span></div>
+					<div class="pn_desc">{sec_list.cat_list.S_DESC}</div>
+					<!-- IF sec_list.cat_list.G_ARTICLES -->
+						<div class="pn_arttitle"><ul>
+						<!-- BEGIN art_list -->
+							<li>{sec_list.cat_list.art_list.U_TITLE}
+								<!-- IF sec_list.cat_list.art_list.G_INCINTRO -->
+									<div class="pn_content">{sec_list.cat_list.art_list.S_INTRO}
+									<!-- IF sec_list.cat_list.art_list.G_MORELINK -->
+										&nbsp;  &nbsp; 	<a href="{sec_list.cat_list.art_list.U_MORELINK}"><span class="pn_more">{sec_list.cat_list.art_list.S_MORELINK}&nbsp;...</span></a>
+									<!-- ENDIF -->
+									</div>
+									<!-- ENDIF -->
+							</li>
+						<!-- END art_list -->
+						</ul>
+						</div>
+						<!-- IF sec_list.cat_list.G_MORELINK -->
+							<div class="pn_seemore">
+								<a href="{sec_list.cat_list.U_MORELINK}"> &nbsp; {sec_list.cat_list.S_MORELINK}&nbsp;...</a>
+							</div>
+						<!-- ENDIF -->
+					<!-- ENDIF -->
+				</div>
+				<div style="clear:both"></div>
+			<!-- END cat_list -->
+		</div>
+	<!-- END sec_list -->
+	<br /><br />
+</div>
+
+<!-- BEGIN sub_list -->
+	<!-- IF sub_list.IS_USER -->
+		<div class="pn_center">
+			<br /><br />{sub_list.G_STARTFORM}{sub_list.U_SUBMIT}{sub_list.G_ENDFORM}
+		</div>
+	<!-- ENDIF -->
+<!-- END sub_list -->
+<br /><br />

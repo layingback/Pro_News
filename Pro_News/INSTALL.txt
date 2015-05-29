@@ -1,0 +1,120 @@
+/*********************************************
+  Pro News Module for Dragonfly CMS
+  ********************************************
+  Original v1.0.0.1BETA Copyright © 2006 by D Mower aka Kuragari
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2012 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+
+  $Revision: 3.5 $
+  $Date: 2012-04-03 14:14:18 $
+   Author: layingback
+**********************************************/
+
+IMPORTANT: THIS SOFTWARE IS RELEASED UNDER GPL v2 OR LATER "AS-IS". USE AT YOUR OWN RISK.
+
+Pro_News as released is intended for CPG-Nuke Dragonfly 9.2.x and 9.1.x - it may be manually
+configured to use under 9.0.6.1 - see additional instructions at end of Install.
+
+An overview of features, and discussion on article structure can be found at www.layingback.net.
+
+Preliminary Note:
+  To take advantage of the rename option for this module, please see CHANGES.TXT
+  before installing the Pro_News module.
+
+INSTALL Instructions.
+
+1.  Unzip this package and upload to your DragonflyCMS "root" directory.
+
+Make sure the directory structure remains intact.
+	blocks => blocks
+	modules => modules
+	etc. ...
+Example:
+	Local Directory: 	Pro News\modules\Pro_News
+	Website Directory: 	public_html/modules/Pro_News
+
+The theme related files can go in the "default" theme directory,
+but must also be copied to your current theme or themes.  So,
+the entire contents of:
+	Pro News\themes\default\*.*
+needs to be copied into:
+	Pro News/themes/{your_theme_name}/*.*
+
+On some systems it may be necesary to chmod uploads/pro_news/,
+	see uploads/pro_news/info.txt for details.
+
+2.  Goto Admin -> Modules
+	 Find the Pro News module and click 'Install'
+
+3.  Review settings in Admin -> Pro_News -> Config
+	 Before going further ensure that you have at least 1 Forum created suitable for Pro_News Discussions.
+
+4.  Under the 'Section' tab, add at least 1 new Section which is set to be Publicly viewable.
+
+5.  Under the 'Category' tab, add at least 1 new Category and make sure it is assigned to your new Section.
+	 Note: Icons for categories go in the /images/pro_news/icons directory.
+
+6.  Under the Submit Article tab, create at least 1 new Article (anything as a test), assigning it to your new Category.
+
+7.  Go to Admin -> General -> CPG Main Menu and click the button to add a new item,
+	 set Title to Article Search, URL to Pro_News&amp;mode=srch and select getlink, Category to Search.
+
+8.  If this is a NEW install ONLY rename the file called NEW INSTALL ONLY - RENAME ME TO pn_specific.css in
+     themes/{your_theme or default}/style/ to pn_specific.css
+     ( Do NOT rename the file if this is an update or you will overwrite your edits in pn_specific.css )
+
+{OPTIONAL - May be better done later.}
+	9.  Under the Admin -> Pro_News -> Block tab, create a block to refer to your new Section.
+	10. Go. to Admin -> Blocks and activate your new block, and consider giving it a unique name.
+
+{OPTIONAL - Do only if you wish to replace News.}
+	11. Go to Admin -> Pro_News -> Config and click the Import button to import from your old News module.
+	12. Sort imported articles into the appropriate new Sections/Categories via the 'Articles' tab.
+
+{OPTIONAL - To add Submit Pro_News Article to Main Menu.}
+	13. Go to Admin -> General -> CPG Main Menu and click the button to add a new item,
+		 set Title to Submit Pro News Article, URL to Pro_News&amp;mode=submit and select getlink.
+
+NOTE:
+  On some systems it may be necessary change the permissions in the upload/ directory, see the
+  instructions in the info.txt file: "chmod this directory 755 (777 on some systems) to allow image uploads"
+
+
+!!! SPECIAL WARNING !!!
+Do NOT install any Pro_News blocks through Admin > Blocks.  Instead go to Admin > Pro_News > Blocks and
+let Pro_News customize and install your blocks for you.
+
+
+PLEASE READ CHANGES.txt for detailed information about Pro_News usage and operation.
+
+
+SPECIAL CONSIDERATIONS FOR 9.0.6.1
+
+Dragonfly 9.0.6.1 does not support a default theme, therefore theme files need to be installed into your current theme
+directory or directories, and copied to any additional themes that you wish to use.
+Dragonfly 9.0.6.1 does not include pagination support, so the following manual step is required:
+ - copy pagination.php into /modules/Pro_News/includes/
+Your Dragonfly 9.0.6.1 theme needs to support pagination, or you need to copy it from Dragonfly theme style.css.
+Many Dragonfly 9.0.6.1 themes do not support the display of Center Blocks, and therefore cannot display
+Pro_News Center Block.
+
+ENJOY!
+
+That should be it.
+Any questions, comments, bug reports, feature requests, complaints, etc., etc.,
+should be posted in the forums on www.layingback.net under the proper sections -
+NOT on the DragonflyCMS.org forums, please.  Also please set your www/Web Site under Your Profile
+if you want me to visit your site.
+
+TROUBLESHOOTING
+
+Please check www.layingback.net > Support Forums for latest info, but ...
+If the first time you go into Administration > Pro_News and you see nothing beyond 4 lines of Article/Category/Section
+counts, i.e. no links, nothing to click on, then try deleting /cache/config_MAIN_CFG.php on your server so that DF can
+retry reading your newest Pro_News Configuration values from your db.
+
+
+/end

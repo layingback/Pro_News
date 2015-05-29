@@ -1,0 +1,26 @@
+THIS TEXT IS NOW OUT-OF-DATE in that Social Networking Links are largely built into the product as of v3.2.
+Executed version of Social Network html is held in /themes/{your theme}/template/pronews/soc_net.html
+
+---------------------------------------------------------------------------
+
+Starting with version 2.2.0.0 Pro_News has a hook included with the Full Article display 
+to enable the optional use of Digg It! and similar posts.
+
+I have drawn up a sample piece of HTML which I think will allow linking into many of these sites. 
+However, as I don't use them, I've not tested them, and I have no intention of supporting them. 
+But if anyone wants to include this code in one of the templates, I'd be interested in seeing
+and hearing of the results.
+
+Take the HTML code in the attached sample_soc_net.html file, and insert it in an article template 
+under the newsarticle section.  Look in indexabl2.html for a suggested location for this code
+(do a Find on Social Network links).
+
+This sample code includes ask, bebo, blinklist, bloglines, blogmarks, blogoshpere, comments, delicious, 
+digg, diigo, facebook, fark, friendfeed, furl, google, kirtsy, linkedin, magnolia, mister-wong, mixx, 
+muti, myspace, netvouz, newsvine, propeller, reddit, simpy, slashdot, sphere, sphinn, spurl, squidoo, 
+stumble, tagza, tailrank, technorati, tumblr, twitter, wikio, wink, yahoo and yahoobuzz. 42! 
+
+I doubt anyone wants that many, but it's a lot easier for you to delete unwanted ones 
+than add new ones! It should also not be hard to add additional ones, as they mostly fall into 1 
+of about 3 styles of call. To add new icons, place 16 x 16px images in the same folders as the 
+others - and please consider posting the how-to at http://layingback.net for the benefit of others.

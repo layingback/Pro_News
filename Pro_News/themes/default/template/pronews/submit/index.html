@@ -1,0 +1,62 @@
+<!-- BEGIN article_form -->
+	{article_form.S_FORMSTART}
+	<table class="table1" summary="">
+		<tr><td>{article_form.S_CAT}</td><td>{article_form.T_CAT}</td></tr>
+		<tr><td>&nbsp;</td><td><hr /></td></tr>
+		<tr><td>{article_form.S_TITLE}</td><td>{article_form.T_TITLE}</td></tr>
+		<!-- IF article_form.G_ADMIN -->
+			<tr><td>{article_form.S_DSPLYORDER}</td><td>{article_form.T_DSPLYORDER}</td></tr>
+			<tr><td>{article_form.S_DISPLAY}</td><td>{article_form.T_DISPLAY}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF article_form.G_DISCUSS -->
+			<tr><td>{article_form.S_ALLCOM}</td><td>{article_form.T_ALLCOM}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF article_form.G_LANG -->
+			<tr><td>{article_form.S_LANG}</td><td>{article_form.T_LANG}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF article_form.G_TOPIC -->
+			<tr><td>{article_form.S_TOPIC}</td><td>{article_form.T_TOPIC}</td></tr>
+		<!-- ENDIF -->
+		<tr><td></td><td><hr /></td></tr>
+		<tr><td></td><td>{article_form.L_INTRO}</td></tr>
+		<tr><td>{article_form.S_INTRO}</td><td rowspan="2">{article_form.T_INTRO}</td></tr>
+		<tr><td>{article_form.T_INTROS}</td></tr>
+		<tr><td></td><td>{article_form.L_STORY}</td></tr>
+		<tr><td>{article_form.S_STORY}</td><td rowspan="2">{article_form.T_STORY}</td></tr>
+		<tr><td>{article_form.T_STORYS}</td></tr>
+		<!-- IF article_form.G_IMAGE -->
+			<!-- IF article_form.G_IMAGEDISPLAY -->
+				<tr><td align="center">{article_form.S_IMAGE}</td><td>{article_form.T_IMAGE}</td></tr>
+			<!-- ELSE -->
+				<tr><td>{article_form.S_IMAGE}</td><td>{article_form.T_IMAGE}</td></tr>
+			<!-- ENDIF -->
+			<tr><td>{article_form.S_CAP}</td><td>{article_form.T_CAP}</td></tr>
+		<!-- ENDIF -->
+		<tr><td>&nbsp;</td><td><hr /></td></tr>
+		<tr><td>{article_form.S_STARTDTTIME}</td><td>{article_form.T_STARTDTTIME}</td></tr>
+		<tr><td>{article_form.S_ENDDTTIME}</td><td>{article_form.T_ENDDTTIME}</td></tr>
+	</table><br />
+
+	{article_form.G_ID}
+	{article_form.G_SAVE}
+	<br /><br />{article_form.S_APPROVE}
+	{article_form.S_FORMEND}
+<!-- END article_form -->
+
+<!-- BEGIN pn_msg -->
+	<div class="pn_content" align="center">{pn_msg.S_MSG}</div>
+<!-- END pn_msg -->
+
+<!-- BEGIN pn_warning -->
+	<div class="pn_content">{pn_warning.S_WARN}</div>
+	<br />
+<!-- END pn_warning -->
+
+<!-- BEGIN newarticle_form -->
+	<div class="pn_content" align="center">{newarticle_form.S_MSG}</div>
+	{newarticle_form.S_FORMSTART}
+	<table class="table1" summary="">
+		<tr><td>{newarticle_form.S_CAT}</td><td>{newarticle_form.T_CAT}</td></tr>
+	</table>
+	{newarticle_form.S_FORMEND}
+<!-- END newarticle_form -->

@@ -1,0 +1,34 @@
+/*
+ ******    BEFORE FIRST TIME USE RENAME THIS FILE TO pn_specific.css    *******
+ *  On UPDATE of Pro_News ignore this file & use your current pn_specific.css *
+ *
+ This stylesheet file is meant for your site-specific changes to pro_news.css/pro_newsie.css.
+ CSS changes made here will NOT be lost when you update Pro_News to a new version.
+ Please do not make ANY CHANGES to pro_news.css or pronewsie.css - make them here instead.
+ Will be loaded after other pro_news.css/pro_newsie.css. Media is screen.
+*/
+
+/* This provided section adds styles to the AllArts page for white/light backgrounds */
+/* comment out this section if using a dark background */
+.pn_catalog_section a:link {
+  color: #5F5F5F;
+}
+.pn_catalog_section a:visited {
+  color: #7F7F7F;
+}
+.pn_catalog_section a:hover {
+  color: #4F4F4F;
+}
+.pn_catalog_category .pn_desc {
+  color: grey;
+}
+.pn_catalog_category .pn_arttitle {
+  color: grey;
+}
+.pn_catalog_category .pn_seemore {
+  font-style: italic;
+}
+.pn_artcnt {
+  color: grey;
+}
+/* End section of styles for white/light backgrounds */

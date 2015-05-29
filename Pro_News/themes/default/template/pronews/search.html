@@ -1,0 +1,79 @@
+<!-- BEGIN srch_form -->
+	{srch_form.S_FORMSTART}
+	<div class="pn_title pn_center">{srch_form.L_TITLE}</div>
+	<div class="pn_table1">
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_TITLE}</div>
+			<div class="pn_srch_frm">{srch_form.T_TITLE}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_DESC}</div>
+			<div class="pn_srch_frm">{srch_form.T_DESC}</div>
+		</div>
+		<div class="pn_spacer"><br /></div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_SEC}</div>
+			<div class="pn_srch_frm">{srch_form.T_SEC}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">- {srch_form.L_OR} -</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_CAT}</div>
+			<div class="pn_srch_frm">{srch_form.T_CAT}</div>
+		</div>
+		<div class="pn_spacer"><br /></div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_POSTBY}</div>
+			<div class="pn_srch_frm">{srch_form.T_POSTBY}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_RATING}</div>
+			<div class="pn_srch_frm">{srch_form.T_RATING}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_INCLIMG}</div>
+			<div class="pn_srch_frm">{srch_form.T_INCLIMGY} {srch_form.S_YES} &nbsp; &nbsp; {srch_form.T_INCLIMGN} {srch_form.S_NO} &nbsp; &nbsp; {srch_form.T_INCLIMGDC} {srch_form.S_DONTCARE}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_CAPTION}</div>
+			<div class="pn_srch_frm">{srch_form.T_CAPTION}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_PHOTOALB}</div>
+			<div class="pn_srch_frm">{srch_form.T_PHOTOALBY} {srch_form.S_YES} &nbsp; &nbsp; {srch_form.T_PHOTOALBN} {srch_form.S_NO} &nbsp; &nbsp; {srch_form.T_PHOTOALBDC} {srch_form.S_DONTCARE}</div>
+		</div>
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_POSTTIME}</div>
+			<div class="pn_srch_frm">{srch_form.T_POSTTIME} &nbsp; &nbsp; {srch_form.S_STARTDATE} {srch_form.T_STARTDATE} &nbsp; &nbsp; &nbsp; {srch_form.S_ENDDATE} {srch_form.T_ENDDATE} </div>
+		</div>
+		<br /><br />
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.L_RSLTS}</div>
+			<div class="pn_srch_frm">{srch_form.T_INLIST} {srch_form.S_INLIST} &nbsp; &nbsp; &nbsp; {srch_form.T_BYART} {srch_form.S_BYART}</div>
+		</div>
+		<br /><br />
+		<div class="pn_srch_row">
+			<div class="pn_srch_lbl">{srch_form.S_SEARCH}</div>
+			<div class="pn_srch_frm"> &nbsp; &nbsp; &nbsp; {srch_form.S_BACK}</div>
+		</div>
+	</div>
+
+	<br /><br />
+
+
+	<br /><br />
+	{srch_form.S_FORMEND}
+
+<!-- END srch_form -->
+
+<!-- BEGIN srchlist -->
+	<div class="pn_s_inlist">
+		<!-- IF G_ARTNEW -->
+			<img src="images/pro_news/bullet_red.png" title="New" alt="new" />
+		<!-- ELSE -->
+			<img src="images/pro_news/bullet_blue.png" alt="" />
+		<!-- ENDIF -->
+		&nbsp;<a href="{srchlist.T_ARTLINK}{srchlist.S_TITLE}" title="{srchlist.T_SECTITLE} &raquo; {srchlist.T_CATTITLE} &raquo; {srchlist.T_TITLE} &#10;- {srchlist.T_POSTBY} - {srchlist.T_POSTTIME}&nbsp;">{srchlist.T_TITLE}</a>
+	</div>
+<!-- END srchlist -->

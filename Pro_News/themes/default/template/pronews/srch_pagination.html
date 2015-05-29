@@ -1,0 +1,26 @@
+<!-- IF B_PAGINATION -->
+  <div class="pagination"><ul>
+  <!-- IF PAGINATION_PREV -->
+    <li><a href="javascript:;" onclick="javascript: document.getElementById('pnrsltstore').action='{PAGINATION_PREV}'; document.getElementById('pnrsltstore').submit()" class="prevnext">« {L_PREVIOUS}</a></li>
+  <!-- ELSE -->
+    <li><a class="prevnext disablelink">« {L_PREVIOUS}</a></li>
+  <!-- ENDIF -->
+
+  <!-- BEGIN pagination -->
+    <!-- IF pagination.URL -->
+      <li><a href="javascript:;" onclick="javascript: document.getElementById('pnrsltstore').action=document.getElementById('pnrsltstore').attributes['action'].value + {pagination.PAGE}; document.getElementById('pnrsltstore').submit()">{pagination.PAGE}</a></li>
+    <!-- ELSEIF pagination.PAGE eq ' ... ' -->
+      <li><a class="ellipsis">{pagination.PAGE}</a></li>
+    <!-- ELSE -->
+      <li><a class="currentpage">{pagination.PAGE}</a></li>
+    <!-- ENDIF -->
+  <!-- END pagination -->
+
+  <!-- IF PAGINATION_NEXT -->
+    <li><a href="javascript:;" onclick="javascript: document.getElementById('pnrsltstore').action='{PAGINATION_NEXT}'; document.getElementById('pnrsltstore').submit()" class="prevnext">{L_NEXT} »</a></li>
+  <!-- ELSE -->
+    <li><a class="prevnext disablelink">{L_NEXT} »</a></li>
+  <!-- ENDIF -->
+
+  </ul></div>
+<!-- ENDIF -->

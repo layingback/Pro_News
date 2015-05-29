@@ -1,0 +1,38 @@
+<tooltips>
+	<tooltip target="prevBtn" >
+	<tip><![CDATA[Previous Page]]></tip>
+	</tooltip>
+
+	<tooltip target="nextBtn" >
+	<tip><![CDATA[Next Page]]></tip>
+	</tooltip>
+
+	<tooltip target="lastBtn" >
+	<tip><![CDATA[Last Page]]></tip>
+	</tooltip>
+
+	<tooltip target="firstBtn" >
+	<tip><![CDATA[First Page]]></tip>
+	</tooltip>
+
+	<tooltip target="ContentsBtn" >
+	<tip><![CDATA[Contents Page]]></tip>
+	</tooltip>
+
+	<tooltip target="SearchBtn" >
+	<tip><![CDATA[Search text]]></tip>
+	</tooltip>
+
+	<tooltip target="gotoBtn" >
+	<tip><![CDATA[Goto Page]]></tip>
+	</tooltip>
+
+	<tooltip target="flipSoundBtn" >
+	<tip><![CDATA[Page Turn Sound on/off]]></tip>
+	</tooltip>
+
+	<tooltip target="Control" >
+	<tip><![CDATA[Page zoom]]></tip>
+	</tooltip>
+
+</tooltips>

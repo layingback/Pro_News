@@ -1,0 +1,135 @@
+<!-- BEGIN article_form -->
+	{article_form.S_FORMSTART}
+	<table class="table1" summary="">
+		<tr><td>{article_form.S_CAT}</td><td>{article_form.T_CAT}</td></tr>
+		<tr><td>&nbsp;</td><td><hr /></td></tr>
+		<tr><td>{article_form.S_TITLE}</td><td>{article_form.T_TITLE}</td></tr>
+		<!-- IF article_form.G_ADMIN -->
+			<tr><td>{article_form.S_DSPLYORDER}</td><td>{article_form.T_DSPLYORDER}</td></tr>
+			<tr><td>{article_form.S_DISPLAY}</td><td>{article_form.T_DISPLAY}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF article_form.G_DISCUSS -->
+			<tr><td>{article_form.S_ALLCOM}</td><td>{article_form.T_ALLCOM}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF article_form.G_LANG -->
+			<tr><td>{article_form.S_LANG}</td><td>{article_form.T_LANG}</td></tr>
+		<!-- ENDIF -->
+		<!-- IF article_form.G_TOPIC -->
+			<tr><td>{article_form.S_TOPIC}</td><td>{article_form.T_TOPIC}</td></tr>
+		<!-- ENDIF -->
+		<tr><td></td><td><hr /></td></tr>
+		<tr><td></td><td>{article_form.L_INTRO}</td></tr>
+		<tr><td>{article_form.S_INTRO}</td><td rowspan="2">{article_form.T_INTRO}</td></tr>
+		<tr><td>{article_form.T_INTROS}</td></tr>
+		<!-- IF article_form.G_IMAGE -->
+			<!-- IF article_form.G_IMAGEDISPLAY -->
+				<tr><td align="center">{article_form.S_IMAGE}</td><td>{article_form.T_IMAGE}</td></tr>
+			<!-- ELSE -->
+				<tr><td>{article_form.S_IMAGE}</td><td>{article_form.T_IMAGE}</td></tr>
+			<!-- ENDIF -->
+		<tr><td>{article_form.S_CAP}</td><td>{article_form.T_CAP}</td></tr>
+		<!-- ENDIF -->
+		<tr><td></td><td><hr /></td></tr>
+		<tr><td></td><td>{article_form.L_STORY}</td></tr>
+		<tr><td>{article_form.S_STORY}</td><td rowspan="2">{article_form.T_STORY}</td></tr>
+		<tr><td>{article_form.T_STORYS}</td></tr>
+		<!-- IF article_form.G_IMAGE -->
+			<!-- IF article_form.G_IMAGE2DISPLAY -->
+				<tr><td align="center">{article_form.S_IMAGE2}</td><td>{article_form.T_IMAGE2}</td></tr>
+			<!-- ELSE -->
+				<tr><td>{article_form.S_IMAGE2}</td><td>{article_form.T_IMAGE2}</td></tr>
+			<!-- ENDIF -->
+			<tr><td>{article_form.S_CAP2}</td><td>{article_form.T_CAP2}</td></tr>
+		<!-- ENDIF -->
+
+		<!-- IF article_form.G_CALENDAR -->
+			<tr><td>&nbsp;</td><td><hr /></td></tr>
+			<tr><td colspan="2"><img src="modules/CPGNuCalendar/images/calendar.gif" style="border: 0pt none; width: 24px;" alt="{article_form.L_SEL_CAL}..." /> <b>{article_form.L_CALENDAR}</b></td></tr>
+			<tr><td>{article_form.S_CALSDTTIME}</td><td>{article_form.T_CALSDTTIME}</td></tr>
+			<tr><td>{article_form.S_CALEDTTIME}</td><td>{article_form.T_CALEDTTIME}</td></tr>
+		<!-- ENDIF -->
+
+		<!-- IF article_form.G_ALBUM -->
+			<tr><td>&nbsp;</td><td><hr /></td></tr>
+			<tr><td colspan="2"><img src="{THEME_PATH}/images/admin/coppermine.png" style="border: 0pt none; width: 24px;" alt="{article_form.L_SEL_ALB}..." /> <b>{article_form.L_ALBUM}</b></td></tr>
+			<tr><td>{article_form.S_ALBUM}</td><td>{article_form.T_ALBUM}</td></tr>
+			<tr><td>{article_form.S_ALBCNT}</td><td>{article_form.T_ALBCNT} {article_form.L_ALBCNT}</td></tr>
+			<tr><td>{article_form.S_ALBSEQ}</td><td>{article_form.T_ALBSEQ}</td></tr>
+			<tr><td>{article_form.S_SLDSHW}</td><td>{article_form.T_SLDSHW}</td></tr>
+			<tr><td>{article_form.S_GLLRY}</td><td>{article_form.T_GLLRY}</td></tr>
+		<!-- ENDIF -->
+
+		<!-- IF article_form.G_FIELDS -->
+			<!-- IF article_form.S_USER_FLD_0 -->
+				<tr><td>&nbsp;</td><td><hr /></td></tr>
+				<tr><td colspan="2"><img src="{THEME_PATH}/images/admin/pro_news.png" style="border: 0pt none; width: 24px;" alt="{article_form.L_SEL_FLDS}..." /> <b>{article_form.L_FIELDS}</b></td></tr>
+				<tr><td>{article_form.S_USER_FLD_0}</td><td><input type="text" name="user_fld_0" size="50" value="{article_form.T_USER_FLD_0}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_1 -->
+				<tr><td>{article_form.S_USER_FLD_1}</td><td><input type="text" name="user_fld_1" size="50" value="{article_form.T_USER_FLD_1}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_2 -->
+				<tr><td>{article_form.S_USER_FLD_2}</td><td><input type="text" name="user_fld_2" size="50" value="{article_form.T_USER_FLD_2}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_3 -->
+				<tr><td>{article_form.S_USER_FLD_3}</td><td><input type="text" name="user_fld_3" size="50" value="{article_form.T_USER_FLD_3}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_4 -->
+				<tr><td>{article_form.S_USER_FLD_4}</td><td><input type="text" name="user_fld_4" size="50" value="{article_form.T_USER_FLD_4}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_5 -->
+				<tr><td>{article_form.S_USER_FLD_5}</td><td><input type="text" name="user_fld_5" size="50" value="{article_form.T_USER_FLD_5}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_6 -->
+				<tr><td>{article_form.S_USER_FLD_6}</td><td><input type="text" name="user_fld_6" size="50" value="{article_form.T_USER_FLD_6}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_7 -->
+				<tr><td>{article_form.S_USER_FLD_7}</td><td><input type="text" name="user_fld_7" size="50" value="{article_form.T_USER_FLD_7}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_8 -->
+				<tr><td>{article_form.S_USER_FLD_8}</td><td><input type="text" name="user_fld_8" size="50" value="{article_form.T_USER_FLD_8}" /></td></tr>
+			<!-- ENDIF -->
+			<!-- IF article_form.S_USER_FLD_9 -->
+				<tr><td>{article_form.S_USER_FLD_9}</td><td><input type="text" name="user_fld_9" size="50" value="{article_form.T_USER_FLD_9}" /></td></tr>
+			<!-- ENDIF -->
+		<!-- ENDIF -->
+
+		<!-- IF article_form.G_ADMIN -->
+			<tr><td>&nbsp;</td><td><hr /></td></tr>
+			<tr><td colspan="2"><img src="{THEME_PATH}/images/admin/history.png" style="border: 0pt none; width: 24px;" alt="{article_form.L_SEL_SCHED}..." /> <b>{article_form.L_SCHED}</b></td></tr>
+			<tr><td>{article_form.S_STARTDTTIME}</td><td>{article_form.T_STARTDTTIME}</td></tr>
+			<tr><td>{article_form.S_ENDDTTIME}</td><td>{article_form.T_ENDDTTIME}</td></tr>
+		<!-- ENDIF -->
+
+		<!-- IF article_form.G_ASSC -->
+			<tr><td>&nbsp;</td><td><hr /></td></tr>
+			<tr><td colspan="2"><img src="images/topics/AllTopics.gif" style="border: 0pt none; width: 24px;" alt="{article_form.L_SEL_ASSC}..." /> <b>{article_form.L_ASSC}</b></td></tr>
+			<tr><td colspan="2">{article_form.T_ALRDYASSOC}</td></tr>
+			<tr><td nowrap="nowrap">{article_form.L_SEL_ASSC}</td><td>{article_form.T_RLDTCAT}</td></tr>
+			{article_form.S_ASSC}
+		<!-- ENDIF -->
+	</table><br />
+
+	{article_form.G_ID}
+	{article_form.G_SAVE}
+	<br /><br />{article_form.S_APPROVE}
+	{article_form.S_FORMEND}
+<!-- END article_form -->
+
+<!-- BEGIN pn_msg -->
+	<div class="pn_content" align="center">{pn_msg.S_MSG}</div>
+<!-- END pn_msg -->
+
+<!-- BEGIN pn_warning -->
+	<div class="pn_content">{pn_warning.S_WARN}</div>
+	<br />
+<!-- END pn_warning -->
+
+<!-- BEGIN newarticle_form -->
+	<div class="pn_content" align="center">{newarticle_form.S_MSG}</div>
+	{newarticle_form.S_FORMSTART}
+	<table class="table1" summary="">
+		<tr><td>{newarticle_form.S_CAT}</td><td>{newarticle_form.T_CAT}</td></tr>
+	</table>
+	{newarticle_form.S_FORMEND}
+<!-- END newarticle_form -->
