@@ -18,6 +18,9 @@ var thumbnailviewer = {
   document.write('<div id="overlay"></div>')
   document.write('<div id="thumbBox" onClick="thumbnailviewer.closeit()"><div id="thumbImage"></div>' + this.definefooter + '</div>')
   document.write('<div id="thumbLoading">' + this.defineLoading + '</div>')
+//  overlay.addEventListener('touchstart', function(e){
+//   e.preventDefault();
+//  });
   this.overlay = document.getElementById('overlay');
   this.thumbBox = document.getElementById('thumbBox');
   this.thumbImage = document.getElementById('thumbImage'); //Reference div that holds the shown image
@@ -46,8 +49,8 @@ var thumbnailviewer = {
   thumbnailviewer.thumbLoading.style.visibility = 'hidden'; //Hide "loading" div
   this.centerDiv(this.thumbBox);
   if (this.enableAnimation){ //If fading animation enabled
-   this.currentopacity = 0.1; //Starting opacity value
-   this.opacitytimer = setInterval(function(){thumbnailviewer.opacityanimation();}, 20);
+   this.currentopacity = 0; //Starting opacity value
+   this.opacitytimer = setInterval(function(){thumbnailviewer.opacityanimation();}, 25);
   }
  },
 
@@ -68,10 +71,18 @@ var thumbnailviewer = {
    thumbnailviewer.showthumbBox() //Display "thumbbox" div to the world!
   }
  }
+ if (nxt_but != null) {
+  nxt_but.style.display = "block";		// display the thumbnailviewer buttons
+  prv_but.style.display = "block";
+ }
+ thumbnailviewer.overlay.style.visibility = 'visible'; //Show "overlay" div
  if (document.all && !window.createPopup) //Target IE5.0 browsers only. Address IE image cache not firing onload bug: panoramio.com/blog/onload-event/
   this.featureImage.src = link.getAttribute('href');
   this.featureImage.onerror = function(){ //If an error has occurred while loading the image to show
    thumbnailviewer.thumbLoading.style.visibility = 'hidden'; //Hide "loading" div, game over
+   nxt_but.style.display = "none";		// hide the thumbnailviewer buttons
+   prv_but.style.display = "none";
+   thumbnailviewer.overlay.style.visibility = 'hidden'; //Hide "overlay" div
   };
  },
 
@@ -104,12 +115,16 @@ var thumbnailviewer = {
  },
 
  closeit : function(){ //Close "thumbbox" div function
-  thumbnailviewer.overlay.style.visibility = 'hidden'; //Hide "overlay" div
   this.stopanimation();
   this.thumbBox.style.visibility = 'hidden';
   this.thumbImage.innerHTML = '';
   this.thumbBox.style.left = '-2000px';
   this.thumbBox.style.top = '-2000px';
+  if (nxt_but != null) {
+    nxt_but.style.display = "none";		// hide the thumbnailviewer buttons
+    prv_but.style.display = "none";
+  }
+  thumbnailviewer.overlay.style.visibility = 'hidden'; //Hide "overlay" div
  },
 
  dotask : function(target, functionref, tasktype){ //assign a function to execute to an event handler (ie: onunload)
@@ -120,7 +135,27 @@ var thumbnailviewer = {
    target.attachEvent(tasktype, functionref);
  },
 
- init : function(){ //Initialize thumbnail viewer script by listening to the page for clicks on links with rel="thumbnail"
+ init1 : function(){  //Initialize thumbnail viewer script by scanning page for links with rev="defaultload"
+  nxt_but = document.getElementById("pop_nxt");
+  prv_but = document.getElementById("pop_prv");
+  if (!this.enableAnimation)
+   this.opacitystring="";
+  var pagelinks=document.getElementsByTagName("a");
+  for (var i=0; i<pagelinks.length; i++){ //BEGIN FOR LOOP
+   if (pagelinks[i].getAttribute("rev")=="defaultload"){ //Begin if statement
+    thumbnailviewer.loadimage(pagelinks[i]);
+    if (nxt_but != null) {
+     nxt_but.style.display = "block";		// display the thumbnailviewer buttons
+     prv_but.style.display = "block";
+    }
+    thumbnailviewer.overlay.style.visibility = 'visible'; //Show "overlay" div
+    return false;
+   } //end if statement
+  } //END FOR LOOP
+ }, //END init1() function
+
+
+ init : function(){  //Initialize thumbnail viewer script by listening to the page for clicks on links with rel="thumbnail"
   if (!this.enableAnimation)
    this.opacitystring = '';
   var pagelinks = function(e){
@@ -145,5 +180,8 @@ var thumbnailviewer = {
 
 };
 
+var nxt_but = document.getElementById("pop_nxt");
+var prv_but = document.getElementById("pop_prv");
+thumbnailviewer.dotask(window, function(){thumbnailviewer.init1()}, "load") //Initialize script on page load
 thumbnailviewer.init();
 thumbnailviewer.createthumbBox(); //Output HTML for the image thumbnail viewer

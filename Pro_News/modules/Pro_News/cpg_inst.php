@@ -3,7 +3,7 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original Beta version Copyright © 2006 by D Mower aka Kuragari
-  Subsequent releases Copyright © 2007 - 2013 by M Waldron aka layingback
+  Subsequent releases Copyright © 2007 - 2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
@@ -29,7 +29,7 @@ eval("
 		// class constructor
 			function $mod_dirname() {
 				\$this->radmin = true;
-				\$this->version = '4.0.0';
+				\$this->version = '4.0.1';
 				\$this->modname = $mod_dirname;
 				\$this->description = 'Pro_News CM&#8482; - Ultra Configurable Content Management - interfaces to Forums,  Photo Gallery & Calendar &nbsp; (Ver 4: developed and extended from original beta module of same name by Kauragari)';
 				\$this->author = 'layingback';
@@ -129,6 +129,7 @@ eval("
 					display tinyint(1) NOT NULL default '1',
 					updtby varchar(50) NULL default '',
 					updttime varchar(14) NULL default '',
+					seod varchar(255) NULL default '');
 						PRIMARY KEY (id),
 							KEY (topic_id)\", 'pronews_articles');
 
@@ -229,6 +230,8 @@ eval("
 				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'edit_time', ''\");
 				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'disply_full', '1'\");
 				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'cal_ofst', ''\");
+				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'aspect', '0'\");
+				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'opn_grph', '0'\");
 				\$installer->add_query('INSERT', 'pronews_sections', \"'-1', 'Default Section', 'Default Section (Cannot be Altered)', '2', '2', '0', '0', '0', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '0', '0', '0', '2', '0', '0', '0'\");
 				\$installer->add_query('UPDATE', 'pronews_sections', \"id = '0' WHERE id = '-1'\");
 				\$installer->add_query('INSERT', 'pronews_cats', \"'1', '0', 'Default Category', 'Default Category (Cannot be Deleted)','clearpixel.gif', '2', '2', '0', '0', '0', ''\");
@@ -470,6 +473,12 @@ eval("
 
 				if (\$prev_version <= '3.4.8') {
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'cal_ofst', ''\");
+				}
+
+				if (\$prev_version <= '4.0.1') {
+					\$installer->add_query('ADD', 'pronews_articles', \"'seod varchar(255) default NULL'\");
+					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'aspect', '0'\");
+					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'opn_grph', '0'\");
 				}
 
 

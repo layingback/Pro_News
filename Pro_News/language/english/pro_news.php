@@ -3,7 +3,7 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Copyright © 2006 by D Mower aka Kuragari
-  Copyright © 2007-2012 by M Waldron aka layingback
+  Copyright © 2007-2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
@@ -117,9 +117,12 @@ define('_TOPICLNK_HLP','Allow linking to existing DragonflyCMS Topics when Submi
 define('_FORUMTYPE_HLP','No: Link only to the default DragonflyCMS Forum (CPG-BB Forum)<br />ForumsPro ONLY (as default install): Link only to ForumsPro which must be installed as a single copy with its default name of FPro<br />Multiple Forums (Forum, FOrumsPro and custom names): Use to Both Forum and ForumsPro, or 2 or more ForumsPros, or any ForumsPro with a none standard name<br />NOTE: Select last option only if you have Pro_News linking to 2 or more forums, or linking to an existing ForumsPro with non-standard name');
 define('_FRMTYPBYCAT_HLP','Enable if you wish to have comments posted to separate forums at the Category level, not just at the Section level');
 define('_CALTYPE_HLP','Enable to allow Calendar entries with links back to article to be created automatically in Calendar<br />No: No automatic interface to Calendar<br />CPGNuCalendar: Allow calendar entries with matching times in Pro_News & CPGNuCalendar<br />CPGNuCalendar + offset: Select and Save, then specify time correction to add to Pro_News time before storing in CPGNuCalendar<br />NOTE: Specify Offset in hours, positive or negative, 0.5 hours increments OK. Use Offset correction only if correctly set Pro_News and CPGNuCalendar configuration still results is time difference');
+define('_OPN_GRPH_HLP','Enable the creation of OpenGraph HTML META statements that are suitable for Facebook and Google+ for Full Article display pages using the uploaded Image 1');
+define('_SEOTITLE_HLP','Reverse the order of the Breadcrumb in the Title shown to Search Engines to display Article title before Category and Section titles<br />NOTE: The default is NO to be compatible with other DragonflyCMS pages but setting to YES may improve Google search results by placing the Article title first');
 define('_ALLUPL_HLP','Set to No to prohibit all uploads of images when submitting articles<br />NOTE: Affects user submit articles only, uploads always possible through Admin');
-define('_MAXW_HLP','Thumbnail maximum width in pixels of an uploaded image - a thumbnail of image will be created if it is larger<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
-define('_MAXH_HLP','Thumbnail maximum height in pixels of an uploaded image - a thumbnail of image will be created if it is larger<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
+define('_MAXW_HLP','Thumbnail maximum width in pixels of an uploaded image - a thumbnail of the image will be created if it is larger<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
+define('_MAXH_HLP','Thumbnail maximum height in pixels of an uploaded image - a thumbnail of the image will be created if it is larger<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
+define('_ASPECT_HLP','Determine the need for thumbnail based on the larger of width and height, on width only or on height only - a thumbnail of the image will be created if it is larger in the dimension selected<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
 define('_MAXIMG_HLP','The maximum width or height (whichever is the larger) of the full size image in pixels of an uploaded image - image will be resized if larger, based on its largest dimension<br />Enter a value only if you want to limit size of uploaded images, leave blank for no resizing<br />NOTE: Changing this size after some images are uploaded will only affect new uploads');
 define('_SHOWNOIMG_HLP','In the absence of an article image display the image found in themes/{your_theme}/images/pro_news/{compressed_section_name}/imageholder.png if present or the default image found in themes/{your_theme}/images/pro_news/imageholder.png<br />The {compressed_section_name} is the same name as the section title omitting any characters other than letters, numbers and _ (underscore) - no spaces, and converting all letters to lowercase');
 
@@ -140,8 +143,10 @@ define('_SRCHSHOWIMG_HLP','Select to Display or Supress Images in Articles in Se
 define('_SRCHNUMLIST_HLP','Number of Articles to display per page in Search Results when By Article is selected - default 25');
 // Blocks prefix with B
 define('_BTITLE_HLP','Title to appear in Block<br />NOTE1: Can be changed later in Admin => General => Blocks<br />NOTE2: Omitting a title is possible, but will make identifying it in General => Blocks more difficult');
-define('_BTYPES_HLP','Select the type of block to be used<br />NOTE1: Those not marked as CENTER may be used in Left or Right Blocks<br />NOTE2: Those marked Center may only be used in Center Up or Center Down Blocks due to size<br />NOTE3: Left/Right and Up/Down are selected in General => Blocks');
+define('_BTYPES_HLP','Select the type of block to be used<br />NOTE1: Those not marked as CENTER may be used in Left or Right Blocks<br />NOTE2: Those marked Center may only be used in Center Up or Center Down Blocks due to size<br />NOTE3: Center blocks <i>Using Section template</i> will use a centerblock template entry in the normal template file for the Section (eg. index2alb.html) instead of the single centerblock template file (eg. ctrblkup.html)<br />NOTE4: Left/Right and Up/Down positions are selected in General => Blocks');
 define('_BSEC_HLP','Select the single Section to select articles from or select All to display articles from all Sections<br />- OR -<br />Select the single Category to select articles from<br />NOTE: IF a Category is selected then the Section selection is ignored');
+define('_BCAT_HLP','After selecting initial Category, check More? to enable input of additional Categories to search - as Category Ids');
+define('_BMORECAT_HLP','Enter additional Categories to search as a Comma Separated list, eg. 1 or 2,3 or 4, 5, 6 etc. using Category Id numbers only<br />NOTE: Ideally all categories will be from the same Section, but if using Categories from multiple Sections <i>and a <b>Using Section template</b> Block Type</i> be aware that the Section template used will be determined solely by the first article returned.');
 define('_BNUM_HLP','Enter the number of articles that you wish to display');
 // Categories prefix with C
 define('_CTITLE_HLP','Title for Category<br />T_VAR: S_CATBRK');
@@ -791,5 +796,20 @@ define('_PNNOFILES','No files specified');
 define('_PNUPLOADED','Uploaded');
 define('_PNPDFWARN','Have you scanned these PDFs for malware?');
 
-define('_PNBLKMENU','* Ignored if Type is selected is Menu');
+define('_PNBLKMENU','* Ignore if Type selected is Menu');
 define('_PNCALOFST','Offset');
+
+define('_PNLCENTERSECTN','Center Only - Using Section Template');
+
+define('_PNASPECT','Size Thumbnail by');
+define('_PNASPECTW','Width Only');
+define('_PNASPECTH','Height Only');
+define('_PNASPECTMAX','Maximum Dimension');
+define('_PNOPN_GRPH','Enable Open Graph Support');
+define('_PNSEOTITLE','SEO-friendly Titles');
+define('_PNSEOD','SEO Description');
+
+define('_PNMOREC','More?');
+define('_PNMORECAT','Additional Categories');
+define('_PNMORECOMMA','Category Id Numbers only, Comma Separated');
+

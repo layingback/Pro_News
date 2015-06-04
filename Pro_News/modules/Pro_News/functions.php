@@ -3,7 +3,7 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original Beta version Copyright © 2006 by D Mower aka Kuragari
-  Subsequent releases Copyright © 2007-2013 by M Waldron aka layingback
+  Subsequent releases Copyright © 2007-2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
@@ -55,6 +55,14 @@ class ProNews  {
 				$sql .= ' WHERE s.id != "0"';
 				$sql .= ' AND a.approved="1" AND a.active="1"';
 				if (!can_admin($pn_module_name)) {
+					$member_a_group = "0";
+					if (isset($userinfo['_mem_of_groups'])) {
+						foreach ($userinfo['_mem_of_groups'] as $id => $name) {
+							if (!empty($name)) {
+								$member_a_group = "1";
+							}
+						}
+					}
 					if (!is_user()) {
 						$sql .= ' AND (s.view=0 OR s.view=3)';
 					} else if ($member_a_group) {
@@ -73,7 +81,11 @@ class ProNews  {
 					}
 				} else {
 					if ($bsets['category'] != '') {
-						$sql .= ' AND c.id="'.$bsets['category'].'"';
+						if (strpos($bsets['category'], ',') === FALSE) {
+							$sql .= ' AND c.id="'.$bsets['category'].'"';
+						} else {
+							$sql .= ' AND c.id IN ('.$bsets['category'].')';
+						}
 					} else if ($bsets['section'] != 'ALL') {
 						$sql .= ' AND s.id="'.$bsets['section'].'"';
 					}
@@ -161,9 +173,20 @@ class ProNews  {
 		$sql = 'SELECT * FROM '.$prefix.'_pronews_blocks WHERE bid='.$bid;
 		$bsets = $db->sql_fetchrow($db->sql_query($sql));
 		if (isset($bsets) && $bsets != '') {
+			if (substr($bsets['type'], 0, 5) == 'tmpl_') {
+				$bsets['type'] = substr($bsets['type'], 5);
+			}
+// echo $bsets['type'];
+
+			$use_tmpl = '';
+			if ($bsets['type'] == 'trandomctr' || $bsets['type'] == 'tlatestctr' || $bsets['type'] == 'toldestctr' || $bsets['type'] == 'theadlines') {
+				$use_tmpl = '1';
+				$bsets['type'] = trim($bsets['type'], 't');
+			}
+// echo '<br />ut='.$use_tmpl.' '.$bsets['type'];
 			if ($bsets['type'] == 'headlines') {
 				$arts_per_hdline = (isset($pnsettings['per_hdline']) && ($pnsettings['per_hdline'] > '0')) ? $pnsettings['per_hdline'] : '4';
-				$sql = 'SELECT s.id sid,s.title stitle,s.description sdescription,s.view view, art_ord, keyusrfld';
+				$sql = 'SELECT s.id sid,s.title stitle,s.description sdescription,s.view view, art_ord, keyusrfld, template';
 				if ($pnsettings['display_by'] == '2' || $bsets['category'] != '') {$sql .= ',c.id cid,c.title ctitle,c.description cdescription,c.icon icon';}
 				$sql .= ' FROM 	'.$prefix.'_pronews_sections as s';
 				if ($pnsettings['display_by'] == '2' || $bsets['category'] != '') {$sql .= ' JOIN '.$prefix.'_pronews_cats as c ON c.sid=s.id';}
@@ -171,7 +194,11 @@ class ProNews  {
 				$sql .= ((in_array(ereg_replace('www.', '', $_SERVER['SERVER_NAME']), (array)$domain) ? ' WHERE (s.in_home="1" OR s.in_home="'.array_search(ereg_replace('www.', '', $_SERVER['SERVER_NAME']), $domain).'")' : ' WHERE s.in_home="1"'));
 //				if ($bsets['section'] != 'ALL') {$sql .= ' AND s.id="'.intval($bsets['section']).'"';}
 				if ($bsets['category'] != '') {
-					$sql .= ' AND c.id="'.intval($bsets['category']).'"';
+					if (strpos($bsets['category'], ',') === FALSE) {
+						$sql .= ' AND c.id="'.intval($bsets['category']).'"';
+					} else {
+						$sql .= ' AND c.id IN ('.$bsets['category'].')';
+					}
 				} elseif ($bsets['section'] != 'ALL') {
 					$sql .= ' AND s.id="'.intval($bsets['section']).'"';
 				}
@@ -199,7 +226,7 @@ class ProNews  {
 					}
 // echo ' artsortkey='.$artsortkey.' artsortfld='.$artsortfld.' artsortord='.$artsortord;
 						if (($rowc['view'] == '0') || ($rowc['view'] == '3' && !is_user()) || (can_admin($pn_module_name)) || (is_user() && (($rowc['view'] == '1') || (($rowc['view'] > 3) && (isset($userinfo['_mem_of_groups'][$rowc['view'] - 3])))))) {
-							$sql = 'SELECT a.id aid,a.*';
+							$sql = 'SELECT SQL_CALC_FOUND_ROWS a.id aid,a.*';
 							$sql .= ' FROM '.$prefix.'_pronews_articles as a';
 							if ($pnsettings['display_by'] == '2' || $bsets['category'] != '') {
 								$sql .= ' WHERE a.catid='.$rowc['cid'];
@@ -223,6 +250,8 @@ class ProNews  {
 							$sql .= ' LIMIT '.$bsets['num'];
 							$result = $db->sql_query($sql);
 							$list = $db->sql_fetchrowset($result);
+							$result = $db->sql_query('SELECT FOUND_ROWS()');
+							$total_rows = $db->sql_fetchrowset($result);
 							$db->sql_freeresult($result);
 							if (isset($list) && $list != '') {
 								foreach ($list as $row) {
@@ -239,11 +268,11 @@ class ProNews  {
 											}														  // Check if thumb exists before linking - layingback 061122
 											$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 											$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
-										} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png')) {
+										} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png')) {
 											$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png';
 											$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 											$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholdermini.png';
-										} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
+										} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
 											$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
 											$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 											$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
@@ -253,13 +282,22 @@ class ProNews  {
 											$iconimage = '';
 										}
 										if ($row['intro'] == '') {
-											if(strlen($row['content']) > $pnsettings['introlen']) {
-												$text = substr_replace($row['content'],' ...',$pnsettings['introlen']);
+											if (strlen($row['content']) > $pnsettings['introlen']) {
+//												$text = substr_replace($row['content'],' ...',$pnsettings['introlen']);
+												$text = substr_replace($row['content'],'',$pnsettings['introlen']);
+												$morelink = '1';
 											} else {
 												$text = $row['content'];
+												$morelink = '0';
 											}
 										} else {
-											$text = substr_replace($row['intro'],' ...',$pnsettings['hdln1len']);
+//											$text = substr_replace($row['intro'],' ...',$pnsettings['hdln1len']);
+											$text = substr_replace($row['intro'],'',$pnsettings['hdln1len']);
+											if (strlen($row['intro']) > $pnsettings['hdln1len'] && $row['content'] != '') {
+												$morelink = '1';
+											} else {
+												$morelink = '0';
+											}
 										}
 										if ($pnsettings['display_by'] == '2' || $bsets['category'] != '') {
 											$artlink = getlink("$pn_module_name&amp;cid=".$row['catid']);
@@ -294,12 +332,13 @@ class ProNews  {
 											'T_ICONIMAGE' => $iconimage,
 											'U_MORELINK' => getlink("$pn_module_name&amp;aid=".$row['aid'].$url_text),
 											'S_MORELINK' => _PNMORE,
-											'G_MORELINK' => '1',
+											'G_MORELINK' => $morelink,
 											'G_ICONS' => ($pnsettings['show_icons'] == '1') ? '1' : '',
 											'U_ARTLINK' => $artlink,
 											'U_ALLLINK' => getlink("$pn_module_name&amp;mode=home"),
 											'L_HDLINES' => _PNLHDLINES,
-											'S_HDLINES' => _PNALL
+											'S_HDLINES' => _PNALL,
+											'G_MORE_ARTS' => $i+1 == count($list) && $total_rows['0']['FOUND_ROWS()'] > count($list) ? '1' : ''
 										));
 										$last_sec = $rowc['stitle']; $last_cat = ($pnsettings['display_by'] == '2' || $bsets['category'] != '') ? $rowc['ctitle'] : '';
 									} else {
@@ -319,7 +358,7 @@ class ProNews  {
 												$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholdermini.png';
 												$display_image = '<img class="pn_image" src="'.$iconimage.'" alt="" />';
 												$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png';
-											} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png')) {
+											} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png')) {
 												$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
 												$display_image = '<img class="pn_image" src="'.$iconimage.'" alt="" />';
 												$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
@@ -330,13 +369,16 @@ class ProNews  {
 											}
 											if ($row['intro'] == '') {
 												if(strlen($row['content']) > $pnsettings['introlen']) {
-													$text = substr_replace($row['content'],' ...',$pnsettings['introlen']);
+													$text = substr_replace($row['content'],'',$pnsettings['introlen']);
+													$morelink = '1';
 												} else {
 													$text = $row['content'];
+													$morelink = '0';
 												}
 											} else {
-												$textlen = ($i == '1') ? $pnsettings['hdlnlen'] : $pnsettings['hdlnlen'];
-												$text = substr_replace($row['intro'],' ...',$textlen);
+//												$text = substr_replace($row['intro'],' ...',$pnsettings['hdlnlen']);
+												$text = substr_replace($row['intro'],'',$pnsettings['hdlnlen']);
+												$morelink = '1';
 											}
 											if ($pnsettings['display_by'] == 2 || $bsets['category'] != '') {
 												$titlebrk = $rowc['stitle'].' '._BC_DELIM.' '.$rowc['ctitle'];
@@ -364,11 +406,12 @@ class ProNews  {
 												'T_THUMBIMAGE' => $thumbimage,
 												'U_MORELINK' => getlink("$pn_module_name&amp;aid=".$row['aid'].$url_text),
 												'S_MORELINK' => _PNMORE,
-												'G_MORELINK' => '1',
+												'G_MORELINK' => $morelink,
 												'G_ICONS' => ($pnsettings['show_icons'] == '1') ? '1' : '',
 
 												'S_ARTCOUNT' => min($artcount, $bsets['num']),
-												'S_ARTINDEX' => $z
+												'S_ARTINDEX' => $z,
+												'G_MORE_ARTS' => $i+1 == count($list) && $total_rows['0']['FOUND_ROWS()'] > count($list) ? '1' : ''
 
 
 											));
@@ -382,12 +425,17 @@ class ProNews  {
 					}
 // echo ' ok bpos='.$bpos;
 					ob_start();
+					if ($use_tmpl) {
+						$tplt = 'pronews/article/'.($rowc['template'] != '' ? $rowc['template'] : $pnsettings['template']);
+					} else {
 					$cbtplt = 'ctrblk_'.(($bpos == 'd') ? 'dn' : 'up').'.html';
 					if (file_exists('themes/'.$CPG_SESS['theme'].'/template/pronews/article/'.$cbtplt)) {
 						$tplt = 'pronews/article/'.$cbtplt;
 					} else {
 						$tplt = 'pronews/'.$cbtplt;
 					}
+					}
+// echo '<br />cpgtpl='.$tplt;
 					$cpgtpl->set_filenames(array('blkbody' => $tplt));
 					$cpgtpl->display('blkbody', false);
 					$content = ob_get_clean();
@@ -405,7 +453,7 @@ class ProNews  {
 				}
 // Non-headline version
 			} elseif ($bsets['type'] == 'randomctr' || $bsets['type'] == 'latestctr' || $bsets['type'] == 'oldestctr') {
-				$sql = 'SELECT a.id aid, a.*, c.id cid, c.sequence, c.title ctitle, c.description cdescription, c.icon icon, c.forum_id cforum_id, s.id sid, s.sequence, s.title stitle, s.description sdescription, s.view view, s.admin sadmin, s.forum_id sforum_id, template, keyusrfld';
+				$sql = 'SELECT SQL_CALC_FOUND_ROWS a.id aid, a.*, c.id cid, c.sequence, c.title ctitle, c.description cdescription, c.icon icon, c.forum_id cforum_id, s.id sid, s.sequence, s.title stitle, s.description sdescription, s.view view, s.admin sadmin, s.forum_id sforum_id, template, usrfld0, usrfld1, usrfld2, usrfld3, usrfld4, usrfld5, usrfld6, usrfld7, usrfld8, usrfld9, usrfldttl, keyusrfld';
 				$sql .= ' FROM '.$prefix.'_pronews_articles as a';
 				$sql .= ', '.$prefix.'_pronews_cats as c';
 				$sql .= ', '.$prefix.'_pronews_sections as s';
@@ -427,8 +475,8 @@ class ProNews  {
 //				$homeval = ($is_home) ? (($home) ? ' s.in_home<>"0"' : ' s.in_home="1"') : '';
 //				$sql .= ($is_home ? ' AND display<>"0"'.((in_array(ereg_replace('www.', '', $_SERVER['SERVER_NAME']), (array)$domain) ? '  AND ('.$homeval.' OR s.in_home="'.array_search(ereg_replace('www.', '', $_SERVER['SERVER_NAME']), $domain).'")' : ' AND '.$homeval)) : ' AND display<>"2"');
 				if (!can_admin($pn_module_name)) {
+					$member_a_group = "0";
 					if (isset($userinfo['_mem_of_groups'])) {
-						$member_a_group = "0";
 						foreach ($userinfo['_mem_of_groups'] as $id => $name) {
 							if (!empty($name)) {
 								$member_a_group = "1";
@@ -450,7 +498,7 @@ class ProNews  {
 					$sort_key = 'posttime';
 				}
 
-				if ($bsets['section'] == 'ALL' && $bsets['category'] != '') {
+				if ($bsets['section'] == 'ALL' && $bsets['category'] == '') {
 					if ($bsets['type'] == 'randomctr') {
 						$sql .= ' AND a.id >= (SELECT FLOOR(MAX(id) * RAND()) FROM '.$prefix.'_pronews_articles) ORDER BY a.id';
 					} elseif ($bsets['type'] == 'oldestctr') {
@@ -466,7 +514,11 @@ class ProNews  {
 					}
 				} else {
 					if ($bsets['category'] != '') {
-						$sql .= ' AND c.id="'.$bsets['category'].'"';
+						if (strpos($bsets['category'], ',') === FALSE) {
+							$sql .= ' AND c.id="'.$bsets['category'].'"';
+						} else {
+							$sql .= ' AND c.id IN ('.$bsets['category'].')';
+						}
 					} elseif ($bsets['section'] != 'ALL' && $bsets['section'] != '0') {
 						$sql .= ' AND c.sid="'.$bsets['section'].'"';
 					}
@@ -487,6 +539,8 @@ class ProNews  {
 				$sql .= ' LIMIT '.$bsets['num'];
 				$result = $db->sql_query($sql);
 				$list = $db->sql_fetchrowset($result);
+				$result = $db->sql_query('SELECT FOUND_ROWS()');
+				$total_rows = $db->sql_fetchrowset($result);
 				$db->sql_freeresult($result);
 				if (isset($list) && $list != '' && count($list) > '0') {
 					require_once('includes/nbbcode.php');
@@ -506,11 +560,11 @@ class ProNews  {
 									$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 								}														  // Check if thumb exists before linking - layingback 061122
 								$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
-							} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png')) {
+							} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png')) {
 								$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png';
 								$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 								$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholdermini.png';
-							} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
+							} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
 								$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
 								$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 								$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
@@ -521,7 +575,8 @@ class ProNews  {
 							}
 							if ($row['intro'] == '') {
 								if(strlen($row['content']) > $pnsettings['introlen']) {
-									$text = substr_replace($row['content'],' ...',$pnsettings['introlen']);
+//									$text = substr_replace($row['content'],' ...',$pnsettings['introlen']);
+									$text = substr_replace($row['content'],'',$pnsettings['introlen']);
 									$morelink = '1';
 								} else {
 									$text = $row['content'];
@@ -572,6 +627,16 @@ class ProNews  {
 								'T_THUMBIMAGE' => $thumbimage,
 								'T_ICONIMAGE' => $iconimage,
 								'T_CAP' => $row['caption'],
+								'S_USER_FLD_0' => (!$row['user_fld_0']) ? '' : ($row['usrfld0']) ? $row['usrfld0'] : _PNUSRFLD0,
+								'T_USER_FLD_0' => $row['user_fld_0'],
+								'S_USER_FLD_1' => (!$row['user_fld_1']) ? '' : ($row['usrfld1']) ? $row['usrfld1'] : _PNUSRFLD1,
+								'T_USER_FLD_1' => $row['user_fld_1'],
+								'S_USER_FLD_2' => (!$row['user_fld_2']) ? '' : ($row['usrfld2']) ? $row['usrfld2'] : _PNUSRFLD2,
+								'T_USER_FLD_2' => $row['user_fld_2'],
+								'S_USER_FLD_3' => (!$row['user_fld_3']) ? '' : ($row['usrfld3']) ? $row['usrfld3'] : _PNUSRFLD3,
+								'T_USER_FLD_3' => $row['user_fld_3'],
+								'S_USER_FLD_4' => (!$row['user_fld_4']) ? '' : ($row['usrfld4']) ? $row['usrfld4'] : _PNUSRFLD4,
+								'T_USER_FLD_4' => $row['user_fld_4'],
 								'U_DISCUSS' => getlink("$pn_module_name&amp;discuss=".$row['aid']),
 								'S_DISCUSS' => ($row['topic_id'] ? _PNDISCUSSION :_PNDISCUSS),
 								'G_DISCUSS' => (!($row['sforum_id'] == '0' && $row['cforum_id'] == '0') && $row['cforum_id'] != -1 && ($row['allow_comment'] == '1') && ($pnsettings['comments'] == '1')) ? '1' : '',
@@ -582,10 +647,10 @@ class ProNews  {
 								'S_CANADMIN' => _PNEDIT,
 								'T_CANADMIN' => $editlabel,
 								'G_CANADMIN' => ($canedit != '') ? '1' : '',
-								'G_ICONS' => ($pnsettings['show_icons'] == '1') ? '1' : ''
+								'G_ICONS' => ($pnsettings['show_icons'] == '1') ? '1' : '',
+								'G_MORE_ARTS' => $i+1 == count($list) && $total_rows['0']['FOUND_ROWS()'] > count($list) ? '1' : ''
 							));
 							$i++;
-// echo '<br />i='.$i;
 // if ($bsets['type'] == 'latestctr' && $i==1) {echo '<br />cpgtpl=<b>'.$row['title'].'</b>'.print_r($cpgtpl);}
 							$last_sec = $row['stitle']; $last_cat = $row['ctitle'];
 						}
@@ -593,12 +658,17 @@ class ProNews  {
 // echo ' ok 2 bpos='.$bpos;
 // echo '<br />i='.$i;
 					ob_start();
-					$cbtplt = 'ctrblk_'.(($bpos == 'd') ? 'dn' : 'up').'.html';
-					if (file_exists('themes/'.$CPG_SESS['theme'].'/template/pronews/article/'.$cbtplt)) {
-						$tplt = 'pronews/article/'.$cbtplt;
+					if ($use_tmpl) {
+						$tplt = 'pronews/article/'.($row['template'] != '' ? $row['template'] : $pnsettings['template']);
 					} else {
-						$tplt = 'pronews/'.$cbtplt;
+						$cbtplt = 'ctrblk_'.(($bpos == 'd') ? 'dn' : 'up').'.html';
+						if (file_exists('themes/'.$CPG_SESS['theme'].'/template/pronews/article/'.$cbtplt)) {
+							$tplt = 'pronews/article/'.$cbtplt;
+						} else {
+							$tplt = 'pronews/'.$cbtplt;
+						}
 					}
+// echo '<br />cpgtpl='.$tplt;
 					$cpgtpl->set_filenames(array('blkbody' => $tplt));
 // echo '<br />cpgtpl='.print_r($cpgtpl);
 					$cpgtpl->display('blkbody', false);
@@ -606,7 +676,7 @@ class ProNews  {
 // echo '<br />content='.$content;
 					$cpgtpl->unset_block('cblkhome');
 				} else {
-					$cpgtpl->assign_block_vars('c blkempty', array(
+					$cpgtpl->assign_block_vars('cblkempty', array(
 						'S_MSG' => _PNNOVIEWARTS,
 					));
 // echo ' err 2 bpos='.$bpos;
@@ -638,8 +708,8 @@ class ProNews  {
 			cpg_error ('<br /><br /><strong>'._RESTRICTEDAREA.'</strong><br /><br />'._MODULEUSERS2, 401);
 		}
 
+		$member_a_group = "0";
 		if (isset($userinfo['_mem_of_groups'])) {
-			$member_a_group = "0";
 			foreach ($userinfo['_mem_of_groups'] as $id => $name) {
 				if (!empty($name)) {
 					$member_a_group = "1";
@@ -779,9 +849,9 @@ class ProNews  {
 					$thumbimage = $pnsettings['imgpath'].'/'.$row['image'];  // Check if thumb exists before linking - layingback 061122
 					$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 				}
-			} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png')) {
+			} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png')) {
 				$display_image = '<img class="pn_image" src="themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png" alt="'.$row['caption'].'" />';
-			} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
+			} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
 				$display_image = '<img class="pn_image" src="themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png" alt="'.$row['caption'].'" />';
 			} else {$display_image = '';}
 			if(($row['image2'] != '') && ($row['image2'] != '0')) {
@@ -868,6 +938,14 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 			$assoc = '';
 			$assoclst = '';
 			if ($row['associated'] != '') {
+				$member_a_group = "0";
+				if (isset($userinfo['_mem_of_groups'])) {
+					foreach ($userinfo['_mem_of_groups'] as $id => $name) {
+						if (!empty($name)) {
+							$member_a_group = "1";
+						}
+					}
+				}
 // echo ' assoc='.$row['associated'].' tok='.strtok($row['associated'],',');
 				$inclcode = strtok($row['associated'], ',');
 //				$row['associated'] = strtok('');			// reset to remainder of associated
@@ -979,8 +1057,8 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'U_CATDESC' => ProNews::getsctrnslt('_PN_CATDESC_', $row['cdescription'], $row['catid']),
 				'T_SECBRK' => getlink("&amp;sid=".$row['sid']),
 				'T_CATBRK' => getlink("&amp;cid=".$row['cid']),
-				'S_INTRO' => decode_bb_all($row['intro'], 1, true),
-				'S_CONTENT' => decode_bb_all($row['content'], 2, true),
+				'S_INTRO' => $ogintro = decode_bb_all($row['intro'], 1, true),
+				'S_CONTENT' => $ogcontent = decode_bb_all($row['content'], 2, true),
 				'S_ICON' => ($row['icon'] != '') ? $row['icon'] : 'clearpixel.gif',
 				'T_ICON' => $row['ctitle'],
 				'S_TITLE' => $row['title'],
@@ -1003,7 +1081,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'T_CAP' => ($row['caption'] == '') ? '&nbsp;' : $row['caption'],
 				'S_FULIMAGE' => $pnsettings['imgpath'].'/'.$row['image'],
 				'S_IMGIMAGE' => file_exists($pnsettings['imgpath'].'/thumb_'.$row['image']) ? $pnsettings['imgpath'].'/thumb_'.$row['image'] : $pnsettings['imgpath'].'/'.$row['image'],
-				'S_THBIMAGE' => file_exists($pnsettings['imgpath'].'/icon_'.$row['image']) ? $pnsettings['imgpath'].'/icon_'.$row['image'] : $pnsettings['imgpath'].'/'.$row['image'],
+				'S_THBIMAGE' => $ogthmb = file_exists($pnsettings['imgpath'].'/icon_'.$row['image']) ? $pnsettings['imgpath'].'/icon_'.$row['image'] : $pnsettings['imgpath'].'/'.$row['image'],
 				'S_IMAGE2' => $display2_image,
 				'T_CAP2' => ($row['caption2'] == '') ? '&nbsp;' : $row['caption2'],
 				'S_FULIMAGE2' => $pnsettings['imgpath'].'/'.$row['image2'],
@@ -1353,14 +1431,28 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'G_ENDMOVEFORM' => close_form(),
 				'S_MOVLINK' => _PNMOVE,
 				'T_MOVLINK' => $movlink,
+//				'T_AVATAR' => (strpos($source, 'http') === 0) ? $userinfo['user_avatar'] : ($userinfo['user_avatar'] == '' ? 'images/pro_news/icons/clearpixel.gif' : (strpos($source, 'gallery') === 0 ? $userinfo['user_avatar'] : 'uploads/avatars/'.$userinfo['user_avatar']))   //puts current user's icon there!  DUH!'
 			));
+
 			if ($pnsettings['SEOtitle']) {
 				$pagetitle .= ($aid ) ? $row['title'].' '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;cid='.$row['catid']).'">'.$row['ctitle'].'</a> '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;sid='.$row['sid']).'">'.$row['stitle'].'</a>' : _PNHOMETEXT;
 			} else {
 				$pagetitle .= ($aid ) ? ' '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;sid='.$row['sid']).'">'.$row['stitle'].'</a> '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;cid='.$row['catid']).'">'.$row['ctitle'].'</a> '._BC_DELIM.' '.$row['title'] : _PNHOMETEXT;
 			}
 // Add // comment identifiers in line below to DISABLE dynamic meta tags based on top 30 significant words in article text
-			ProNews::dyn_meta_tags($row['stitle'], $row['ctitle'], $row['title'], decode_bb_all($row['intro'], 1, true));
+			ProNews::dyn_meta_tags($row['seod'], $row['stitle'], $row['ctitle'], $row['title'], decode_bb_all($row['intro'], 1, true));
+
+			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema micordata fields reqd in page head
+				$cpgtpl->assign_vars(array(
+					'FBOOK_XMLNS'	=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
+					'FBOOK_OG'		=>	$ogthmb,
+					'FBOOK_OGURL'	=>	urlencode($BASEHREF.getlink("&amp;aid=".$row['id'])),
+					'FBOOK_OGTITLE'	=>	urlencode($row['title']),
+					'FBOOK_OGDESC'	=>	$row['seod'] ? $row['seod'] : $ogintro,
+					'FBOOK_OGAUTH'	=>	$row['postby'],
+				));
+			}
+
 			require('header.php');
 			$tpl = ($row['template'] != '') ? $row['template'] : $pnsettings['template'];
 			$cpgtpl->set_filenames(array('body' => 'pronews/article/'.$tpl));
@@ -2007,8 +2099,8 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 		$offset = ($page - 1) * $arts_per_page;
 		$sid = ($sid <> '0') ? (($sid) ? intval($sid) : '') : '0';	// preserve sid=0, but remove any .html left by cpgmm getlink error
 		$cid = ($cid <> '0') ? (($cid) ? intval($cid) : '') : '0';
+		$member_a_group = "0";
 		if (isset($userinfo['_mem_of_groups'])) {
-			$member_a_group = "0";
 			foreach ($userinfo['_mem_of_groups'] as $id => $name) {
 				if (!empty($name)) {
 					$member_a_group = "1";
@@ -2165,11 +2257,11 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 						}														  // Check if thumb exists before linking - layingback 061122
 						$display_image = '<a href="'.getlink("&amp;aid=".$row['aid'].$url_text).'"><img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" /></a>';
 						$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
-					} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png')) {
+					} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png')) {
 						$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png';
 						$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 						$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholdermini.png';
-					} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
+					} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
 						$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
 						$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 						$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
@@ -2533,11 +2625,11 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 										}														  // Check if thumb exists before linking - layingback 061122
 										$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 										$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
-									} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png')) {
+									} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png')) {
 										$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png';
 										$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 										$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholdermini.png';
-									} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
+									} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
 										$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
 										$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 										$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
@@ -2697,11 +2789,11 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 												$iconimage = '';
 												$display_image = '<img class="pn_image" width="'.($pnsettings['max_w'] / 5).'" height="'.($pnsettings['max_h'] / 5).'" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 											}
-										} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholdermini.png')) {
+										} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholdermini.png')) {
 											$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholdermini.png';
 											$display_image = '<img class="pn_image" src="'.$iconimage.'" alt="" />';
 											$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $rowc['stitle'])).'/imageholder.png';
-										} elseif (file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png')) {
+										} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png')) {
 											$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
 											$display_image = '<img class="pn_image" src="'.$iconimage.'" alt="" />';
 											$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
@@ -2896,8 +2988,12 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 				foreach ($list2 as $row => $value) {
 					$seccat .= '<optgroup label="'.$row.'">';
 					foreach ($value as $op => $tid) {
-						$select = ($tid['0'] == $selected) ? ' selected="selected"' : '';
-						$seccat .= '<option value="'.($tid['1'] == 1 ? $tid['0'] * -1 : $tid['0']).'"'.$select.'>'.$op.'</option>';
+						foreach ($tid as $op2 => $dup) {
+							if ($op2 % 2 == 0) {		// only process even indexes - odd used to hold sid
+								$select = ($dup == $selected) ? ' selected="selected"' : '';
+								$seccat .= '<option value="'.($tid['1'] == 1 ? $dup * -1 : $dup).'"'.$select.'>'.$op.'</option>';
+							}
+						}
 					}
 					$seccat .= '</optgroup>';
 				}
@@ -2982,10 +3078,10 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 //				if (($list['auth_post'] > $user_auth) && ($list['auth_reply'] > $user_auth)) {		// uncomment and replace line below if you want legacy behaviour: post rights required
 				if ($list['auth_reply'] > $user_auth) {												// only reply rights required
 //				if ($list['auth_read'] > $user_auth) {												// only read rights required
-					if (($list['auth_post'] == '5') || ($list['auth_reply'] == '5')) {
+					if ($list['auth_reply'] == '5') {
 						cpg_error ('<br /><br /><strong>'._RESTRICTEDAREA.'</strong><br /><br />'._MODULESADMINS, 401);
 					} else {
-						cpg_error ('<br /><br /><strong>'._RESTRICTEDAREA.'</strong><br /><br />'._MODULEUSERS2, 401);
+						url_redirect(getlink('Your_Account'), true);
 					}
 				}
 
@@ -3062,10 +3158,10 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 //				if (($list['auth_post'] > $user_auth) && ($list['auth_post'] > $user_auth)) {		// uncomment and replace line below if you want legacy behaviour: post rights required
 				if ($list['auth_reply'] > $user_auth) {												// only reply rights required
 //				if ($list['auth_read'] > $user_auth) {												// only read rights required
-					if (($list['auth_post'] == '5') || ($list['auth_reply'] == '5')) {
+					if ($list['auth_reply'] == '5') {
 						cpg_error ('<br /><br /><strong>'._RESTRICTEDAREA.'</strong><br /><br />'._MODULESADMINS, 401);
 					} else {
-						cpg_error ('<br /><br /><strong>'._RESTRICTEDAREA.'</strong><br /><br />'._MODULEUSERS2, 401);
+						url_redirect(getlink('Your_Account'), true);
 					}
 				}
 
@@ -4204,7 +4300,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				elseif ($type == IMAGETYPE_GIF) {$im = @imagecreatefromgif($path);}
 				elseif ($type == IMAGETYPE_PNG) {$im = @imagecreatefrompng($path);}
 				else {cpg_error(_PNINVTYP."<br /><br />(Imagetype $type is not supported)");}
-				if ($size[0] >= $size[1]) {
+				if ($pnsettings['aspect'] == '1' || $pnsettings['aspect'] == '0' && ($size[0] >= $size[1])) {	// by Width || Max Dimn
 					$sizemax[0] = $pnsettings['img_limit'];
 					$sizemax[1] = $pnsettings['img_limit'] * ($size[1] / $size[0]);
 					$sizemin[0] = $pnsettings['max_w'];
@@ -5177,8 +5273,8 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 		$db->sql_freeresult($result);
 	}
 
-	function dyn_meta_tags($stitle,$ctitle,$title,$text) {
-		global $METATAGS, $sitename;
+	function dyn_meta_tags($seod,$stitle,$ctitle,$title,$text) {
+		global $METATAGS;
 		//Process Meta Tags
 		//from hack by spacebar of GotPoetry.com for /news/article.php
 		//09/15/2007  http://dragonflycms.org/Forums/viewtopic/t=20906/
@@ -5193,48 +5289,56 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 		// Processes " so tags work.
 		$new_keywords = str_replace($order, $replace, $new_desc);
 
-
-		$METATAGS['description'] .= " ".substr($new_keywords,0,255);
+		if ($seod == '') {
+			$METATAGS['description'] .= " ".substr($new_keywords,0,255);
+		} else {
+			$METATAGS['description'] .= " ".$seod;
+		}
 
 		//Generate dynamic keywords
 		$new_keywords = " ".$new_keywords." ";
-		$new_keywords = strtolower($sitename . " " . $stitle . " " . $ctitle . " " . $title . " " . $new_keywords);
+		$new_keywords = strtolower($title . " " . $new_keywords);
+// echo 'k: '.$new_keywords;
 
-		//Remove punctuation, etc						// moved before common word removaql per Berty
+		//Remove punctuation, etc						// moved before common word removal per Berty
 		$order = array("  ","   ",",",".",":",":","!","(",")");
 		$new_keywords = str_replace($order, " ",$new_keywords);
+// echo '<br />k: '.$new_keywords;
 
 		//Remove common words
 		$order = array(" - ", " & "," / "," a "," about "," after "," against "," all "," almost "," also "," am "," an "," and "," another "," any "," are "," around "," as "," at "," b "," be "," because "," been "," before "," behind "," being "," both "," but "," by "," c "," came "," come "," comes "," could "," d "," did "," do "," does "," done "," e "," each "," either "," etc "," ever "," every "," example "," f "," few "," for "," for: "," from "," g "," go "," h "," had "," has "," have "," here "," how "," however "," i "," ie "," if "," ii "," iii "," in "," include "," included "," including "," into "," is "," it "," its "," iv "," ix "," j "," just "," k "," l "," m "," many "," may "," midst "," might "," my "," n "," nbsp "," neither "," never "," next "," no "," nor "," not "," now "," o "," of "," often "," on "," once "," or "," other "," others "," our "," over "," p "," put "," q "," r "," s "," same "," shall "," should "," show "," since "," so "," some "," something "," sometimes "," soon "," such "," t "," than "," that "," the "," their "," them "," then "," there "," these "," they "," this "," those "," through "," to "," too "," toward "," u "," under "," underneath "," until "," us "," use "," used "," uses "," using "," usually "," v "," very "," vi "," vii "," viii "," w "," was "," we "," went "," were "," what "," when "," where "," whether "," which "," while "," who "," why "," with "," within "," without "," would "," x "," xi "," xii "," xiii "," xiv "," xix "," xv "," xvi "," xvii "," xviii "," xx "," y "," you "," your "," z ");
 		$replace = ' ';
 		$new_keywords = str_replace($order, $replace,$new_keywords);
+// echo '<br />k: '.$new_keywords;
 
-		//remove duplicate words
+		//remove short words
 		$new_keywords = preg_replace("/([,.?!])/"," \\1",$new_keywords);
 		$parts = explode(" ",$new_keywords);
-		foreach ($parts as $p) {							// added Berty's drop < 3 char words
+		foreach ($parts as $p) {							// added Berty's drop < 3 - now 6-character - words
 			if (strlen($p) > 5) {
 				$unique[] = $p;
 			}
 		}
+// echo '<br />k: '.$new_keywords;
+
+		//remove duplicate words
 		//rank the keywords!!!								// limit to fishingfan's most common words
 		$rank = array_count_values(array_map('strtolower', $unique));
 		arsort($rank);
-
+// echo '<br /><pre>';print_r($rank);echo '</pre>';
 		$un = array_keys($rank);
-		//return up to 30 keywords
-		$n=1;
+		//return up to 10 (formerly 30) keywords
+		$n=0;
 		$words = "";
 		$max = sizeof($un);
 
-		while ($n < $max && $n < 30) {
+		while ($n < $max && $n < 10) {
 			$words = $words.",".array_shift($un);
 			$n++;
 		}
-//		print_r("KEYS:\n".$words."\n");
-		if (strlen($words) > 3) {
-		  $METATAGS['keywords'] = $sitename.$words;
-		}
+// echo '<br />k: '.$words;
+// print_r("KEYS:\n".$words."\n");
+		$METATAGS['keywords'] = trim($words, ',');
 //		return array('description'=>$description_output, 'keywords'=>$keywords_output);
 	}
 
@@ -5272,8 +5376,8 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 						$sql .= ' LEFT JOIN '.$prefix.'_pronews_sections as s ON c.sid=s.id';
 						$sql .= ' WHERE c.id='.$category;
 						if (!is_admin()) {
+							$member_a_group = "0";
 							if (isset($userinfo['_mem_of_groups'])) {
-								$member_a_group = "0";
 								foreach ($userinfo['_mem_of_groups'] as $id => $name) {
 									if (!empty($name)) {
 										$member_a_group = "1";

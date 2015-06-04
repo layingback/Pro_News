@@ -76,8 +76,16 @@
   margin-bottom: 10px;
 }
 .pn_padpanel {
+  background: #F8F8F8;
   border: solid 1px transparent;
   padding: 10px 10px 20px 0px;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  box-shadow: 0px 1px 3px #DFDFDF;
+  -webkit-box-shadow: 0px 1px 3px #DFDFDF;
+  -ms-box-shadow: 0px 1px 3px #DFDFDF;
 }
 .pn_padpanel h3, .pn_padpanel p, .pn_padpanel div.pn_postby {
   margin-left: 90px;
@@ -188,7 +196,8 @@
 }
 .pn_pframe {
   width: 140px;			/* width of 140px for coppermine default 100px thumbnail - adjust accordingly  */
-  padding-right: 25px;
+  padding-left: 25px;
+  padding-right: 15px;
   margin-bottom: 10px;
 /*  font: 9px Verdana, Arial, Helvetica, sans-serif; */
   font-size: 9px;
@@ -819,7 +828,11 @@ div.pn_soc_row span.pn_right {
 }
 
 .pn_center_col {
-  margin-right: 180px;
+  margin-right: 150px;
+}
+.pn_center_col_r {
+  margin-left: 170px;
+  padding: 3px 10px;
 }
 .pn_blgcallout {
   margin: 0px auto;
@@ -850,10 +863,10 @@ div.pn_soc_row span.pn_right {
 }
 
 .pn_table1 {
-  width: 675px;
+  width: 695px;
   background-color: #fff;
   border: 0px;
-  padding: 5px;
+  padding: 5px 0;
   margin: 0px auto;
 }
 .pn_tbl_row, .pn_srch_row {
@@ -871,7 +884,7 @@ div.pn_soc_row span.pn_right {
 }
 .pn_tbl_frm, .pn_srch_frm {
   float: right;
-  width: 555px;
+  width: 575px;
   text-align: left;
 }
 .pn_srch_lbl {
@@ -1078,6 +1091,10 @@ SPAN.PNcpTodayTextDisabled {
   margin-top: -300px;  /* top margin for enlarged image: larger minus number moves image up */
   right: 100px;  /*left margin for enlarged image: larger number moves image left */
 }
+#pn_img1 .thumbnail:hover span, #pn_img2 .thumbnail:hover span { /*CSS for enlarged image*/
+  margin-top: -200px;  /* top margin for enlarged image: larger minus number moves image up */
+  left: 75px;  /*left margin for enlarged image: larger number moves image left */
+}
 
 .pn_fxdframe {
   visibility: hidden;
@@ -1129,7 +1146,7 @@ SPAN.PNcpTodayTextDisabled {
 }
 .pn_help_up {
 	float: right;
-	margin-top: -30px;
+	margin-top: -10px;
 }
 
 /* Article Pagination */

@@ -7,7 +7,7 @@
 
   Modified and Copyright © 2007 by Poldi to support Pro_News
   http://www.green-dragon.de
-  Enhanced to limit access and Copyright © 2008-2010 by layingback
+  Enhanced to limit access and Copyright © 2008-2015 by layingback
   http://layingback.net
 
   $Revision: 3.4 $
@@ -56,7 +56,7 @@ if ($pnsettings['enbl_rss'] != '0') {
 		$artsortfld = 'a.counter';
 	}
 
-	$sql = 'SELECT a.id, a.title, posttime, intro';
+	$sql = 'SELECT a.id, a.title as title, posttime, intro, c.title as ctitle, s.title as stitle';
 	$sql .= ' FROM '.$prefix.'_pronews_articles as a';
 	$sql .= ', '.$prefix.'_pronews_cats as c';
 	$sql .= ', '.$prefix.'_pronews_sections as s';
@@ -91,6 +91,7 @@ if ($row = $db->sql_fetchrow($result)) {
 	$date = date('D, d M Y H:i:s \G\M\T', gmtime());
 }
 
+$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title'])))) : '';
 $BASEHREF = ereg_replace('//rss.', '//', $BASEHREF);
 header('Content-Type: text/xml'); // application/rss+xml
 echo '<?xml version="1.0" encoding="UTF-8"?>
@@ -115,10 +116,10 @@ if ($row) {
 	do {
 		echo '<item>
   <title>'.htmlprepare($row['title']).'</title>
-  <link>'.getlink($modulename.'&amp;aid='.$row['id'], true, true).'</link>
+  <link>'.getlink($modulename.'&amp;aid='.$row['id'].$url_text, true, true).'</link>
   <description>'.htmlprepare(decode_bb_all($row['intro'], 1, true), false, ENT_QUOTES, true).'</description>
   <pubDate>'.date('D, d M Y H:i:s \G\M\T', $row['posttime'])."</pubDate>
-</item>\n\n";
+		</item>\n\n";
 	}
 	while ($row = $db->sql_fetchrow($result));
 }
