@@ -476,7 +476,7 @@ eval("
 				}
 
 				if (\$prev_version <= '4.0.1') {
-					\$installer->add_query('ADD', 'pronews_articles', \"'seod varchar(255) NOT NULL default \"\"'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'seod varchar(255) NOT NULL default \'\''\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'aspect', '0'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'opn_grph', '0'\");
 				}
