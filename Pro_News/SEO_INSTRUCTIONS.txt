@@ -7,7 +7,7 @@ For reasons dictated by FaceBook these entries MUST be placed in the head sectio
 versus the more common body section.  To accomplish this it is neccessary to edit your header.html file by hand to
 include the template variables used by Pro_News.
 
-1. At the top of themes/{your_theme}/header.html locate the line:
+1. At the top of themes/{your_theme}/template/header.html locate the line:
 
 <html xmlns="http://www.w3.org/1999/xhtml" dir="{S_TEXTDIR}" xml:lang="{S_LANGCODE}" lang="{S_LANGCODE}">
 
@@ -23,7 +23,7 @@ and replace with these 4 lines:
 'xmlns:fb="http://ogp.me/ns/fb#"' or 'xmlns:og="http://opengraphprotocol.org/schema/"' on your current <html>
 statement you may need to decide whether you need to keep or replace this. ]
 
-2. Locate the </head> line, then immediatley BEFORE it add the lines:
+2. Locate the </head> line, then immediately BEFORE it add the lines:
 
 	<!-- IF FBOOK_OG -->
 		<meta property="og:image" itemprop="image" content="{BASE_URL}{FBOOK_OG}" />
