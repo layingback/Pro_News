@@ -2,14 +2,12 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original v1.0.0.1BETA Copyright © 2006 by D Mower aka Kuragari
-  Enhancement v1.0.1.1 and later Copyright © 2007 - 2013 by M Waldron aka layingback
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
   of the GNU GPL version 2 or any later version
 
-  $Revision: 3.48 $
-  $Date: 2013-05-28 13:17:20 $
    Author: layingback
 **********************************************/
 
@@ -337,6 +335,11 @@ ADDTIONAL LICENSED TEMPLATES
 Are available separately from http://layingback.net, some of which may require donations,
 purchase and/or membership.  (Including an indexp3gly.html supporting virtual pagination.)
 
+CENTER BLOCK TEMPLATES
+Previously Center Blocks had their own dedicated templates, one for UP (ctrblk_up.html) and DOWN (ctrblk_dn.html). With 
+the introduction of new Block options it is possibel to store the template for Center Blocks (either or both Up and Down) 
+in normal Section template.  this allows many more center block display formats within the same Pro_News.
+
 BLANK IMAGE
 The Headlines format is set to display a "No Image" image if the article in question does not contain an image.
 You may leave this behaviour as is, or alter it in one of 3 ways:
@@ -388,8 +391,14 @@ DYN_META_TAGS
 spacebars' dyn_meta_tags (dynamic meta keyword tags) hack is included in code, AND IS NOW ENABLED by default from v3.4.4
   - disable by searching for ProNews::dyn_meta_tags in modules/Pro_News/functions.php and adding // at beginning of line
   - for more information see this link http://dragonflycms.org/Forums/viewtopic/t=20906/)
-  - revised as posted by Berty and fishingfan to drop minor words, sort to find most used and limiting to 30 max.
-  - should now provide the benefits seen to Google/Adsense, but reduce risk to SEO of too many keywords.
+  - revised as posted by Berty and fishingfan to drop minor and short words, sort to find most used and limiting to 10 max.
+  - should now provide the benefits seen to Google/Adsense, but reduce risk to SEO of too many keywords
+  - the DF supplied site slogan is now disabled from the Meta Description to better descibed a (full) Article.
+
+OPEN GRAPH & MICRODATA
+Config option is included to enable both Open Graph (for Facebook Shares) and Microdat (Google+ Shares) to be dynamically 
+created as part of the standarad HTML head section - as required by Facebook's latest changes.  To achieve this you MUST 
+make changes to your header.html file in themes/{your_theme}/templates folder.  See an included additional .txt file for details.
 
 BATCH UPLOAD
 An included hack for Coppermine allows batch uploading of photo album using a modified file upload routine (in place of ftp)
@@ -410,6 +419,31 @@ _________________________________________________________
 
 
 Current release is for Dragonfly 9.3.x, 9.2.x and 9.1.x (and 9.0.6.1 with simple manual changes) only.
+
+______________________________________________________
+Significant Changes in 4.0.1 Version (from 4.0.0 version):
+
+Add full image as template variable for Home and Hdln so that image linking is an option in template
+Add Config option for existing SEO-friendly Titles option to reverse breadcrumbs so Article is first
+Support OpenGraph (for facebook) and Microdata (for Google+) in head for full Article page
+Add Config option Enable Open Graph Support for same
+Add Config option to resize thumbnails based on height, width or max dimension (same as Coppermine)
+Drop $siteslogan from full Article Meta description statement
+Removed Pending Article check from all but Admin > Articles in order to speed up Submit Article
+New Center Block options to use Section template (allows > 1 center template layout)
+Add option for Center Blocks to report on > 1 Category (within same or different Section)
+New input field in Admin > Submit Article to enter a specific SEO Description for Google, etc.
+Minor improvements to Admin menu display for consistency
+Bug fix for article access when meber of > 1 group in Search and similar
+Bug fix in Center Block when specifying Category and Section
+Center Block display now confirms that more articles do exist before displaying more...
+Improvements to image display logic if display no images is set
+Bug fix for Center Block random display logic
+The first 5 User Fields are included as template variables in Home and Hdln displays
+Reduction in number of Meta keywords (from 30 to 10) and minimum word length of 6 (was 3)
+Redirect a login permissions access error to login (instead of an error message)
+Enable Articel Title in URL for rss feed
+Many and various changes to CSS, including changes to suit latest Enhanced BBCode hack
 
 ______________________________________________________
 Significant Changes in 4.0.0 Version (from 3.4.9 version):

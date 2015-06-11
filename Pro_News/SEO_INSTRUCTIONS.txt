@@ -1,3 +1,14 @@
+/*********************************************
+  Pro News Module for Dragonfly CMS
+  ********************************************
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2015 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+
+   Author: layingback
+**********************************************/
 
 OPEN GRAPH and MICRODATA
 

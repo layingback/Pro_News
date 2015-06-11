@@ -2,14 +2,12 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original v1.0.0.1BETA Copyright © 2006 by D Mower aka Kuragari
-  Enhancement v1.0.1.1 and later Copyright © 2007 - 2012 by M Waldron aka layingback
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
   of the GNU GPL version 2 or any later version
 
-  $Revision: 3.5 $
-  $Date: 2012-04-03 14:14:18 $
    Author: layingback
 **********************************************/
 
