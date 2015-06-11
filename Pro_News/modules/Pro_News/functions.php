@@ -1079,9 +1079,9 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'S_CATEGORY' => $row['catid'],
 				'S_IMAGE' => ($row['image'] == '' && $pnsettings['show_noimage'] == '0') ? '' : $display_image,
 				'T_CAP' => ($row['caption'] == '') ? '&nbsp;' : $row['caption'],
-				'S_FULIMAGE' => $pnsettings['imgpath'].'/'.$row['image'],
+				'S_FULIMAGE' => $ogimage = $row['image'] ? $pnsettings['imgpath'].'/'.$row['image'] : '',
 				'S_IMGIMAGE' => file_exists($pnsettings['imgpath'].'/thumb_'.$row['image']) ? $pnsettings['imgpath'].'/thumb_'.$row['image'] : $pnsettings['imgpath'].'/'.$row['image'],
-				'S_THBIMAGE' => $ogthmb = file_exists($pnsettings['imgpath'].'/icon_'.$row['image']) ? $pnsettings['imgpath'].'/icon_'.$row['image'] : $pnsettings['imgpath'].'/'.$row['image'],
+				'S_THBIMAGE' => file_exists($pnsettings['imgpath'].'/icon_'.$row['image']) ? $pnsettings['imgpath'].'/icon_'.$row['image'] : $pnsettings['imgpath'].'/'.$row['image'],
 				'S_IMAGE2' => $display2_image,
 				'T_CAP2' => ($row['caption2'] == '') ? '&nbsp;' : $row['caption2'],
 				'S_FULIMAGE2' => $pnsettings['imgpath'].'/'.$row['image2'],
@@ -1442,10 +1442,10 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 // Add // comment identifiers in line below to DISABLE dynamic meta tags based on top 30 significant words in article text
 			ProNews::dyn_meta_tags($row['seod'], $row['stitle'], $row['ctitle'], $row['title'], decode_bb_all($row['intro'], 1, true));
 
-			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema micordata fields reqd in page head
+			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema microdata fields reqd in page head
 				$cpgtpl->assign_vars(array(
 					'FBOOK_XMLNS'	=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
-					'FBOOK_OG'		=>	$ogthmb,
+					'FBOOK_OG'		=>	$ogimage,
 					'FBOOK_OGURL'	=>	urlencode($BASEHREF.getlink("&amp;aid=".$row['id'])),
 					'FBOOK_OGTITLE'	=>	urlencode($row['title']),
 					'FBOOK_OGDESC'	=>	$row['seod'] ? $row['seod'] : $ogintro,
@@ -2251,9 +2251,11 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 						if ($imagesize[0] > $pnsettings['max_w'] || $imagesize[1] > $pnsettings['max_h']) {
 							$thumbimage = $pnsettings['imgpath'].'/thumb_'.$row['image'];
 //							$display_image = '<a href="'.$pnsettings['imgpath'].'/'.$row['image'].'" target="pn'.uniqid(rand()).'" onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].'\',\'' . uniqid(rand()) . '\',\'resizable=yes,scrollbars=yes,width='.$imagesizeX.',height='.$imagesizeY.',left=0,top=0\');return false;"><img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" /></a>';
+							$full_image = '<img class="pn_image" src="'.$pnsettings['imgpath'].'/'.$row['image'].'" alt="'.$row['caption'].'" />';
 						} else {
 					    	$thumbimage = $pnsettings['imgpath'].'/'.$row['image'];
 //							$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
+							$full_image = '';
 						}														  // Check if thumb exists before linking - layingback 061122
 						$display_image = '<a href="'.getlink("&amp;aid=".$row['aid'].$url_text).'"><img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" /></a>';
 						$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
@@ -2267,6 +2269,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 						$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
 					} else {
 						$display_image = '';
+						$fullimage = '';
 						$thumbimage = '';
 						$iconimage = '';
 					}
@@ -2353,6 +2356,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 						'S_CATEGORY' => $row['catid'],
 						'S_CATLINK' => getlink("&amp;cid=".$row['catid']),
 						'S_IMAGE' => ($row['image'] == '' && $pnsettings['show_noimage'] == '0') ? '' : $display_image,
+						'T_FULLIMAGE' => $full_image,
 						'T_THUMBIMAGE' => $thumbimage,
 						'T_ICONIMAGE' => $iconimage,
 						'T_CAP' => $row['caption'],
@@ -2620,8 +2624,10 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 										$imagesize = getimagesize($pnsettings['imgpath'].'/'.$row['image']);
 										if ($imagesize[0] > $pnsettings['max_w'] || $imagesize[1] > $pnsettings['max_h']) {
 											$thumbimage = $pnsettings['imgpath'].'/thumb_'.$row['image'];
+											$fullimage = $pnsettings['imgpath'].'/'.$row['image'];
 										} else {
 											$thumbimage = $pnsettings['imgpath'].'/'.$row['image'];
+											$fullimage = '';
 										}														  // Check if thumb exists before linking - layingback 061122
 										$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 										$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
@@ -2635,6 +2641,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 										$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
 									} else {
 										$display_image = '';
+										$fullimage = '';
 										$thumbimage = '';
 										$iconimage = '';
 									}
@@ -2725,6 +2732,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 										'S_CATEGORY' => $row['catid'],
 										'S_CATLINK' => getlink("&amp;cid=".$row['catid']),
 										'S_IMAGE' => ($row['image'] == '' && $pnsettings['show_noimage'] == '0') ? '' : $display_image,
+										'T_FULLIMAGE' => $full_image,
 										'T_THUMBIMAGE' => $thumbimage,
 										'T_ICONIMAGE' => $iconimage,
 										'G_SHOW_READS' => $pnsettings['show_reads'],
@@ -2779,8 +2787,10 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 											$imagesize = getimagesize($pnsettings['imgpath'].'/'.$row['image']);
 											if ($imagesize[0] > $pnsettings['max_w'] || $imagesize[1] > $pnsettings['max_h']) {
 												$thumbimage = $pnsettings['imgpath'].'/thumb_'.$row['image'];
+												$fullimage = $pnsettings['imgpath'].'/'.$row['image'];
 											} else {
 												$thumbimage = $pnsettings['imgpath'].'/'.$row['image'];
+												$fullimage = '';
 											}
 											if (file_exists($pnsettings['imgpath'].'/icon_'.$row['image'])) {
 												$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
@@ -2799,6 +2809,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 											$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
 										} else {
 											$display_image = '';
+											$full_image = '';
 											$iconimage = '';
 											$thumbimage = '';
 										}
@@ -2877,6 +2888,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 											'S_CATEGORY' => $row['catid'],
 											'S_CATLINK' => getlink("&amp;cid=".$row['catid']),
 											'S_IMAGE' => ($row['image'] == '' && $pnsettings['show_noimage'] == '0') ? '' : $display_image,
+											'T_FULLIMAGE' => $full_image,
 											'T_ICONIMAGE' => $iconimage,
 											'T_THUMBIMAGE' => $thumbimage,
 											'G_SHOW_READS' => $pnsettings['show_reads'],
@@ -5289,10 +5301,11 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 		// Processes " so tags work.
 		$new_keywords = str_replace($order, $replace, $new_desc);
 
+		// If SEOdescription present use, else use Intro text - 1st 255 chars
 		if ($seod == '') {
-			$METATAGS['description'] .= " ".substr($new_keywords,0,255);
+			$METATAGS['description'] = substr($new_keywords,0,255);
 		} else {
-			$METATAGS['description'] .= " ".$seod;
+			$METATAGS['description'] = $seod;		//  = not .= in order to drop $siteslogan prefix
 		}
 
 		//Generate dynamic keywords
