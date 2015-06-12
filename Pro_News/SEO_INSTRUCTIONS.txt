@@ -15,7 +15,7 @@ OPEN GRAPH and MICRODATA
 Pro_News is now capable of creating its own Open Graph entry for FaceBook, and itemtype (Microdata) entries for Google+.
 
 For reasons dictated by FaceBook these entries MUST be placed in the head section of the HTML (between <head ... </head>)
-versus the more common body section.  To accomplish this it is neccessary to edit your header.html file by hand to
+versus the more common body section.  To accomplish this it is necessary to edit your header.html file by hand to
 include the template variables used by Pro_News.
 
 1. At the top of themes/{your_theme}/template/header.html locate the line:
@@ -30,7 +30,7 @@ and replace with these 4 lines:
 	<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_TEXTDIR}" xml:lang="{S_LANGCODE}" lang="{S_LANGCODE}" itemscope itemtype="http://schema.org/Webpage" >
 <!-- ENDIF -->
 
-[ NOTE: If you have already placed FaceBook or Google+ focussed entries of 'itemtype="http://schema.org/Article"',
+[ NOTE: If you have already placed FaceBook or Google+ focused entries of 'itemtype="http://schema.org/Article"',
 'xmlns:fb="http://ogp.me/ns/fb#"' or 'xmlns:og="http://opengraphprotocol.org/schema/"' on your current <html>
 statement you may need to decide whether you need to keep or replace this. ]
 
@@ -85,4 +85,4 @@ Immediately BEFORE the default: line insert:
 		$METATAGS['keywords'] .= '';
 	break;
 
-[ NOTE: If you already have an entry for 'Pro_News' you mayt need to revise or mearge the existing lines. ]
+[ NOTE: If you already have an entry for 'Pro_News' you may need to revise or merge the existing lines. ]

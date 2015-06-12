@@ -21,17 +21,17 @@ ______________________________________________________
 UPGRADING FROM PRO_NEWS 4.0.0
 
 There are database changes since the prior version release, so an upgrade is required.
-You will need to folow the instructions in SEO_INSTRUCTIONS.txt in order to use the 
+You will need to follow the instructions in SEO_INSTRUCTIONS.txt in order to use the
 new Open Graph and Microdata SEO options (as well as enabling in Administration).
 
 ______________________________________________________
 UPGRADING FROM PRO_NEWS 3.4.9 Beta
 
-There are no database changes since the prior version release, so an upgrade is not required. 
-But if upgraing from an earlier release then an upgrade is required.
+There are no database changes since the prior version release, so an upgrade is not required.
+But if upgrading from an earlier release then an upgrade is required.
 
-It has been necessary to move a small number of CSS style statements from pro_news.css to 
-pn_specifics.css, therefore existing users will need to add the following lines to their 
+It has been necessary to move a small number of CSS style statements from pro_news.css to
+pn_specifics.css, therefore existing users will need to add the following lines to their
 own copy of pn_specific.css (insert at the top, after the instructions):
 /* This provided section adds styles to the AllArts page for white/light backgrounds */
 /* comment out this section if using a dark background */

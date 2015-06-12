@@ -51,7 +51,7 @@ and append the new moderate peice after it like this:
 	</div>
 No change is required for the Series3 templates index3xxx.html available at http://layingback.net to members of the Sponsors Group
 as the moderation is taken care of in the single article footer template.  Moderation support is NOT AVAILABLE for the following
-templates due to their exculsive table formatting:  index.html, index2.html and indexsp.html.  Please use later template equivalents.
+templates due to their exclusive table formatting:  index.html, index2.html and indexsp.html.  Please use later template equivalents.
 
 CPGNuCalendar Interface
 Pro_News interface to CPGNuCalendar supports only CPGNuCalendar version 2.1.0 or later.  Only these versions of CPGNuCalendar allow
@@ -61,7 +61,7 @@ set the correct timezone and daylight savings/summer time settings for both.  Bu
 - times selected in Pro_News may appear 1 hour earlier in CPGNuCalendar.  An option exists in Pro_News > Administration > Config to
 specify an Offset to be added - or subtracted - before the times are passed to CPGNuCalendar.  If you need to use this, please see
 the Sticky thread at http://layingback.net/Forums under Pro_News Support > 4.0 Support, and post the requested information.  With
-enough data points I may be able to determin how to apply this offset automatically.
+enough data points I may be able to determine how to apply this offset automatically.
 
 Submit Article Form
 The Submit Article screens are set to stay within an 800 pixel wide window when using the PH2 theme of pitcher.no or reDesign of Eestlane.
@@ -102,7 +102,7 @@ entry to 35% or so.  Or use the later index2gly.htmnl or index2alb.html which do
 _______________________________________________________
 Important Considerations:
 
-SINGLE ARTICLE CATGEORY DISPLAY
+SINGLE ARTICLE CATEGORY DISPLAY
 A new feature is introduced at version 3.4.8 to display an article in FULL instead of the normal Intro form with more...
 link, if - and only if - the URL was of the form Pro_News/cid={number} AND there is only 1 record selectable for display.
 This allows a menu, for example, to link simply to Pro_News/cid=13 which contains 3 articles, the same article content
@@ -137,7 +137,7 @@ make use of the Moderator functions even if there are no Moderators (for that Se
 
 MODERATOR PDF UPLOAD
 NOTE: to use Moderator PDF Upload you must copy the pdfl.html file from EXTRAS to themes/{your theme}/templates/.
-A version 3.4.8 an upload function for PDF documents is added which is almost identical to that already available for
+As of version 3.4.8 an upload function for PDF documents is added which is almost identical to that already available for
 Administrators. A link to Pro_News&mode=upld needs to be added to your CPGMM menu and restricted to Moderators ONLY.
 (If not using CPGMM menu, you may edit blocks/block-ProNews_Moderators.php to enable link display within that block.)
 
@@ -209,7 +209,7 @@ Create the field as follows:
 	Type:			Text
 	Private:		No
 	Size:			100
-	Description:	        Member's Page		         		(Note this field can be any text)
+	Description:	Member's Page		        (Note this field can be any text)
 
 After the Field has been created, change its display from Visible to Hidden so that user cannot change it, and click Save Changes.
 
@@ -241,13 +241,13 @@ if you wish to mark the Field as in-use, but not display any field name.
 You must use User Fields in order, starting with the first.  As a result of this change any unused User Fields will no longer
 display when user enters an Article through Submit Article.
 
-SECTION & CATEGORY TITLES/DESCRPTION MULTI-LANGUAGE SUPPORT
-In a manner similar to User Fields above, you can as of v3.3.2.7
-translate any Section and/or Category Titles and/or Descriptions into any supported language.  The translated texts need to be
-added to the same language files as for User Field Labels, identifying each respective Section or Category by its id number
-(identification number).  Easiest way to determine this id number is to roll you cursor over the respective Edit link in
-Admin > Messages > Pro_News > Sections or Categories and note the id number displayed at the end of the url on the status line
-of your browser.
+SECTION & CATEGORY TITLES/DESCRIPTION MULTI-LANGUAGE SUPPORT
+In a manner similar to User Fields above, you can as of v3.3.2.7 translate any Section and/or Category Titles and/or
+Descriptions into any supported language.  The translated texts need to be added to the same language files as for
+User Field Labels, identifying each respective Section or Category by its id number (identification number).
+Easiest way to determine this id number is to roll your cursor over the respective Edit link in
+Admin > Messages > Pro_News > Sections or Categories and note the id number displayed at the end of the url on the
+status line of your browser.
 
 CSS STYLE SHEETS
 Edit themes/{your_theme}/style/pn_specific.css.  This file is released to you called:
@@ -266,11 +266,11 @@ You can have a unique Article Template for each of your Sections if you wish.  I
 Default Article Template chosen in Admin > Pro_News > Config should be the most commonly used template across all of your Sections,
 to be used as the default.
 
-Only the latest - index2alb.html and index2gly.html - template files support all features offered by Pro_News.  To use the latest features,
-you must select one of these as your template file in Administration > Pro_News > Config.  (The other templates are supplied
+Only index2alb.html and index2gly.html - or later - template files support all features offered by Pro_News.  To use the latest features,
+you must select one of these as your template file in Administration > Pro_News > Config.  (The earlier templates are supplied
 for compatibility with earlier releases, and to demonstrate simpler display options to use in developing your own templates.)
 
-The supplied Article Templates, particularly the latest and most complex, index2alb.html and index2gly.html, are intended as a starting point.
+The supplied Article Templates, particularly the latest and most complex, are intended as a starting point.
 They are NOT intended to be turnkey for all users, but a base for your own development and tuning.  This is the whole reason for templates.
 Depending on your chosen Dragonfly theme, screen width, etc., slight changes are almost bound to be required for the exact display.
 When you do develop your own versions, you are encouraged to share them by contributing at
@@ -312,7 +312,7 @@ There are additional fields in the template system, designed for specific uses, 
 		Select as follows:   {newshome.T_USER_FLD_0} {newshome.T_USER_FLD_1} {newshome.T_USER_FLD_2} respectively.
 		As of version 3.3.8 this is now 5 user fields, 0 through 4 along with their user field names.
 	- for the newshome (Intro) and newsarticle (full article) parts of the template the Dragonfly Topic Text Name and Image
-		are available where the image path and filename will be drawn from the template-specifc folder if present,
+		are available where the image path and filename will be drawn from the template-specific folder if present,
 		or the Dragonfly /images folder if not;
 		Select as follows:   {newshome.T_DFTOPIC} for the text, and {newshome.U_DFTOPIC} for the image filename
 				or   {newsarticle.T_DFTOPIC} for the text, and {newsarticle.U_DFTOPIC} for the image filename.
@@ -323,7 +323,7 @@ Templates are not covered by GPL 2 in the same way that Themes are not covered b
 
 VIRTUAL PAGING TEMPLATE
 At version 3.3.3.3 a new variant of index2gly.html is included called indexp2gly.html.  It
-allows an otherwise long article to be broken into multiple virtual pages using Javacript.  The virtual page breaks
+allows an otherwise long article to be broken into multiple virtual pages using Javascript.  The virtual page breaks
 incorporate First/Prev/GoTo/Next/Last buttons at both top and bottom.  As the page breaks are created in Javascript
 the paged display is instanteous and no calls to the server are involved (ie. the entire article is still downloaded
 in one go as usual).  The virtual page breaks are created by inserting a new BBCode [page].  BBCodes can be entered
@@ -331,13 +331,13 @@ manually or a new NBBCode module with Page support (plus numerous other BBCodes)
 The virtual pagination is in addition to displaying normal length articles, thus long and short articles can co-exist in
 the same section, with just the long articles including the virtual page breaks.
 
-ADDTIONAL LICENSED TEMPLATES
+ADDITIONAL LICENSED TEMPLATES
 Are available separately from http://layingback.net, some of which may require donations,
 purchase and/or membership.  (Including an indexp3gly.html supporting virtual pagination.)
 
 CENTER BLOCK TEMPLATES
-Previously Center Blocks had their own dedicated templates, one for UP (ctrblk_up.html) and DOWN (ctrblk_dn.html). With 
-the introduction of new Block options it is possibel to store the template for Center Blocks (either or both Up and Down) 
+Previously Center Blocks had their own dedicated templates, one for UP (ctrblk_up.html) and DOWN (ctrblk_dn.html). With
+the introduction of new Block options it is possible to store the template for Center Blocks (either or both Up and Down)
 in normal Section template.  this allows many more center block display formats within the same Pro_News.
 
 BLANK IMAGE
@@ -396,8 +396,8 @@ spacebars' dyn_meta_tags (dynamic meta keyword tags) hack is included in code, A
   - the DF supplied site slogan is now disabled from the Meta Description to better descibed a (full) Article.
 
 OPEN GRAPH & MICRODATA
-Config option is included to enable both Open Graph (for Facebook Shares) and Microdat (Google+ Shares) to be dynamically 
-created as part of the standarad HTML head section - as required by Facebook's latest changes.  To achieve this you MUST 
+Config option is included to enable both Open Graph (for Facebook Shares) and Microdat (Google+ Shares) to be dynamically
+created as part of the standard HTML head section - as required by Facebook's latest changes.  To achieve this you MUST
 make changes to your header.html file in themes/{your_theme}/templates folder.  See an included additional .txt file for details.
 
 BATCH UPLOAD
@@ -425,7 +425,7 @@ Significant Changes in 4.0.1 Version (from 4.0.0 version):
 
 Add full image as template variable for Home and Hdln so that image linking is an option in template
 Add Config option for existing SEO-friendly Titles option to reverse breadcrumbs so Article is first
-Support OpenGraph (for facebook) and Microdata (for Google+) in head for full Article page
+Support OpenGraph (for Facebook) and Microdata (for Google+) in head for full Article page
 Add Config option Enable Open Graph Support for same
 Add Config option to resize thumbnails based on height, width or max dimension (same as Coppermine)
 Drop $siteslogan from full Article Meta description statement
@@ -434,7 +434,7 @@ New Center Block options to use Section template (allows > 1 center template lay
 Add option for Center Blocks to report on > 1 Category (within same or different Section)
 New input field in Admin > Submit Article to enter a specific SEO Description for Google, etc.
 Minor improvements to Admin menu display for consistency
-Bug fix for article access when meber of > 1 group in Search and similar
+Bug fix for article access when member of > 1 group in Search and similar
 Bug fix in Center Block when specifying Category and Section
 Center Block display now confirms that more articles do exist before displaying more...
 Improvements to image display logic if display no images is set
@@ -442,15 +442,15 @@ Bug fix for Center Block random display logic
 The first 5 User Fields are included as template variables in Home and Hdln displays
 Reduction in number of Meta keywords (from 30 to 10) and minimum word length of 6 (was 3)
 Redirect a login permissions access error to login (instead of an error message)
-Enable Articel Title in URL for rss feed
+Enable Article Title in URL for rss feed
 Many and various changes to CSS, including changes to suit latest Enhanced BBCode hack
 
 ______________________________________________________
 Significant Changes in 4.0.0 Version (from 3.4.9 version):
 
-A small number of CSS style statements must be moved from pro_news.css to pn_specifics.css, therefore 
-existing users will need to add these lines to their existing pn_specifc.css files - see UPDATES>TXT for 
-the details.  Note this change is automatic for new insatlls of Pro_News.
+A small number of CSS style statements must be moved from pro_news.css to pn_specifics.css, therefore
+existing users will need to add these lines to their existing pn_specifc.css files - see UPDATES>TXT for
+the details.  Note this change is automatic for new installs of Pro_News.
 Light text colour styles moved to pn_specific.css so they can be disabled for dark background themes
 Fix bug in installer upgrade from 3.4.8
 Address coppermine db file SQL error in slideshow
@@ -473,8 +473,8 @@ Spurious Notice for Moderators Block eliminated
 Bug fix for MySQL version 5 for new install
 Support added for (future) Coppermine hack for remote galleries
 
-Please note Series3 templates include newer and better Footer and Submit forms, a 
-calendar pop-up for setting dates, and are available as a Thank-you gift to all 
+Please note Series3 templates include newer and better Footer and Submit forms, a
+calendar pop-up for setting dates, and are available as a Thank-you gift to all
 Supporters of Pro_News at http://www.layingback.net/Downloads/details/id=85.html
 ______________________________________________________
 Significant Changes in 3.4.8 Version (from 3.4.7 version):
