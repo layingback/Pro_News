@@ -3,7 +3,7 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original Beta version Copyright © 2006 by D Mower aka Kuragari
-  Subsequent releases Copyright © 2007-2009 by M Waldron aka layingback
+  Subsequent releases Copyright © 2007-2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions

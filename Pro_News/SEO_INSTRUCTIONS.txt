@@ -1,0 +1,88 @@
+/*********************************************
+  Pro News Module for Dragonfly CMS
+  ********************************************
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2015 by M Waldron aka layingback
+  http://www.layingback.net
+
+  This module is released under the terms and conditions
+  of the GNU GPL version 2 or any later version
+
+   Author: layingback
+**********************************************/
+
+OPEN GRAPH and MICRODATA
+
+Pro_News is now capable of creating its own Open Graph entry for FaceBook, and itemtype (Microdata) entries for Google+.
+
+For reasons dictated by FaceBook these entries MUST be placed in the head section of the HTML (between <head ... </head>)
+versus the more common body section.  To accomplish this it is necessary to edit your header.html file by hand to
+include the template variables used by Pro_News.
+
+1. At the top of themes/{your_theme}/template/header.html locate the line:
+
+<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_TEXTDIR}" xml:lang="{S_LANGCODE}" lang="{S_LANGCODE}">
+
+and replace with these 4 lines:
+
+<!-- IF FBOOK_XMLNS -->
+	<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_TEXTDIR}" xml:lang="{S_LANGCODE}" lang="{S_LANGCODE}" itemscope {FBOOK_XMLNS}>
+<!-- ELSE -->
+	<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_TEXTDIR}" xml:lang="{S_LANGCODE}" lang="{S_LANGCODE}" itemscope itemtype="http://schema.org/Webpage" >
+<!-- ENDIF -->
+
+[ NOTE: If you have already placed FaceBook or Google+ focused entries of 'itemtype="http://schema.org/Article"',
+'xmlns:fb="http://ogp.me/ns/fb#"' or 'xmlns:og="http://opengraphprotocol.org/schema/"' on your current <html>
+statement you may need to decide whether you need to keep or replace this. ]
+
+2. Locate the </head> line, then immediately BEFORE it add the lines:
+
+	<!-- IF FBOOK_OG -->
+		<meta property="og:image" itemprop="image" content="{BASE_URL}{FBOOK_OG}" />
+	<!-- ENDIF -->
+	<meta property="og:url" itemprop="url" content="{BASE_URL}{FBOOK_OGURL}" />
+	<meta property="og:title" itemprop="name" content="{BASE_URL}{FBOOK_OGTITLE}" />
+	<meta property="og:description" itemprop="description" name="description" content="{BASE_URL}{FBOOK_OGDESC}" />
+	<meta property="og:author" itemprop="author" content="{BASE_URL}{FBOOK_OGAUTH}" />
+	<meta property="og:publisher" itemprop="publisher" content="{BASE_URL}" />
+
+To text the above has been carried out correctly, go to a full article page in Pro_News, ie. a URL of the form:
+
+	http://.........../Pro_News/aid=xxx
+
+The source of the HTML should display:
+
+	An <html> statement which includes the text 'xmlns:fb="http://ogp.me/ns/fb#"'
+
+and
+
+	5 or 6* of the <meta property="og: ... lines with sensible links into your website.
+
+* The <meta property="og:image line will appear if the first Pro_News article image is present.
+
+
+META DESCRIPTION
+
+Pro_News will amend the existing DragonflyCMS <meta name="description"> line to reflect the
+specific article when the full article is displayed.
+
+An Administrator creating, or editing, a Pro_News article can now insert a SEO Description
+which will form the basis for the <meta name="description"> line if present.
+
+( If no SEO Description field is present then Pro_News will use up to 255 characters of the
+Intro text as it has done in previous releases. )
+
+Either way DragonflyCMS will attempt to preface the Pro_News meta description with your Site's Slogan.
+If you want your new SEO Description to appear first in the meta description you will need to instruct
+DragonflyCMS not to preface it with the Site Slogan.  To do this open your includes/meta.php file and
+find the following line, near the end of the file:
+
+	default:
+
+Immediately BEFORE the default: line insert:
+
+	case 'Pro_News':
+		$METATAGS['description'] = '';
+		$METATAGS['keywords'] .= '';
+	break;
+
+[ NOTE: If you already have an entry for 'Pro_News' you may need to revise or merge the existing lines. ]

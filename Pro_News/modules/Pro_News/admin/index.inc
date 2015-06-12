@@ -3,7 +3,7 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original Beta version Copyright © 2006 by D Mower aka Kuragari
-  Subsequent releases Copyright © 2007 - 2013 by M Waldron aka layingback
+  Subsequent releases Copyright © 2007 - 2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
@@ -41,6 +41,7 @@ $mode = isset($_POST['mode']) ? Fix_Quotes($_POST['mode']) : (isset($_GET['mode'
 $do = isset($_GET['do']) ? Fix_Quotes($_GET['do']) : 'none';
 OpenTable();
 ProNewsAdm::admin_menu();
+echo '<div class="pn_menu" align="center"><a target="_blank" href="http://layingback.net/Treasury.html">Pro_News CM</a>&#8482; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>C</b>ontent <b>M</b>anagement for Dragonfly <b>CMS</b>&#8482; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: grey">&#169; 2007-2015</span><br /><br /></div>';
 switch ($mode) {
 	case 'add':
 		ProNewsAdm::admin_article($do);
@@ -82,7 +83,6 @@ switch ($mode) {
 		ProNewsAdm::admin_index();
 	break;
 }
-echo '<div class="pn_menu" align="center"><a target="_blank" href="http://layingback.net/Treasury.html">Pro_News CM</a>&#8482; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <b>C</b>ontent <b>M</b>anagement for Dragonfly <b>CMS</b>&#8482; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: grey">&#169; 2007-2013</span><br /><br /></div>';
 $cpgtpl->set_filenames(array('body' => 'pronews/admin/admin.html'));
 $cpgtpl->display('body');
 if ($need_pagination) {

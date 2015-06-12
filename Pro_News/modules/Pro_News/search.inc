@@ -5,7 +5,7 @@
   Copyright © 2004 - 2005 by CPG-Nuke Dev Team
   http://www.dragonflycms.com
   Copyright © 2007 Sarah
-  Copyright © 2007 - 2012 M Waldron aka layingback
+  Copyright © 2007 - 2015 M Waldron aka layingback
 
   Modified for Pro_News by Sarah 2007/02/07
   Advance Search for Pro_News by layingback

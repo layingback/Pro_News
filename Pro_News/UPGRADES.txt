@@ -2,14 +2,12 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original v1.0.0.1BETA Copyright © 2006 by D Mower aka Kuragari
-  Enhancement v1.0.1.1 and later Copyright © 2007 - 2012 by M Waldron aka layingback
+  Enhancement v1.0.1.1 and later Copyright © 2007 - 2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
   of the GNU GPL version 2 or any later version
 
-  $Revision: 3.37 $
-  $Date: 2013-05-28 13:16:25 $
    Author: layingback
 **********************************************/
 
@@ -18,14 +16,22 @@ IMPORTANT: THIS SOFTWARE IS RELEASED UNDER GPL v2 OR LATER "AS-IS". USE AT YOUR 
 UPGRADE INSTRUCTIONS:  Copy all files to server, in their appropriate locations, and in
 Administration > Modules > Pro_News select Edit and then Upgrade to latest release.
 
+
+______________________________________________________
+UPGRADING FROM PRO_NEWS 4.0.0
+
+There are database changes since the prior version release, so an upgrade is required.
+You will need to follow the instructions in SEO_INSTRUCTIONS.txt in order to use the
+new Open Graph and Microdata SEO options (as well as enabling in Administration).
+
 ______________________________________________________
 UPGRADING FROM PRO_NEWS 3.4.9 Beta
 
-There are no database changes since the prior version release, so an upgrade is not required. 
-But if upgraing from an earlier release then an upgrade is required.
+There are no database changes since the prior version release, so an upgrade is not required.
+But if upgrading from an earlier release then an upgrade is required.
 
-It has been necessary to move a small number of CSS style statements from pro_news.css to 
-pn_specifics.css, therefore existing users will need to add the following lines to their 
+It has been necessary to move a small number of CSS style statements from pro_news.css to
+pn_specifics.css, therefore existing users will need to add the following lines to their
 own copy of pn_specific.css (insert at the top, after the instructions):
 /* This provided section adds styles to the AllArts page for white/light backgrounds */
 /* comment out this section if using a dark background */

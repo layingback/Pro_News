@@ -1,17 +1,16 @@
 <!-- BEGIN menu -->
 
 	<div class="pn_menu" align="center">
-		.:: <a class="pn_menu" href="{menu.U_MAIN}">{menu.S_MAIN}</a>
-		:: <a class="pn_menu" href="{menu.U_ADD}">{menu.S_ADD}</a>
-		:: <a class="pn_menu" href="{menu.U_ARTS}">{menu.S_ARTS}</a>
-		:: <a class="pn_menu" href="{menu.U_GLRY}">{menu.S_GLRY}</a>
-		:: <a class="pn_menu" href="{menu.U_UPLD}">{menu.S_UPLD}</a>
-		:: <a class="pn_menu" href="{menu.U_SECS}">{menu.S_SECS}</a>
-		:: <a class="pn_menu" href="{menu.U_CATS}">{menu.S_CATS}</a>
-		:: <a class="pn_menu" href="{menu.U_BLKS}">{menu.S_BLKS}</a>
-		:: <a class="pn_menu" href="{menu.U_CFG}">{menu.S_CFG}</a>
-		::.
-		<br /><hr />
+		<a class="pn_menu" href="{menu.U_MAIN}">{menu.S_MAIN}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_ADD}">{menu.S_ADD}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_ARTS}">{menu.S_ARTS}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_GLRY}">{menu.S_GLRY}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_UPLD}">{menu.S_UPLD}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_SECS}">{menu.S_SECS}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_CATS}">{menu.S_CATS}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_BLKS}">{menu.S_BLKS}</a>
+		&nbsp;<span class="pn_tinygrey">|</span>&nbsp; <a class="pn_menu" href="{menu.U_CFG}">{menu.S_CFG}</a>
+		<br /><hr /><br />
 	</div>
 <!-- END menu -->
 
@@ -91,6 +90,8 @@
 		<tr><td>{cfg_form.S_FORUMTYPE} *</td><td>{cfg_form.T_FORUMTYPE}</td><td onmouseover="tip('_FORUMTYPE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_FRMTYPBYCAT}</td><td>{cfg_form.T_FRMTYPBYCAT}</td><td onmouseover="tip('_FRMTYPBYCAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_CALTYPE} *</td><td>{cfg_form.T_CALTYPE} &nbsp; {cfg_form.S_CALOFST} {cfg_form.T_CALOFST} {cfg_form.L_CALOFST}</td><td onmouseover="tip('_CALTYPE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_OPN_GRPH}</td><td>{cfg_form.T_OPN_GRPH}</td><td onmouseover="tip('_OPN_GRPH')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_SEOTITLE}</td><td>{cfg_form.T_SEOTITLE}</td><td onmouseover="tip('_SEOTITLE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 
 		<tr><td colspan="3">&nbsp;</td></tr>
 		<tr><td colspan="3"><strong>{cfg_form.L_SRCHSET}</strong></td></tr>
@@ -105,6 +106,7 @@
 		<tr><td>{cfg_form.S_ALLUPL}</td><td>{cfg_form.T_ALLUPL}</td><td onmouseover="tip('_ALLUPL')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_MAXW} *</td><td>{cfg_form.T_MAXW}</td><td onmouseover="tip('_MAXW')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_MAXH} *</td><td>{cfg_form.T_MAXH}</td><td onmouseover="tip('_MAXH')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_ASPECT} *</td><td>{cfg_form.T_ASPECT}</td><td onmouseover="tip('_ASPECT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_MAXIMG}</td><td>{cfg_form.T_MAXIMG}</td><td onmouseover="tip('_MAXIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_SHOWNOIMG}</td><td>{cfg_form.T_SHOWNOIMG}</td><td onmouseover="tip('_SHOWNOIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 
@@ -183,9 +185,12 @@ maketip('_TOPICLNK','','_(TOPICLNK_HLP)');
 maketip('_FORUMTYPE','','_(FORUMTYPE_HLP)');
 maketip('_FRMTYPBYCAT','','_(FRMTYPBYCAT_HLP)');
 maketip('_CALTYPE','','_(CALTYPE_HLP)');
+maketip('_OPN_GRPH','','_(OPN_GRPH_HLP)');
+maketip('_SEOTITLE','','_(SEOTITLE_HLP)');
 maketip('_ALLUPL','','_(ALLUPL_HLP)');
 maketip('_MAXW','','_(MAXW_HLP)');
 maketip('_MAXH','','_(MAXH_HLP)');
+maketip('_ASPECT','','_(ASPECT_HLP)');
 maketip('_MAXIMG','','_(MAXIMG_HLP)');
 maketip('_SHOWNOIMG','','_(SHOWNOIMG_HLP)');
 maketip('_AUTOAPPRV','','_(AUTOAPPRV_HLP)');
@@ -375,7 +380,8 @@ maketip('_SPNDEFKKYFLD','','_(SPNDEFKKYFLD_HLP)');
 		<tr><td>{block_form.S_TYPES}</td><td>{block_form.T_TYPES}</td><td onmouseover="tip('_BTYPES')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{block_form.S_SEC}</td><td>{block_form.T_SEC}</td><td onmouseover="tip('_BSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>&nbsp;</td><td>- <i>{block_form.L_OR}</i> -</td><td>&nbsp;</td></tr>
-		<tr><td>{block_form.S_CAT} *</td><td>{block_form.T_CAT}</td><td>&nbsp;</td></tr>
+		<tr><td>{block_form.S_CAT} *</td><td>{block_form.T_CAT} &nbsp; {block_form.S_MOREC} {block_form.T_MOREC}</td><td onmouseover="tip('_BCAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr id="morecat" style="visibility:{block_form.G_MORECAT}"><td>&nbsp; &nbsp; {block_form.S_MORECAT} *</td><td>{block_form.T_MORECAT} &nbsp; <span class="pn_tiny">({block_form.L_MORECAT})</span></td><td onmouseover="tip('_BMORECAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{block_form.S_NUM} *</td><td>{block_form.T_NUM}</td><td onmouseover="tip('_BNUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td colspan="3"><br /><span class="pn_tiny">{block_form.L_TEXT}</span></td></tr>
 	</table>
@@ -402,6 +408,8 @@ maketip('_SPNDEFKKYFLD','','_(SPNDEFKKYFLD_HLP)');
 maketip('_BTITLE','','_(BTITLE_HLP)');
 maketip('_BTYPES','','_(BTYPES_HLP)');
 maketip('_BSEC','','_(BSEC_HLP)');
+maketip('_BCAT','','_(BCAT_HLP)');
+maketip('_BMORECAT','','_(BMORECAT_HLP)');
 maketip('_BNUM','','_(BNUM_HLP)');
  -->
 </script>

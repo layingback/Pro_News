@@ -2,7 +2,7 @@
 /*********************************************
   Pro News Module for Dragonfly CMS
   ********************************************
-  Copyright © 2008-2012 by M Waldron aka layingback
+  Copyright © 2008-2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
@@ -63,13 +63,10 @@ if (is_active($pn_module_name)) {
 	//  Remove the statement above here
 
 	cache_load_array('blocks_list');
-// echo ' <br />bid='.$bid;print_r($blocks_list);echo ' <br/><br />mn='.$module_name;
 	$alt_module_name = '';
 	if ($module_name == 'blocks') {
 		foreach ($blocks_list as &$mod_name) {
-// echo ' <br /><br />mod='.$mod_name['title'];
 			foreach ($mod_name as $key => &$block) {
-// echo ' <br />block='.$key;
 				if ($key == $bid) {
 					$alt_module_name = $mod_name['title'];
 					break 2;
@@ -79,14 +76,14 @@ if (is_active($pn_module_name)) {
 		unset($mod_name);
 		unset($block);
 	}
-// echo ' <br /><br />alt_mn='.$alt_module_name;
-// echo ' <br />bpos='.($alt_module_name ? $blocks_list[$alt_module_name][$bid] : $blocks_list[$module_name][$bid]);
-//	$content = ProNews::get_cntrblk_content($bid, $blocks_list[$module_name][$bid]);
 	$content = ProNews::get_cntrblk_content($bid, ($alt_module_name ? $blocks_list[$alt_module_name][$bid] : $blocks_list[$module_name][$bid]));
 
-	if (!$content && is_admin()) {
+	if ($content == '' && is_admin()) {
 		$content = '*** ERROR: <i>Block '.$block['bid'].' ('.$block['title'].') returned no content</i> ***';
 	}
+	if ($content == '') {
+		$content = 'ERROR';
+	} else {
 
 //  STEP 3
 //  Remove the 1 line below ...
@@ -94,8 +91,7 @@ if (is_active($pn_module_name)) {
 	$content = $pnstyle.$content;
 
 //  Remove the 1 line above here
-
-	if ($content == '') { $content = 'ERROR'; }
+	}
 
 }
 

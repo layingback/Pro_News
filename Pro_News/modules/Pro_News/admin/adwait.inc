@@ -2,7 +2,7 @@
 /*********************************************
   Pro News Module for Dragonfly CMS
   ********************************************
-  Copyright © 2006 - 2009 by M Waldron aka layingback
+  Copyright © 2006 - 2015 by M Waldron aka layingback
 
   This module is released under the terms and conditions
   of the GNU GPL version 2 or any later version

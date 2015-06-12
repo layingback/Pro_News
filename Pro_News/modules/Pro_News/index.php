@@ -3,7 +3,7 @@
   Pro News Module for Dragonfly CMS
   ********************************************
   Original Beta version Copyright © 2006 by D Mower aka Kuragari
-  Subsequent releases Copyright © 2007 - 2013 by M Waldron aka layingback
+  Subsequent releases Copyright © 2007 - 2015 by M Waldron aka layingback
   http://www.layingback.net
 
   This module is released under the terms and conditions
@@ -48,6 +48,30 @@ if (!Cache::array_load('board_config', 'Forums', true)) {
 	}
 	Cache::array_save('board_config', 'Forums');
 }
+
+// layingback - code added to limit image display width - comment out for legacy behaviour
+if (!Cache::array_load('attach_config', 'Forums', true)) {
+	$result = $db->sql_query('SELECT * FROM '.$prefix.'_bbattachments_config');
+	while ($row = $db->sql_fetchrow($result)) {
+		$attach_config[$row['config_name']] = $row['config_value'];
+	}
+	$db->sql_freeresult($result);
+	$attach_config['board_lang'] = $board_config['default_lang'];
+	Cache::array_save('attach_config', 'Forums', $attach_config);
+}
+$attach_config['img_max_width_remote'] = 1;
+if ($attach_config['img_max_width_remote']) {
+	$modheader .= '
+<style type="text/css">.pn_content img{max-width:'.$attach_config['img_link_width'].'px}
+<!--[if lt IE 8]>
+.pn_content img {
+	width: expression(this.clientWidth > '.$attach_config['img_link_width'].' ? "'.$attach_config['img_link_width'].'px" : this.clientWidth+"px");
+}
+<![endif]-->
+</style>
+';
+}
+// end of image display width limit
 
 if (isset($_POST['aid']) && isset($_POST['score'.$_POST['aid']])) {
 	$aid = intval($_POST['aid']);
