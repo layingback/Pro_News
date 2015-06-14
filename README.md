@@ -1,7 +1,7 @@
 # Pro_News
 Pro_News CM - Content Management module for Dragonfly CMS
 
-Pro_News is a combined News, Article, Blog, and Documentation module, which can accomodate both large and small sites.
+Pro_News is a combined News, Article, Blog, and Documentation module, which can accommodate both large and small sites.
 
 An advanced, powerful yet flexible, easy to use and easy to deploy module to use on DragonflyCMS Content Management System
 
@@ -36,7 +36,7 @@ Pro_News Feature Set (just a sample of the many features)
 - Article or Article List blocks available even within Pro_News
 - Article rating system, with optional score display
 - Admin functions to approve and/or de-activate articles
-- Or: Self-approval with Moderator intevention like Forums
+- Or: Self-approval with Moderator intervention like Forums
 - Admin and Moderator functions to move, copy or delete articles, singly or in bulk
 - Option to "promote" a Forum post to a Pro_News article
 - Default images for all articles or by Section
