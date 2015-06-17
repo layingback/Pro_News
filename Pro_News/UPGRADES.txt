@@ -18,6 +18,13 @@ Administration > Modules > Pro_News select Edit and then Upgrade to latest relea
 
 
 ______________________________________________________
+UPGRADING FROM PRO_NEWS 4.0.1
+
+There are no database changes since the prior version release, so a db upgrade is not required.
+Copy just themes/{your_theme}/template/pro_news/submit.html and modules/Pro_News/cpg_inst.php
+and run Upgrade from Administration > General > Modules > Edit.
+
+______________________________________________________
 UPGRADING FROM PRO_NEWS 4.0.0
 
 There are database changes since the prior version release, so an upgrade is required.
