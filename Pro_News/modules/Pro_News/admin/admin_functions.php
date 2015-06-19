@@ -1582,8 +1582,8 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 					$cpgtpl->assign_block_vars('newsarticle', array(
 						'S_SECBRK' => $row['stitle'],
 						'S_CATBRK' => $row['ctitle'],
-						'S_INTRO' => decode_bb_all($row['intro'], 1, true),
-						'S_CONTENT' => decode_bb_all($row['content'], 2, true),
+						'S_INTRO' => make_clickable(decode_bb_all($row['intro'], 1, true)),
+						'S_CONTENT' => make_clickable(decode_bb_all($row['content'], 2, true)),
 						'S_ICON' => ($row['icon'] != '') ? $row['icon'] : '',
 						'T_ICON' => $row['ctitle'],
 						'S_TITLE' => $row['title'],

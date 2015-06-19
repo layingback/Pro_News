@@ -1057,8 +1057,8 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'U_CATDESC' => ProNews::getsctrnslt('_PN_CATDESC_', $row['cdescription'], $row['catid']),
 				'T_SECBRK' => getlink("&amp;sid=".$row['sid']),
 				'T_CATBRK' => getlink("&amp;cid=".$row['cid']),
-				'S_INTRO' => $ogintro = decode_bb_all($row['intro'], 1, true),
-				'S_CONTENT' => $ogcontent = decode_bb_all($row['content'], 2, true),
+				'S_INTRO' => $ogintro = make_clickable(decode_bb_all($row['intro'], 1, true)),
+				'S_CONTENT' => $ogcontent = make_clickable(decode_bb_all($row['content'], 2, true)),
 				'S_ICON' => ($row['icon'] != '') ? $row['icon'] : 'clearpixel.gif',
 				'T_ICON' => $row['ctitle'],
 				'S_TITLE' => $row['title'],
@@ -1401,7 +1401,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'G_SOCIALNET' => $pnsettings['soc_net'],
 				'G_PLINK' => $pnsettings['permalink'],
 				'S_PLINK' => _PNLINK,
-				'T_PLINK' => getlink("&amp;aid=".$row['id'].$url_text),
+				'T_PLINK' => $ogurl = getlink("&amp;aid=".$row['id'].$url_text),
 				'U_SOCNETLINK' => urlencode($BASEHREF.getlink("&amp;aid=".$row['id'])),
 				'S_SOCTITLE' => urlencode($row['title']),
 				'G_SENDPRINT' => '1',
@@ -1444,12 +1444,15 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 
 			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema microdata fields reqd in page head
 				$cpgtpl->assign_vars(array(
-					'FBOOK_XMLNS'	=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
-					'FBOOK_OG'		=>	$ogimage,
-					'FBOOK_OGURL'	=>	urlencode($BASEHREF.getlink("&amp;aid=".$row['id'])),
-					'FBOOK_OGTITLE'	=>	urlencode($row['title']),
-					'FBOOK_OGDESC'	=>	$row['seod'] ? $row['seod'] : $ogintro,
-					'FBOOK_OGAUTH'	=>	$row['postby'],
+					'FBOOK_XMLNS'		=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
+					'FBOOK_OG'			=>	urlencode($BASEHREF.'/'.$ogimage),
+					'FBOOK_OGURL'		=>	urlencode($BASEHREF.'/'.$ogurl),
+					'FBOOK_OGTITLE'		=>	strip_tags($row['title']),
+					'FBOOK_OGDESC'		=>	$row['seod'] ? strip_tags($row['seod']) : strip_tags($ogintro),
+					'FBOOK_OGAUTH'		=>	$row['postby'],
+					'FBOOK_ARTPUBTME'	=>	$row['posttime'],
+					'FBOOK_ARTMODTME'	=>	$row['updttime'] ? $row['updttime'] : '',
+					'FBOOK_SECTION'		=>	$row['stitle'],
 				));
 			}
 
@@ -2343,7 +2346,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 						'G_FIRSTART' => ($row['stitle'] != $last_sec) ? '1' : '0',
 						'G_LASTART' => ($row['sid'] != $list[$key+1]['sid']) ? '1' : '0',
 						'L_PAUSED' => ' '._PNPAUSED.' ',
-						'S_INTRO' => decode_bb_all($row['intro'], 1, true),  // true param added for images - layingback
+						'S_INTRO' => make_clickable(decode_bb_all($row['intro'], 1, true)),  // true param added for images - layingback
 						'S_TITLE' => $row['title'],
 						'S_ICON' => ($row['icon'] != '') ? $row['icon'] : 'clearpixel.gif',
 						'T_ICON' => $row['ctitle'],
@@ -3856,8 +3859,8 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 							'U_SECDESC' => ProNews::getsctrnslt('_PN_SECDESC_', $row['sdescription'], $row['sid']),
 							'S_CATBRK' => ProNews::getsctrnslt('_PN_CATTITLE_', $row['ctitle'], $row['catid']),
 							'U_CATDESC' => ProNews::getsctrnslt('_PN_CATDESC_', $row['cdescription'], $row['catid']),
-							'S_INTRO' => decode_bb_all($row['intro'], 1, true),
-							'S_CONTENT' => decode_bb_all($row['content'], 2, true),
+							'S_INTRO' => make_clickable(decode_bb_all($row['intro'], 1, true)),
+							'S_CONTENT' => make_clickable(decode_bb_all($row['content'], 2, true)),
 							'S_ICON' => ($row['icon'] != '') ? $row['icon'] : 'clearpixel.gif',
 							'T_ICON' => $row['ctitle'],
 							'S_TITLE' => $row['title'],
