@@ -393,6 +393,7 @@ div.pn_row span.pn_right {
 .pn_morepics {
   float: right;
   margin-right: 25px;
+  margin-top: -20px;
 }
 .pn_interact {
   width: 94%;

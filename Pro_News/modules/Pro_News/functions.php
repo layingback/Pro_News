@@ -871,13 +871,17 @@ class ProNews  {
 			$maxsizeX = '0';
 			$maxsizeY = '0';
 			if (($row['album_id'] != '') && ($row['album_cnt'] > '0')) {
-				$sql = 'SELECT pid pid, filepath, filename, pwidth, pheight, title, caption FROM '.$prefix.'_cpg_pictures';
+				$sql = 'SELECT SQL_CALC_FOUND_ROWS * FROM '.$prefix.'_cpg_pictures';
 //				$sql = 'SELECT pid pid, filepath, filename, pwidth, pheight, title, caption, remote_url FROM '.$prefix.'_cpg_pictures';  // lb - use after installing my coppermine remote CPG hack
 				$sql .= ' WHERE aid='.$row['album_id'];
 				$asc_desc = ($row['album_seq'] & 1) ? 'ASC' : 'DESC';
 				if ($row['album_seq'] != '0') {$sql .= ' ORDER BY '.$album_order[$row['album_seq']].' '.$asc_desc;}
 				$sql .= ' LIMIT '.$row['album_cnt'];
 				$list = $db->sql_fetchrowset($db->sql_query($sql));
+				$result = $db->sql_query('SELECT FOUND_ROWS()');
+				$total_rows = $db->sql_fetchrowset($result);
+// print_r($total_rows); echo '<br />tot-rows='.$total_rows['0']['FOUND_ROWS()'];
+				$db->sql_freeresult($result);
 				if (($list) && ($list != "")) {
 					foreach ($list as $key => $pic) {
 						$fullsizepath = ($pic['remote_url'] != '' && preg_match("/(?:https?\:\/\/)?([^\.]+\.?[^\.\/]+\.[^\.\/]+[^\.]+)/", $pic['remote_url'], $matches)) ? 'http://'.$matches[1].'/' : $pic['filepath'];		// lb - cpg remote_url hack support
@@ -919,7 +923,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				$valbum[$j] = '';
 				$j++;
 			}
-// echo '<br />Per_Gallery='.$pnsettings['per_gllry'].' Album_Id='.$row['album_id'].' Slide_Show='.$row['slide_show'].' Album_Cnt='.$row['album_cnt'].' _PNMOREPICS='._PNMOREPICS.' $lpic='.$lpic.' numpics='.$numpics.' mpics='.(($pnsettings['per_gllry'] != 0 && $numpics > 0 && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0');
+// echo '<br />Per_Gallery='.$pnsettings['per_gllry'].' Album_Id='.$row['album_id'].' Slide_Show='.$row['slide_show'].' Album_Cnt='.$row['album_cnt'].' _PNMOREPICS='._PNMOREPICS.' $lpic='.$lpic.' numpics='.$numpics.' totrows='.$total_rows['0']['FOUND_ROWS()'].' mpics='.(($pnsettings['per_gllry'] != 0 && $numpics > 0 && $total_rows['0']['FOUND_ROWS()'] > $numpics && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0');
 
 			$show_comments = (!($row['sforum_id'] == '0' && $row['cforum_id'] == '0' && empty($row['topic_id'])) && $row['cforum_id'] != -1 && $row['allow_comment'] == '1' && $pnsettings['comments'] == '1') ? '1' : '';
 			$row['topic_replies'] = '';
@@ -1395,7 +1399,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'G_SCORE' => ($pnsettings['ratings'] && $row['ratings'] != '0') ? '1' : '',
 				'S_SCORE' => _PNRATING,
 				'T_SCORE' => ($row['ratings'] != '0') ? $row['score']/$row['ratings'] : '',
-				'G_MOREPICS' => ($pnsettings['per_gllry'] != 0 && $numpics < $row['album_cnt'] && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0',
+				'G_MOREPICS' => ($pnsettings['per_gllry'] != 0 && $numpics > 0 && $total_rows['0']['FOUND_ROWS()'] > $numpics && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0',
 				'T_MOREPICS' => _PNMOREPICS,
 				'U_MOREPICS' => getlink("&amp;mode=gllry&amp;id=".$row['id']."&amp;npic=".$row['album_cnt']),
 				'G_SOCIALNET' => $pnsettings['soc_net'],
@@ -1443,10 +1447,11 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 			ProNews::dyn_meta_tags($row['seod'], $row['stitle'], $row['ctitle'], $row['title'], decode_bb_all($row['intro'], 1, true));
 
 			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema microdata fields reqd in page head
+				$dflt_img = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png';
 				$cpgtpl->assign_vars(array(
 					'FBOOK_XMLNS'		=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
-					'FBOOK_OG'			=>	urlencode($BASEHREF.'/'.$ogimage),
-					'FBOOK_OGURL'		=>	urlencode($BASEHREF.'/'.$ogurl),
+					'FBOOK_OG'			=>	$ogimage ? urlencode($BASEHREF.$ogimage) : (file_exists($dflt_img) ? urlencode($BASEHREF.$dflt_img) : ''),
+					'FBOOK_OGURL'		=>	urlencode($BASEHREF.$ogurl),
 					'FBOOK_OGTITLE'		=>	strip_tags($row['title']),
 					'FBOOK_OGDESC'		=>	$row['seod'] ? strip_tags($row['seod']) : strip_tags($ogintro),
 					'FBOOK_OGAUTH'		=>	$row['postby'],
