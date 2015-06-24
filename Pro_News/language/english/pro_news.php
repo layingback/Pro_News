@@ -103,6 +103,7 @@ define('_FORUMDATE_HLP','Display post by dates and times using Timezone offset s
 define('_DATEFRMT_HLP','Format used to display the post by date and time<br />Use link to configure your own version, or copy over the values from Administration > Forums > Configuration for a shorter version<br />Leave blank to return to default');
 define('_POSTLINK_HLP','Yes: Display just a link back to the original article in the newly created Forum post<br />No: Copy across the entire Intro text plus a link in the newly created Forum Post');
 define('_LMTFULART_HLP','Allow all visitors to view the Intros, but limit access to the Full Article to Registered Members only<br />NOTE: Intended for pay- or membership-only sites');
+define('_DSPYFULART_HLP','Select how an Article is to display if a Section or Category has only 1 article to display<br />Yes: Article displays immediately as a Full Article<br />NO: Intro is displayed in normal way with More... link');
 define('_MEMBERPAGE_HLP','Enable Members Pages feature which allows each member to create and post their own article(s) without any approvals up to the maximum number specified<br />No disables the feature');
 define('_SECINSEC_HLP','Controls the Sections to display in the Sections List (accessed via {your_domain}/Pro_News.html)<br />All: List all Sections<br />Home: Include only those Sections which are marked to be displayed in Home<br />In True Home: Include only those Sections which are marked to be displayed in True Home, i.e. on the actual Home page ({your_domain}/index.php)<br />None: Include no Sections');
 define('_MEMINSEC_HLP','Include Members Pages Section in the Section List (accessed via {your_domain}/Pro_News.html)');
@@ -434,7 +435,7 @@ define('_PNBACK','Back');
 define('_PNADDLPGS','Gallery Pages');
 define('_PNNONE','None');
 define('_PNFRSTPG','on First Page');
-define('_PNFRSTPGA','on First Page (max. 10 unless using a Slider template)');
+define('_PNFRSTPGA','on First Page (max. 10 on earlier standard templates)');
 define('_PNNUMPGALPG','Number Images per Gallery Page');
 define('_PNMAX32','maximum of 32 &nbsp; (0 disables Gallery Page feature)');
 define('_PNTEMPLATE','Template');
@@ -813,3 +814,4 @@ define('_PNMOREC','More?');
 define('_PNMORECAT','Additional Categories');
 define('_PNMORECOMMA','Category Id Numbers only, Comma Separated');
 
+define('_PNDSPYFULART','If Only a Single Article Display as Full');
