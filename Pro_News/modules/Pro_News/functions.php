@@ -834,6 +834,8 @@ class ProNews  {
 				$actlink = ProNews::get_status('act', $row['id'], $row['active']);
 // echo 'actlnk='.$actlink;
 				$movlink = ProNews::seccat('cat2','',false,'',false,true);
+			} else {
+				$applink = $actlink = $movlink = '';
 			}
 
 
@@ -1446,14 +1448,14 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 			ProNews::dyn_meta_tags($row['seod'], $row['stitle'], $row['ctitle'], $row['title'], decode_bb_all($row['intro'], 1, true));
 
 			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema microdata fields reqd in page head
+				$newln   = array("\r\n", "\n", "\r");
 				$dflt_img = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png';
 				$cpgtpl->assign_vars(array(
 					'FBOOK_XMLNS'		=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
 					'FBOOK_OG'			=>	$ogimage ? $BASEHREF.$ogimage : (file_exists($dflt_img) ? $BASEHREF.$dflt_img : ''),
 					'FBOOK_OGURL'		=>	$BASEHREF.$ogurl,
 					'FBOOK_OGTITLE'		=>	strip_tags(str_replace('"', "'", $row['title'])),
-					'FBOOK_OGDESC'		=>	$row['seod'] ? strip_tags(str_replace('"', "'", $row['seod'])) : strip_tags(str_replace('"', "'", $ogintro)),
-//					'FBOOK_OGAUTH'		=>	$row['postby'],
+					'FBOOK_OGDESC'		=>	$row['seod'] ? strip_tags(str_replace('"', "'", $row['seod'])) : strip_tags(str_replace('"', "'", str_replace($newln, ' ', $ogintro))),
 				));
 			}
 

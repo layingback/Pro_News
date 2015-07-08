@@ -1,11 +1,11 @@
 MyBlog Module is an adjunct to Pro_News Module, and is released under GNU GPL 2 or later 
-as Free/Libre Open SOurce Software.
+as Free/Libre Open Source Software.
 
 It may optionally be installed alongside Pro_News on DragonflyCMS versions 9.2.1 or later 
 versions of DragonflyCMS v9.
 
-It's purpose is to allow external visitors to access a member's latest Blog page (setup under 
-Pro_News using the Blogh template) directly, via a simple URL:
+Its purpose is to allow external visitors to access a member's latest Blog page (setup under 
+Pro_News using the Blog template) directly, via a simple URL:
 
 	domain.tld/MyBlog/u=username.html
 
@@ -14,11 +14,11 @@ thus avoiding the need to know or remember the specific Pro_News article id numb
 Note:  the above URL assumes that you have LEO enabled.  It also assumes that you have 
 set up the Section in Pro_News using the Blog template with a title of MyBlog.
 
-To allow any name to be used for your Blog Secttion (eg. a non-English name) do not install 
+To allow any name to be used for your Blog Section (eg. a non-English name) do not install 
 MyBlog module in the normal way.  Instead create a new folder in /modules with the same name 
-as your Pro_News Blog Section (eg. Blogs) and install the files there.  NOTE: If you have 
+as your Pro_News Blog Section (eg. Blogs) and copy the files there.  NOTE: If you have a
 space in your Pro_News Blog Section title then replace it with _ (underscore).  So Photo Blogs 
-would become Photo_Blogs.  The module will then install with that module name, eg. Photo_Blogs.
+would become Photo_Blogs.  Then install the module with that module name, eg. Photo_Blogs.
 There are only 2 files, an install file and the main code file.
 
 After install remember to mark the module Active.

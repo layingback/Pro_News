@@ -823,7 +823,7 @@ class ProNewsAdm {
 					$bgcolor = ($bgcolor == '') ? ' style="bgcolor: '.$bgcolor3.'"' : '';
 					if ($i < 2 || ($list[$i]['stitle'] != $list[$i-1]['stitle'])) {
 						$seqchngup = '&nbsp;';
-						$sectionbrk = ($list[$i]['sid'] > 1) ? '1' : '0';
+						$sectionbrk = ($list[$i]['sid'] >= 1) ? '1' : '0';
 					} else {
 						$seqchngup = '<a href="'.adminlink("&amp;mode=cat&amp;do=up&amp;id=".$list[$i]['id']).'"><img src="images/up.gif" alt="'._PNUP.'" title="'._PNUP.'" border="0" /></a>';
 						$sectionbrk = '0';
@@ -856,8 +856,9 @@ class ProNewsAdm {
 						'G_SECTIONBRK' => $sectionbrk,
 						'S_ICON' => ($list[$i]['icon'] != '') ? $list[$i]['icon'] : '',
 						'S_COLOR' => $bgcolor,
-						'S_SECTION' => ($i <= 1) ? $list[$i]['stitle'] : (($list[$i]['stitle'] != $list[$i-1]['stitle']) ? '<a href="'.getlink('&amp;sid='.$list[$i]['sid']).'">'.$list[$i]['stitle'].'</a>' : '&nbsp;'),
+						'S_SECTION' => ($list[$i]['stitle'] != $list[$i-1]['stitle']) ? '<a href="'.getlink('&amp;sid='.$list[$i]['sid']).'">'.$list[$i]['stitle'].'</a>' : '&nbsp;',
 						'S_DESC' => $list[$i]['description'].'&nbsp;',
+						'S_TITLE_LNK' => '<a href="'.getlink("&amp;cid=".$list[$i]['id']).'">'.$list[$i]['title'].'</a>',
 						'S_TITLE' => $list[$i]['title'],
 						'S_SEQUP' => $seqchngup,
 						'S_SEQDN' => $seqchngdn,
@@ -2207,6 +2208,8 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 				'T_ASPECT' => select_box('aspect', $pnsettings['aspect'], array(0=>_PNASPECTMAX, 1=>_PNASPECTW, 2=>_PNASPECTH)),
 				'S_MAXIMG' => _PNMAXIMG,
 				'T_MAXIMG' => '<input type="text" name="img_limit" size="5" value="'.$pnsettings['img_limit'].'" />',
+				'S_IMGMAXRMTE' => _PNIMGMAXRMTE,
+				'T_IMGMAXRMTE' => '<input type="text" name="img_max_width_remote" size="5" value="'.$pnsettings['img_max_width_remote'].'" />',
 				'S_SHOWNOIMG' => _PNSHOWNOIMG,
 				'T_SHOWNOIMG' => yesno_option('show_noimage',$pnsettings['show_noimage']),
 				'S_CLRBLKS' => _PNCLRBLKS,
@@ -2345,6 +2348,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 			if ($_POST['max_h'] != $pnsettings['max_h']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['max_h'].'" WHERE cfg_name="pro_news" AND cfg_field="max_h"');}
 			if ($_POST['aspect'] != $pnsettings['aspect']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['aspect'].'" WHERE cfg_name="pro_news" AND cfg_field="aspect"');}
 			if ($_POST['img_limit'] != $pnsettings['img_limit']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['img_limit'].'" WHERE cfg_name="pro_news" AND cfg_field="img_limit"');}
+			if ($_POST['img_max_width_remote'] != $pnsettings['img_max_width_remote']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['img_max_width_remote'].'" WHERE cfg_name="pro_news" AND cfg_field="img_max_width_remote"');}
 			if ($_POST['clrblks_hm'] != $pnsettings['clrblks_hm']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['clrblks_hm'].'" WHERE cfg_name="pro_news" AND cfg_field="clrblks_hm"');}
 			if ($_POST['admin_html'] != $pnsettings['admin_html']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['admin_html'].'" WHERE cfg_name="pro_news" AND cfg_field="admin_html"');}
 			if ($_POST['notify_admin_pending_article'] != $pnsettings['notify_admin_pending_article']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['notify_admin_pending_article'].'" WHERE cfg_name="pro_news" AND cfg_field="notify_admin_pending_article"');}
