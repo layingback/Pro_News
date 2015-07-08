@@ -29,7 +29,7 @@ eval("
 		// class constructor
 			function $mod_dirname() {
 				\$this->radmin = true;
-				\$this->version = '4.0.3';
+				\$this->version = '4.0.4';
 				\$this->modname = $mod_dirname;
 				\$this->description = 'Pro_News CM&#8482; - Ultra Configurable Content Management - interfaces to Forums,  Photo Gallery & Calendar &nbsp; (Ver 4: developed and extended from original beta module of same name by Kauragari)';
 				\$this->author = 'layingback';
@@ -232,6 +232,7 @@ eval("
 				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'cal_ofst', ''\");
 				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'aspect', '0'\");
 				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'opn_grph', '0'\");
+				\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'img_max_width_remote', ''\");
 				\$installer->add_query('INSERT', 'pronews_sections', \"'-1', 'Default Section', 'Default Section (Cannot be Altered)', '2', '2', '0', '0', '0', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '0', '0', '0', '2', '0', '0', '0'\");
 				\$installer->add_query('UPDATE', 'pronews_sections', \"id = '0' WHERE id = '-1'\");
 				\$installer->add_query('INSERT', 'pronews_cats', \"'1', '0', 'Default Category', 'Default Category (Cannot be Deleted)','clearpixel.gif', '2', '2', '0', '0', '0', ''\");
@@ -479,6 +480,10 @@ eval("
 					\$installer->add_query('ADD', 'pronews_articles', \"'seod varchar(255) NOT NULL default \'\''\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'aspect', '0'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'opn_grph', '0'\");
+				}
+
+				if (\$prev_version <= '4.0.3') {
+					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'img_max_width_remote', ''\");
 				}
 
 

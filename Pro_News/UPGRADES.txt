@@ -16,7 +16,11 @@ IMPORTANT: THIS SOFTWARE IS RELEASED UNDER GPL v2 OR LATER "AS-IS". USE AT YOUR 
 UPGRADE INSTRUCTIONS:  Copy all files to server, in their appropriate locations, and in
 Administration > Modules > Pro_News select Edit and then Upgrade to latest release.
 
+______________________________________________________
+UPGRADING FROM PRO_NEWS 4.0.3
 
+There are no database changes since the prior version release, so a db upgrade is not required.
+Copy modules/Pro_News/ and run Upgrade from Administration > General > Modules > Edit.
 ______________________________________________________
 UPGRADING FROM PRO_NEWS 4.0.2
 
