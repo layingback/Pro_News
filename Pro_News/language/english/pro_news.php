@@ -125,6 +125,7 @@ define('_MAXW_HLP','Thumbnail maximum width in pixels of an uploaded image - a t
 define('_MAXH_HLP','Thumbnail maximum height in pixels of an uploaded image - a thumbnail of the image will be created if it is larger<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
 define('_ASPECT_HLP','Determine the need for thumbnail based on the larger of width and height, on width only or on height only - a thumbnail of the image will be created if it is larger in the dimension selected<br />NOTE: Changing this size once images are uploaded may leas to some images not being sized correctly, and they may need resizing individually');
 define('_MAXIMG_HLP','The maximum width or height (whichever is the larger) of the full size image in pixels of an uploaded image - image will be resized if larger, based on its largest dimension<br />Enter a value only if you want to limit size of uploaded images, leave blank for no resizing<br />NOTE: Changing this size after some images are uploaded will only affect new uploads');
+define('_IMGMAXRMTE_HLP','The maximum width in pixels of a remote image linked via BBCode - image will be resized if larger and linked to its remote full sized original<br />Enter a value only if you want to limit size of linked remote images, leave blank for no resizing');
 define('_SHOWNOIMG_HLP','In the absence of an article image display the image found in themes/{your_theme}/images/pro_news/{compressed_section_name}/imageholder.png if present or the default image found in themes/{your_theme}/images/pro_news/imageholder.png<br />The {compressed_section_name} is the same name as the section title omitting any characters other than letters, numbers and _ (underscore) - no spaces, and converting all letters to lowercase');
 
 define('_AUTOAPPRV_HLP','Articles submitted by Administrators, or members of the selected Administration By group for that Section, are always published as Approved.  For other Registered Members or Groups:<br />No: Articles are held for approval by an Administrator before publishing.<br />Yes: All Articles submitted by any Registered Member are automatically Approved and published.');
@@ -815,3 +816,4 @@ define('_PNMORECAT','Additional Categories');
 define('_PNMORECOMMA','Category Id Numbers only, Comma Separated');
 
 define('_PNDSPYFULART','If Only a Single Article Display as Full');
+define('_PNIMGMAXRMTE','Max Width of Remote Image');
