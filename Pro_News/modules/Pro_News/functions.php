@@ -871,13 +871,16 @@ class ProNews  {
 			$maxsizeX = '0';
 			$maxsizeY = '0';
 			if (($row['album_id'] != '') && ($row['album_cnt'] > '0')) {
-				$sql = 'SELECT pid pid, filepath, filename, pwidth, pheight, title, caption FROM '.$prefix.'_cpg_pictures';
-//				$sql = 'SELECT pid pid, filepath, filename, pwidth, pheight, title, caption, remote_url FROM '.$prefix.'_cpg_pictures';  // lb - use after installing my coppermine remote CPG hack
+				$sql = 'SELECT SQL_CALC_FOUND_ROWS * FROM '.$prefix.'_cpg_pictures';
 				$sql .= ' WHERE aid='.$row['album_id'];
 				$asc_desc = ($row['album_seq'] & 1) ? 'ASC' : 'DESC';
 				if ($row['album_seq'] != '0') {$sql .= ' ORDER BY '.$album_order[$row['album_seq']].' '.$asc_desc;}
 				$sql .= ' LIMIT '.$row['album_cnt'];
 				$list = $db->sql_fetchrowset($db->sql_query($sql));
+				$result = $db->sql_query('SELECT FOUND_ROWS()');
+				$total_rows = $db->sql_fetchrowset($result);
+// print_r($total_rows); echo '<br />tot-rows='.$total_rows['0']['FOUND_ROWS()'];
+				$db->sql_freeresult($result);
 				if (($list) && ($list != "")) {
 					foreach ($list as $key => $pic) {
 						$fullsizepath = ($pic['remote_url'] != '' && preg_match("/(?:https?\:\/\/)?([^\.]+\.?[^\.\/]+\.[^\.\/]+[^\.]+)/", $pic['remote_url'], $matches)) ? 'http://'.$matches[1].'/' : $pic['filepath'];		// lb - cpg remote_url hack support
@@ -919,7 +922,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				$valbum[$j] = '';
 				$j++;
 			}
-// echo '<br />Per_Gallery='.$pnsettings['per_gllry'].' Album_Id='.$row['album_id'].' Slide_Show='.$row['slide_show'].' Album_Cnt='.$row['album_cnt'].' _PNMOREPICS='._PNMOREPICS.' $lpic='.$lpic.' numpics='.$numpics.' mpics='.(($pnsettings['per_gllry'] != 0 && $numpics > 0 && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0');
+// echo '<br />Per_Gallery='.$pnsettings['per_gllry'].' Album_Id='.$row['album_id'].' Slide_Show='.$row['slide_show'].' Album_Cnt='.$row['album_cnt'].' sshow='.$row['slide_show'].' $lpic='.$lpic.' numpics='.$numpics.' totrows='.$total_rows['0']['FOUND_ROWS()'].' mpics='.(($pnsettings['per_gllry'] != 0 && $numpics > 0 && $total_rows['0']['FOUND_ROWS()'] > $numpics && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0');
 
 			$show_comments = (!($row['sforum_id'] == '0' && $row['cforum_id'] == '0' && empty($row['topic_id'])) && $row['cforum_id'] != -1 && $row['allow_comment'] == '1' && $pnsettings['comments'] == '1') ? '1' : '';
 			$row['topic_replies'] = '';
@@ -1395,7 +1398,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 				'G_SCORE' => ($pnsettings['ratings'] && $row['ratings'] != '0') ? '1' : '',
 				'S_SCORE' => _PNRATING,
 				'T_SCORE' => ($row['ratings'] != '0') ? $row['score']/$row['ratings'] : '',
-				'G_MOREPICS' => ($pnsettings['per_gllry'] != 0 && $numpics < $row['album_cnt'] && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0',
+				'G_MOREPICS' => ($pnsettings['per_gllry'] != 0 && $numpics > 0 && $total_rows['0']['FOUND_ROWS()'] > $numpics && $row['album_id'] != '0' && $row['slide_show'] > '1') ? '1' : '0',
 				'T_MOREPICS' => _PNMOREPICS,
 				'U_MOREPICS' => getlink("&amp;mode=gllry&amp;id=".$row['id']."&amp;npic=".$row['album_cnt']),
 				'G_SOCIALNET' => $pnsettings['soc_net'],
@@ -1443,25 +1446,23 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 			ProNews::dyn_meta_tags($row['seod'], $row['stitle'], $row['ctitle'], $row['title'], decode_bb_all($row['intro'], 1, true));
 
 			if ($pnsettings['opn_grph']) {		// if enabled output facebook open graph and schema microdata fields reqd in page head
+				$dflt_img = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png';
 				$cpgtpl->assign_vars(array(
 					'FBOOK_XMLNS'		=>	'itemtype="http://schema.org/Article" xmlns:fb="http://ogp.me/ns/fb#"',
-					'FBOOK_OG'			=>	urlencode($BASEHREF.'/'.$ogimage),
-					'FBOOK_OGURL'		=>	urlencode($BASEHREF.'/'.$ogurl),
-					'FBOOK_OGTITLE'		=>	strip_tags($row['title']),
-					'FBOOK_OGDESC'		=>	$row['seod'] ? strip_tags($row['seod']) : strip_tags($ogintro),
-					'FBOOK_OGAUTH'		=>	$row['postby'],
-					'FBOOK_ARTPUBTME'	=>	$row['posttime'],
-					'FBOOK_ARTMODTME'	=>	$row['updttime'] ? $row['updttime'] : '',
-					'FBOOK_SECTION'		=>	$row['stitle'],
+					'FBOOK_OG'			=>	$ogimage ? $BASEHREF.$ogimage : (file_exists($dflt_img) ? $BASEHREF.$dflt_img : ''),
+					'FBOOK_OGURL'		=>	$BASEHREF.$ogurl,
+					'FBOOK_OGTITLE'		=>	strip_tags(str_replace('"', "'", $row['title'])),
+					'FBOOK_OGDESC'		=>	$row['seod'] ? strip_tags(str_replace('"', "'", $row['seod'])) : strip_tags(str_replace('"', "'", $ogintro)),
+//					'FBOOK_OGAUTH'		=>	$row['postby'],
 				));
 			}
 
-			require('header.php');
+			require_once('header.php');
 			$tpl = ($row['template'] != '') ? $row['template'] : $pnsettings['template'];
 			$cpgtpl->set_filenames(array('body' => 'pronews/article/'.$tpl));
 			$cpgtpl->display('body');
 		} else { url_redirect(getlink());}
-//		} else { require('header.php');}	// alternate to line above for debug
+//		} else { require_once('header.php');}	// alternate to line above for debug
 	}
 
 	function section_list($type_arts='', $showarts='', $sec='', $catid='') {
@@ -2071,7 +2072,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 
 	function display_articles($sid='',$cid='',$usr='') {
 		global $db, $prefix, $cpgtpl, $pnsettings, $gblsettings, $pagetitle, $home, $userinfo, $multilingual, $currentlang, $domain, $module_name,
-		 $Blocks, $MAIN_CFG;
+		 $Blocks, $MAIN_CFG, $BASEHREF, $CPG_SESS;
 // The pagination include below is not required for CPG-Nuke 9.1.x or later
 		if ($gblsettings['Version_Num'] == "9.0.6.1") {
 			require_once('includes/pagination.php');
@@ -2226,7 +2227,9 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 		if (isset($list) && $list != '' && count($list) > '0') {
 
 			if ($pnsettings['disply_full'] && count($list) == 1) {		// if only 1 record display via aid=
-				url_redirect(getlink($module_name.'&amp;aid='.$list['0']['aid']));
+//				url_redirect(getlink($module_name.'&amp;aid='.$list['0']['aid']));
+				ProNews::article($list['0']['aid']);
+				return;
 			}
 
 			require_once('includes/nbbcode.php');
@@ -2266,13 +2269,15 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 						$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholder.png';
 						$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 						$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/'.strtolower(preg_replace('/[^\w\d_]+/', '', $row['stitle'])).'/imageholdermini.png';
+						$full_image = '';
 					} elseif ($pnsettings['show_noimage'] != '0' && file_exists('themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png')) {
 						$thumbimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholder.png';
 						$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="" />';
 						$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
+						$full_image = '';
 					} else {
 						$display_image = '';
-						$fullimage = '';
+						$full_image = '';
 						$thumbimage = '';
 						$iconimage = '';
 					}
@@ -2627,10 +2632,10 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 										$imagesize = getimagesize($pnsettings['imgpath'].'/'.$row['image']);
 										if ($imagesize[0] > $pnsettings['max_w'] || $imagesize[1] > $pnsettings['max_h']) {
 											$thumbimage = $pnsettings['imgpath'].'/thumb_'.$row['image'];
-											$fullimage = $pnsettings['imgpath'].'/'.$row['image'];
+											$full_image = $pnsettings['imgpath'].'/'.$row['image'];
 										} else {
 											$thumbimage = $pnsettings['imgpath'].'/'.$row['image'];
-											$fullimage = '';
+											$full_image = '';
 										}														  // Check if thumb exists before linking - layingback 061122
 										$display_image = '<img class="pn_image" src="'.$thumbimage.'" alt="'.$row['caption'].'" />';
 										$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
@@ -2644,7 +2649,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 										$iconimage = 'themes/'.$CPG_SESS['theme'].'/images/pro_news/imageholdermini.png';
 									} else {
 										$display_image = '';
-										$fullimage = '';
+										$full_image = '';
 										$thumbimage = '';
 										$iconimage = '';
 									}
@@ -2790,10 +2795,10 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 											$imagesize = getimagesize($pnsettings['imgpath'].'/'.$row['image']);
 											if ($imagesize[0] > $pnsettings['max_w'] || $imagesize[1] > $pnsettings['max_h']) {
 												$thumbimage = $pnsettings['imgpath'].'/thumb_'.$row['image'];
-												$fullimage = $pnsettings['imgpath'].'/'.$row['image'];
+												$full_image = $pnsettings['imgpath'].'/'.$row['image'];
 											} else {
 												$thumbimage = $pnsettings['imgpath'].'/'.$row['image'];
-												$fullimage = '';
+												$full_image = '';
 											}
 											if (file_exists($pnsettings['imgpath'].'/icon_'.$row['image'])) {
 												$iconimage = $pnsettings['imgpath'].'/icon_'.$row['image'];
@@ -3230,7 +3235,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 // end of center and right block disable code
 		$id = isset($_POST['id']) ? intval($_POST['id']) : (isset($_GET['id']) ? intval($_GET['id']) : '');
 		require_once('includes/nbbcode.php');
-		require('header.php');
+		require_once('header.php');
 		if (($func == '') || ($func == 'none')) {
 			ProNews::article_form();
 			$cpgtpl->set_filenames(array('body' => 'pronews/submit.html'));		// use submit.html as don't know which Section yet
@@ -4431,17 +4436,24 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 		$maxsizeX = '200';
 		$maxsizeY = '200';
 		if ($row['album_id'] != '0') {
-			$sql = 'SELECT pid pid, filepath, filename, pwidth, pheight, title FROM '.$prefix.'_cpg_pictures';
-//			$sql = 'SELECT pid pid, filepath, filename, pwidth, pheight, title, remote_url FROM '.$prefix.'_cpg_pictures';  // lb - use after installing my coppermine remote CPG hack
+			$sql = 'SELECT * FROM '.$prefix.'_cpg_pictures';
 			$sql .= ' WHERE aid='.$row['album_id'];
 			$asc_desc = ($row['album_seq'] & 1) ? 'ASC' : 'DESC';
 			if ($row['album_seq'] != '0') {$sql .= ' ORDER BY '.$album_order[$row['album_seq']].' '.$asc_desc;}
 			if ($npic == '0') {
-				$sql .= ' LIMIT '.$pnsettings['per_gllry'];
+				$sql .= ' LIMIT '.($pnsettings['per_gllry'] + 1);
 			} else {
-				$sql .= ' LIMIT '.$npic.', '.$pnsettings['per_gllry'];
+				$sql .= ' LIMIT '.$npic.', '.($pnsettings['per_gllry'] + 1);
 			}
 			$list = $db->sql_fetchrowset($db->sql_query($sql));
+// echo 'limit='.count($list);
+ 			if (count($list) > $pnsettings['per_gllry']) {
+				$smore = 1;
+				array_pop($list);
+			} else {
+				$smore = 0;
+			}
+// echo ' nlimit='.count($list);
 			if (($list) && ($list != "")) {
 				foreach ($list as $key => $pic) {
 					$fullsizepath = ($pic['remote_url'] != '' && preg_match("/(?:https?\:\/\/)?([^\.]+\.?[^\.\/]+\.[^\.\/]+[^\.]+)/", $pic['remote_url'], $matches)) ? 'http://'.$matches[1].'/' : $pic['filepath'];		// lb - cpg remote_url hack support
@@ -4471,6 +4483,8 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 				$j++;
 			}
 			$npic = $npic + $pnsettings['per_gllry'];
+
+// echo ' numpics='.$numpics.' smore='.$smore.' mpics='.($pnsettings['per_gllry'] != 0 && $smore == 1 && $numpics == $pnsettings['per_gllry'] && $row['album_id'] != '0' && $row['slide_show'] > '1' ? : 0);
 			$cpgtpl->assign_block_vars('gallery', array(
 				'S_ICON' => ($row['icon'] != '') ? $row['icon'] : 'clearpixel.gif',
 				'T_ICON' => $row['ctitle'],
@@ -4777,7 +4791,7 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 				'G_FIELDS_9' => ($row['user_fld_9']) ? '1' : '',
 				'S_USER_FLD_9' => (!$row['user_fld_9']) ? '' : ($row['usrfld9']) ? $row['usrfld9'] : _PNUSRFLD2,
 				'T_USER_FLD_9' => $row['user_fld_9'],
-				'G_MOREPICS' => ($pnsettings['per_gllry'] != 0 && $numpics == $pnsettings['per_gllry'] && $row['album_id'] != '0' && $row['slide_show'] > '1'),
+				'G_MOREPICS' => ($pnsettings['per_gllry'] != 0 && $numpics == $pnsettings['per_gllry'] && $smore == 1 && $row['album_id'] != '0' && $row['slide_show'] > '1'),
 				'T_MOREPICS' => _PNMOREPICS,
 				'U_MOREPICS' => getlink("&amp;mode=gllry&amp;id=".$row['id']."&amp;npic=".$npic),
 				'T_BACK' => _PNBACK,
@@ -4789,7 +4803,7 @@ onclick="PN_openBrWindow(\''.$BASEHREF.$pnsettings['imgpath'].'/'.$row['image'].
 			} else {
 				$pagetitle .= ' '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;cid='.$row['catid']).'">'.$row['ctitle'].'</a> '._BC_DELIM.' '.$row['title'];
 			}
-			require('header.php');
+			require_once('header.php');
 			$tpl = ($row['template'] != '') ? $row['template'] : $pnsettings['template'];
 			$cpgtpl->set_filenames(array('body' => 'pronews/article/'.$tpl));
 			$cpgtpl->display('body');

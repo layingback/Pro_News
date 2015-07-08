@@ -421,6 +421,15 @@ _________________________________________________________
 Current release is for Dragonfly 9.3.x, 9.2.x and 9.1.x (and 9.0.6.1 with simple manual changes) only.
 
 ______________________________________________________
+Significant Changes in 4.0.4 Version (from 4.0.3 version):
+
+Refined with OpenGraph to fully meet Facebook requirements
+Revised Photo Album display on Article page and Gallery pages to avoid empty pages
+In Admin > Articles added Submit New Article button if No Articles found
+Existing Config option to display single articles as full articles added to Admin Config
+Ability to call pro_News from within another module or page has been facilitated
+
+______________________________________________________
 Significant Changes in 4.0.3 Version (from 4.0.2 version):
 
 Fix significant issue with OpenGraph and Microdata if Article has an a href in Intro

@@ -211,6 +211,13 @@ class ProNewsAdm {
 				$cpgtpl->assign_block_vars('pn_msg', array(
 					'S_MSG' => $msg
 				));
+
+				$cpgtpl->assign_block_vars('sub_list', array(
+					'IS_USER' => (is_user()) ? '1' : '',
+					'G_STARTFORM' => open_form(adminlink("&amp;mode=add&amp;do=new&amp;cat=".$sortcat),'addart','&nbsp;'._PNADDARTICLE.'&nbsp;'),
+					'G_ENDFORM' => close_form(),
+					'U_SUBMIT' => '<input type="submit" name="addart" value="'._PNADDNXTART.'" />',
+				));
 			}
 		}
 
@@ -2169,6 +2176,8 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 				'T_TOPICLNK' => select_box('topic_lnk', $pnsettings['topic_lnk'], array(1=>_PNYES, 2=>_PNADMNOPT, 0=>_PNNO)),
 				'S_LMTFULART' => _PNLMTFULART,
 				'T_LMTFULART' => yesno_option('lmt_fulart', $pnsettings['lmt_fulart']),
+				'S_DSPYFULART' => _PNDSPYFULART,
+				'T_DSPYFULART' => yesno_option('disply_full', $pnsettings['disply_full']),
 				'S_MEMBERPAGE' => _PNMEMBERPAGE,
 				'T_MEMBERPAGE' => select_box('member_pages', $pnsettings['member_pages'], array(0=>_PNNO, 1=>_PNMAXOF.' 1', 2=>_PNMAXOF.' 2', 3=>_PNMAXOF.' 3', 4=>_PNMAXOF.' 4', 5=>_PNMAXOF.' 5', 10=>_PNMAXOF.' 10', 25=>_PNMAXOF.' 25', 50=>_PNMAXOF.' 50', 100=>_PNMAXOF.' 100', 1000=>_PNMAXOF.' 1000')),
 				'S_ACTVSRTORD' => _PNACTVSRTORD,
@@ -2315,6 +2324,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 
 			if ($_POST['topic_lnk'] != $pnsettings['topic_lnk']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['topic_lnk'].'" WHERE cfg_name="pro_news" AND cfg_field="topic_lnk"');}
 			if ($_POST['lmt_fulart'] != $pnsettings['lmt_fulart']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['lmt_fulart'].'" WHERE cfg_name="pro_news" AND cfg_field="lmt_fulart"');}
+			if ($_POST['disply_full'] != $pnsettings['disply_full']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['disply_full'].'" WHERE cfg_name="pro_news" AND cfg_field="disply_full"');}
 			if ($_POST['member_pages'] != $pnsettings['member_pages']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['member_pages'].'" WHERE cfg_name="pro_news" AND cfg_field="member_pages"');}
 			if ($_POST['actv_sort_ord'] != $pnsettings['actv_sort_ord']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['actv_sort_ord'].'" WHERE cfg_name="pro_news" AND cfg_field="actv_sort_ord"');}
 
