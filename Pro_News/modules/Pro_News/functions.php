@@ -2098,7 +2098,11 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 		}
 		if (isset($_GET['page']) && intval($_GET['page']) > 1) {
 			$page = intval($_GET['page']);
-			$pagetitle .= ' - '._PNPAGE.' '.$page;
+			if ($pnsettings['SEOtitle']) {
+				$pagetitle .= _PNPAGE.' '.$page.' '._BC_DELIM.' ';
+			} else {
+				$pagetitle .= _BC_DELIM.' '._PNPAGE.' '.$page;
+			}
 		} else {
 			$page = 1;
 		}
@@ -2243,9 +2247,9 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 					$first_art = '';
 					if (!$home) {
 						if ($pnsettings['SEOtitle']) {
-							$pagetitle .= $row['ctitle'].($cid ? ' '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;sid='.$row['sid']).'">'.$row['stitle'].'</a>' : '');
+							$pagetitle .= '<a href="'.getlink($module_name.'&amp;cid='.$row['cid']).'">'.$row['ctitle'].'</a>'.($sid ? ' '._BC_DELIM.' <a href="'.getlink($module_name.'&amp;sid='.$row['sid']).'">'.$row['stitle'].'</a>' : '');
 						} else {
-							$pagetitle .= ' '._BC_DELIM.' '.($cid ? '<a href="'.getlink($module_name.'&amp;sid='.$row['sid']).'">'.$row['stitle'].'</a> '._BC_DELIM.' ' : '').$row['ctitle'];
+							$pagetitle .= ' '._BC_DELIM.' '.($sid ? '<a href="'.getlink($module_name.'&amp;sid='.$row['sid']).'">'.$row['stitle'].'</a> '._BC_DELIM.' ' : '').'<a href="'.getlink($module_name.'&amp;cid='.$row['cid']).'">'.$row['ctitle'].'</a>';
 						}
 					} else {
 						$pagetitle .= _PNHOMETEXT;

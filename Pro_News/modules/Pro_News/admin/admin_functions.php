@@ -36,7 +36,7 @@ class ProNewsAdm {
 		$arts_per_page = (isset($pnsettings['per_admn_page']) && ($pnsettings['per_admn_page'] > '0')) ? $pnsettings['per_admn_page'] : '25';
 		if (isset($_GET['page']) && intval($_GET['page']) > 1) {
 			$page = intval($_GET['page']);
-			$pagetitle .= ' - '._PNPAGE.' '.$page;
+//			$pagetitle .= ' - '._PNPAGE.' '.$page;
 		} else {
 			$page = 1;
 		}
@@ -170,6 +170,7 @@ class ProNewsAdm {
 					'G_STARTFORM' => open_form(adminlink("&amp;mode=list&amp;do=mod"),'artlist','&nbsp;'._PNARTICLES.'&nbsp;'),
 					'G_ENDFORM' => close_form(),
 					'G_BGCOLOR' => $bgcolor2,
+					'S_PAGENO' => $page > 1 ? ' - '._PNPAGE.' '.$page : '',
 					'S_ARTCOUNT' => $numarticles,
 					'S_ARTFOUND' => ($numarticles == '1') ? $numarticles.' '._PNFOUNDART : $numarticles.' '._PNFOUNDARTS ,
 					'S_SECTITLE' => _PNSECTION,
@@ -2318,7 +2319,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 			if ($_POST['printf'] != $pnsettings['printf']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['printf'].'" WHERE cfg_name="pro_news" AND cfg_field="printf"');}
 			if ($_POST['soc_net'] != $pnsettings['soc_net']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['soc_net'].'" WHERE cfg_name="pro_news" AND cfg_field="soc_net"');}
 			if ($_POST['opn_grph'] != $pnsettings['opn_grph']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['opn_grph'].'" WHERE cfg_name="pro_news" AND cfg_field="opn_grph"');}
-			if ($_POST['seotitle'] != $pnsettings['SEOtitle']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['seotitle'].'" WHERE cfg_name="pro_news" AND cfg_field="SEOtitle"');}
+			if ($_POST['seotitle'] && $_POST['seotitle'] != $pnsettings['SEOtitle']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['seotitle'].'" WHERE cfg_name="pro_news" AND cfg_field="SEOtitle"');}
 			if ($_POST['cal_module'] != $pnsettings['cal_module']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['cal_module'].'" WHERE cfg_name="pro_news" AND cfg_field="cal_module"');}
 			if ($_POST['cal_ofst'] != $pnsettings['cal_ofst']) {$db->sql_query('UPDATE '.$prefix.'_config_custom SET cfg_value="'.$_POST['cal_ofst'].'" WHERE cfg_name="pro_news" AND cfg_field="cal_ofst"');}
 

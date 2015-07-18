@@ -17,8 +17,10 @@
   Author: layingback
 **********************************************/
 if (!defined('CPG_NUKE')) { exit; }
+// echo '<br />pmn='.$module_name.' ppn='.$pn_module_name;
 
 require_once('modules/'.$module_name.'/init.inc');
+if (!$MAIN_CFG['pro_news']['SEOtitle']) { $pagetitle .= '<a href="'.getlink($module_name).'">'.$module_title.'</a>'; } // changed $module_name -> $module_title - layingback 061212
 
 if (isset($_POST['aid']) && isset($_POST['score'.$_POST['aid']])) {
 	$aid = intval($_POST['aid']);

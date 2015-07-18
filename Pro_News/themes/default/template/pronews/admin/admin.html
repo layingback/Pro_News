@@ -76,6 +76,7 @@
 		<tr><td>{cfg_form.S_DATEFRMT}</td><td>{cfg_form.T_DATEFRMT}</td><td onmouseover="tip('_DATEFRMT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_POSTLINK}</td><td>{cfg_form.T_POSTLINK}</td><td onmouseover="tip('_POSTLINK')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_LMTFULART}</td><td>{cfg_form.T_LMTFULART}</td><td onmouseover="tip('_LMTFULART')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_DSPYFULART}</td><td>{cfg_form.T_DSPYFULART}</td><td onmouseover="tip('_DSPYFULART')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_MEMBERPAGE}</td><td>{cfg_form.T_MEMBERPAGE}</td><td onmouseover="tip('_MEMBERPAGE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_SECINSEC}</td><td>{cfg_form.T_SECINSEC}</td><td onmouseover="tip('_SECINSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td> &nbsp; &nbsp; {cfg_form.S_MEMINSEC}</td><td>{cfg_form.T_MEMINSEC}</td><td onmouseover="tip('_MEMINSEC')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
@@ -91,7 +92,7 @@
 		<tr><td>{cfg_form.S_FRMTYPBYCAT}</td><td>{cfg_form.T_FRMTYPBYCAT}</td><td onmouseover="tip('_FRMTYPBYCAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_CALTYPE} *</td><td>{cfg_form.T_CALTYPE} &nbsp; {cfg_form.S_CALOFST} {cfg_form.T_CALOFST} {cfg_form.L_CALOFST}</td><td onmouseover="tip('_CALTYPE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_OPN_GRPH}</td><td>{cfg_form.T_OPN_GRPH}</td><td onmouseover="tip('_OPN_GRPH')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
-		<tr><td>{cfg_form.S_SEOTITLE}</td><td>{cfg_form.T_SEOTITLE}</td><td onmouseover="tip('_SEOTITLE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+<!--	<tr><td>{cfg_form.S_SEOTITLE}</td><td>{cfg_form.T_SEOTITLE}</td><td onmouseover="tip('_SEOTITLE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>	-->
 
 		<tr><td colspan="3">&nbsp;</td></tr>
 		<tr><td colspan="3"><strong>{cfg_form.L_SRCHSET}</strong></td></tr>
@@ -109,6 +110,7 @@
 		<tr><td>{cfg_form.S_ASPECT} *</td><td>{cfg_form.T_ASPECT}</td><td onmouseover="tip('_ASPECT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_MAXIMG}</td><td>{cfg_form.T_MAXIMG}</td><td onmouseover="tip('_MAXIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td>{cfg_form.S_SHOWNOIMG}</td><td>{cfg_form.T_SHOWNOIMG}</td><td onmouseover="tip('_SHOWNOIMG')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{cfg_form.S_IMGMAXRMTE}</td><td>{cfg_form.T_IMGMAXRMTE}</td><td onmouseover="tip('_IMGMAXRMTE')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 
 		<tr><td colspan="3">&nbsp;</td></tr>
 		<tr><td colspan="3"><strong>{cfg_form.S_ADMINSTTNGS}</strong></td></tr>
@@ -172,6 +174,7 @@ maketip('_FORUMDATE','','_(FORUMDATE_HLP)');
 maketip('_DATEFRMT','','_(DATEFRMT_HLP)');
 maketip('_POSTLINK','','_(POSTLINK_HLP)');
 maketip('_LMTFULART','','_(LMTFULART_HLP)');
+maketip('_DSPYFULART','','_(DSPYFULART_HLP)');
 maketip('_MEMBERPAGE','','_(MEMBERPAGE_HLP)');
 maketip('_SECINSEC','','_(SECINSEC_HLP)');
 maketip('_MEMINSEC','','_(MEMINSEC_HLP)');
@@ -192,6 +195,7 @@ maketip('_MAXW','','_(MAXW_HLP)');
 maketip('_MAXH','','_(MAXH_HLP)');
 maketip('_ASPECT','','_(ASPECT_HLP)');
 maketip('_MAXIMG','','_(MAXIMG_HLP)');
+maketip('_IMGMAXRMTE','','_(IMGMAXRMTE_HLP)');
 maketip('_SHOWNOIMG','','_(SHOWNOIMG_HLP)');
 maketip('_AUTOAPPRV','','_(AUTOAPPRV_HLP)');
 maketip('_MODERATE','','_(MODERATE_HLP)');
@@ -257,7 +261,7 @@ maketip('_SRCHNUMLIST','','_(SRCHNUMLIST_HLP)');
 				<td>{cat.cat_list.S_SECTION}</td>
 				<td>{cat.cat_list.S_SEQUP}</td>
 				<td>{cat.cat_list.S_SEQDN}</td>
-				<td>{cat.cat_list.S_TITLE}<br /><span class="pn_tiny">{cat.cat_list.S_DESC}</span></td>
+				<td>{cat.cat_list.S_TITLE_LNK}<br /><span class="pn_tiny">{cat.cat_list.S_DESC}</span></td>
 				<td><img src="images/pro_news/icons/{cat.cat_list.S_ICON}" alt="{cat.cat_list.S_TITLE}" /></td>
 				<td align="center"><span class="pn_tiny">{cat.cat_list.S_FORUM}</span></td>
 				<td align="right">{cat.cat_list.S_LINKS}</td>
@@ -434,7 +438,7 @@ maketip('_BNUM','','_(BNUM_HLP)');
 <!-- BEGIN artlist -->
 	{artlist.G_STARTFORM}
 	<div align="center">{artlist.S_SECTITLE}:&nbsp;<strong>{artlist.U_SECTITLE}</strong>{artlist.S_CATTITLE}:&nbsp;<strong>{artlist.U_CATTITLE}</strong></div><br />
-	{artlist.S_ARTFOUND}
+	{artlist.S_ARTFOUND}<i>{artlist.S_PAGENO}</i>
 	<table class="table1" width="100%" summary="">
 		<tr style="bgcolor: {artlist.G_BGCOLOR}">
 			<td align="right">#</td>
