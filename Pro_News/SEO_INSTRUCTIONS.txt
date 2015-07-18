@@ -12,11 +12,13 @@
 
 OPEN GRAPH and MICRODATA
 
-Pro_News is now capable of creating its own Open Graph entry for FaceBook, and itemtype (Microdata) entries for Google+.
+Pro_News is now capable of creating its own Open Graph entry for FaceBook, and itemtype 
+(Microdata) entries for Google+.
 
-For reasons dictated by FaceBook these entries MUST be placed in the head section of the HTML (between <head ... </head>)
-versus the more common body section.  To accomplish this it is necessary to edit your header.html file by hand to
-include the template variables used by Pro_News.
+For reasons dictated by FaceBook these entries MUST be placed in the head section of 
+the HTML (between <head ... </head>) versus the more common body section.  To accomplish 
+this it is necessary to edit your header.html file by hand to include the template 
+variables used by Pro_News.
 
 1. At the top of themes/{your_theme}/template/header.html locate the line:
 
@@ -30,34 +32,36 @@ and replace with these 4 lines:
 	<html xmlns="http://www.w3.org/1999/xhtml" dir="{S_TEXTDIR}" xml:lang="{S_LANGCODE}" lang="{S_LANGCODE}" itemscope itemtype="http://schema.org/Webpage" >
 <!-- ENDIF -->
 
-[ NOTE: If you have already placed FaceBook or Google+ focused entries of 'itemtype="http://schema.org/Article"',
-'xmlns:fb="http://ogp.me/ns/fb#"' or 'xmlns:og="http://opengraphprotocol.org/schema/"' on your current <html>
+[ NOTE: If you have already placed FaceBook or Google+ focused entries of 
+'itemtype="http://schema.org/Article"', 'xmlns:fb="http://ogp.me/ns/fb#"' or 
+'xmlns:og="http://opengraphprotocol.org/schema/"' on your current <html>
 statement you may need to decide whether you need to keep or replace this. ]
 
-2. Locate the </head> line, the following code must be inserted BEFORE this, but with some themes placing it 
-just before </head> will result in the OpenGraph/Microdata code still appearing in the body of the HTML instead 
-of the head - as required by FaceBook.  I found that immediately BEFORE the {S_HEADER_TAGS} worked for my theme:
+2. Locate the </head> line, the following code must be inserted BEFORE this, but with 
+some themes placing it just before </head> will result in the OpenGraph/Microdata code 
+still appearing in the body of the HTML instead of the head - as required by FaceBook. 
+I found that immediately BEFORE the {S_HEADER_TAGS} worked for my theme:
 
+<!-- IF FBOOK_OGURL -->
 	<meta property="og:type" content="article" />
 	<!-- IF FBOOK_OG --><meta property="og:image" itemprop="image" content="{FBOOK_OG}" /><!-- ENDIF -->
 	<meta property="og:url" itemprop="url" content="{FBOOK_OGURL}" />
 	<meta property="og:title" itemprop="name" content="{FBOOK_OGTITLE}" />
 	<meta property="og:description" itemprop="description" content="{FBOOK_OGDESC}" />
-	<meta property="og:author" itemprop="author" content="{FBOOK_OGAUTH}" />
-	<meta property="og:publisher" itemprop="publisher" content="{S_SITENAME}" />
 	<meta property="og:site_name" content="{S_SITENAME}" />
-	<meta property="article:published_time" content="{FBOOK_ARTPUBTME}" />
-	<!-- IF FBOOK_ARTMODTME --><meta property="article:modified_time" content="{FBOOK_ARTMODTME}" /><!-- ENDIF -->
-	<meta property="article:section" content="{FBOOK_SECTION}" />
 	<meta name="twitter:card" content="summary" />
 <!-- If you have a facebook presence copy 1 or both of the lines below after adding your fb info
 	<meta property="article:publisher" content="https://www.facebook.com/your_fb_sitename" />
 	<meta property="article:author" content="https://www.facebook.com/your_fb_profile" />
 -->
+<!-- ENDIF -->
 
 Obviously drop those last 2 lines, ie. the entire comment, if you do not need them.
 
-To test the above has been carried out correctly, go to a full article page in Pro_News, ie. a URL of the form:
+Finally, go into Administration > Pro_News > Config and set 'Enable Open Graph' to Yes.
+
+To test the above has been carried out correctly, go to a full article page in Pro_News, 
+ie. a URL of the form:
 
 	http://.........../Pro_News/aid=xxx
 
@@ -67,9 +71,11 @@ The source of the HTML should display:
 
 and
 
-	5 or 6* of the <meta property="og: ... lines with sensible links into your website should appear BEFORE the </head> line.
+	6 or 7* of the <meta property="og: ... lines with sensible links into your website 
+should appear BEFORE the </head> line.
 
-* The <meta property="og:image ... line will appear only if the first Pro_News article image is present.
+* The <meta property="og:image ... line will appear only if the first Pro_News article image 
+is present.
 
 
 META DESCRIPTION
@@ -77,24 +83,11 @@ META DESCRIPTION
 Pro_News will amend the existing DragonflyCMS <meta name="description"> line to reflect the
 specific article when the full article is displayed.
 
-An Administrator creating, or editing, a Pro_News article can now insert a SEO Description
+An Administrator creating, or editing, a Pro_News article can now insert an SEO Description
 which will form the basis for the <meta name="description"> line if present.
 
 ( If no SEO Description field is present then Pro_News will use up to 255 characters of the
 Intro text as it has done in previous releases. )
 
-Either way DragonflyCMS will attempt to preface the Pro_News meta description with your Site's Slogan.
-If you want your new SEO Description to appear first in the meta description you will need to instruct
-DragonflyCMS not to preface it with the Site Slogan.  To do this open your includes/meta.php file and
-find the following line, near the end of the file:
-
-	default:
-
-Immediately BEFORE the default: line insert:
-
-	case 'Pro_News':
-		$METATAGS['description'] = '';
-		$METATAGS['keywords'] .= '';
-	break;
-
-[ NOTE: If you already have an entry for 'Pro_News' you may need to revise or merge the existing lines. ]
+NOTE: The above applies when Pro_News is displaying a Full Article.  For all other Pro_News 
+pages, the existing settings in includes/meta.php will be utilised.

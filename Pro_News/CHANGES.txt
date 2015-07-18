@@ -30,6 +30,31 @@ additional themes:
 _________________________________________________________
 Known Issues:
 
+SEO Titles
+An option now exists in 4.0.3 and above, to request that the title command used in the HTML head section be reversed with respect 
+to the normal Dragonfly convention.  This places the article title first and the site name last, instead of the other way around.  
+It is thought that this improves search engine reporting.
+Note however that doing this will also reverse the order of the breadcrumbs, so Home becomes last instead of first. While all 
+other modules will continue to display Home first. This can be overcome in 1 of 2 ways:  drop breadcrumbs from your templates 
+for all modules, or - if using reDesign template - apply the following to reverse the breadcrumb oder for Pro_News module only.
+In themes/reDesign/theme.php in function makeLinkableBreadcrumb() immediately before the line 
+	$tracesLastKey = count($traces)-1; 
+insert the following lines:
+	//	code to flip breadcrumbs - needed if Pro_News SEO Title option is used - layingback
+		// Modules that have reversed $pagetitle sequences for SEO reasons (true)
+		$reversedTitleModules = array(
+			'Pro_News'			=> true,
+		);
+
+		if (!defined('ADMIN_PAGES') && isset($reversedTitleModules[$module_name])) {
+			if ($reversedTitleModules[$module_name]) {
+				$traces = array_reverse($traces, true);
+				$traces = array_slice($traces, -1, null, true) + $traces;
+			}
+		}
+	//	end breadcrumbs flip - layingback
+
+
 Impact of Moderator Changes
 The new (at v3.4.7) Moderate feature requires an update to any templates based upon index2xxx.html.  The release includes updates
 to the release templates, but you will need to update any of your own that you have created.  Edit is simple.  Find in newsarticle:
@@ -418,7 +443,14 @@ _________________________________________________________
 _________________________________________________________
 
 
-Current release is for Dragonfly 9.3.x, 9.2.x and 9.1.x (and 9.0.6.1 with simple manual changes) only.
+Current release is for Dragonfly 9.4, 9.3, 9.2 and 9.1 (and 9.0.6.1 with simple manual changes) only.
+
+______________________________________________________
+Significant Changes in 4.0.5 Version (from 4.0.4 version):
+
+Changes to call Pro_News from within another module to address $module_name corruption
+Improvements to page titles and breadcrumbs when SEO optimisations are enabled
+Bug fix to breadcrumbs when calling with specific cid number
 
 ______________________________________________________
 Significant Changes in 4.0.4 Version (from 4.0.3 version):

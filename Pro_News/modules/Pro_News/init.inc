@@ -11,8 +11,10 @@
   Author: layingback
 **********************************************/
 if (!defined('CPG_NUKE')) { exit; }
+$pnsettings = $MAIN_CFG['pro_news'];
+$pn_module_name = $pnsettings['module_name'];
+// echo '<br />imn='.$module_name.' ipn='.$pn_module_name;
 
-if (!$MAIN_CFG['pro_news']['SEOtitle']) { $pagetitle .= '<a href="'.getlink($module_name).'">'.$module_title.'</a>'; } // changed $module_name -> $module_title - layingback 061212
 $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 if (file_exists('themes/'.$CPG_SESS['theme'].'/style/pro_news.css')) {
 	$modheader .= '<link rel="stylesheet" type="text/css" href="themes/'.$CPG_SESS['theme'].'/style/pro_news.css" />';
@@ -27,10 +29,10 @@ if (file_exists('themes/'.$CPG_SESS['theme'].'/style/pro_news.css')) {
 	}
 	$modheader .= '<link rel="stylesheet" type="text/css" href="themes/default/style/pn_specific.css" />';
 }
-$modheader .= "<script type=\"text/javascript\" src=\"modules/$module_name/includes/scripts.js\"></script>\n";  // added layingback
+$modheader .= "<script type=\"text/javascript\" src=\"modules/$pn_module_name/includes/scripts.js\"></script>\n";  // added layingback
 require_once('language/'.$language.'/pro_news.php');
-require_once('modules/'.$module_name.'/includes/load_js.inc');
-require_once('modules/'.$module_name.'/functions.php');
+require_once('modules/'.$pn_module_name.'/includes/load_js.inc');
+require_once('modules/'.$pn_module_name.'/functions.php');
 
 if (!Cache::array_load('board_config', 'Forums', true)) {
 	$result = $db->sql_query('SELECT * FROM '.$prefix.'_bbconfig');

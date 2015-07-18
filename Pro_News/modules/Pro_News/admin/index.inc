@@ -16,7 +16,7 @@
 if (!defined('ADMIN_PAGES')) { exit; }
 if (!can_admin($module_name)) { die('Access Denied'); }
 global $need_pagination, $user_agent;
-$pagetitle .= ' '._BC_DELIM.' '.$module_name;
+$pagetitle .= ' '._BC_DELIM.' <a href="'.$module_name.'">'.$module_name.'</a>';
 $modheader .= "<script type=\"text/javascript\" src=\"modules/$module_name/includes/scripts.js\"></script>\n";  // added layingback
 if (file_exists('themes/'.$CPG_SESS['theme'].'/style/pro_news.css')) {
 	$modheader .= '<link rel="stylesheet" type="text/css" href="themes/'.$CPG_SESS['theme'].'/style/pro_news.css" />';
