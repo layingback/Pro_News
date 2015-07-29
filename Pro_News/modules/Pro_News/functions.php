@@ -176,14 +176,14 @@ class ProNews  {
 			if (substr($bsets['type'], 0, 5) == 'tmpl_') {
 				$bsets['type'] = substr($bsets['type'], 5);
 			}
-// echo $bsets['type'];
+// echo '<br />t='.$bsets['type'];
 
 			$use_tmpl = '';
 			if ($bsets['type'] == 'trandomctr' || $bsets['type'] == 'tlatestctr' || $bsets['type'] == 'toldestctr' || $bsets['type'] == 'theadlines') {
 				$use_tmpl = '1';
 				$bsets['type'] = trim($bsets['type'], 't');
 			}
-// echo '<br />ut='.$use_tmpl.' '.$bsets['type'];
+// echo '<br />ut='.$use_tmpl.' - '.$bsets['type'];
 			if ($bsets['type'] == 'headlines') {
 				$arts_per_hdline = (isset($pnsettings['per_hdline']) && ($pnsettings['per_hdline'] > '0')) ? $pnsettings['per_hdline'] : '4';
 				$sql = 'SELECT s.id sid,s.title stitle,s.description sdescription,s.view view, art_ord, keyusrfld, template';
@@ -657,6 +657,7 @@ class ProNews  {
 					}
 // echo ' ok 2 bpos='.$bpos;
 // echo '<br />i='.$i;
+// echo '<br />cpgtpl='.$tplt.' art_tpl='.$row['template'];
 					ob_start();
 					if ($use_tmpl) {
 						$tplt = 'pronews/article/'.($row['template'] != '' ? $row['template'] : $pnsettings['template']);
