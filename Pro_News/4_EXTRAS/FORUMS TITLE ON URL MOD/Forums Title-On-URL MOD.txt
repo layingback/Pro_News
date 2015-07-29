@@ -1,0 +1,61 @@
+The Forums Title-On-Url Mod is an adjunct to the Pro_News Module, and is released under GNU 
+GPL 2 or later as Free/Libre Open Source Software.
+
+It may optionally be installed alongside Pro_News on DragonflyCMS but has only been tested with 
+DragonflyCMS version 9.4.0.  It is expected to work on later versions of DragonflyCMS v9 only.
+
+         -------------------------------------------------------------
+
+If you have enabled the 'Include Article Title in URL' option in Adminstration > Pro_News > Config
+in order to append the article's title to the end of the article's URL for the benefit of your 
+website's visitors, and possibly certain search engines, you may wish to do the same for Forums.
+
+The following mod adds the Forums Topic Title to the end of the forums URL, it also appends the 
+Forums Title to the end of the Forums URL (for top level forums only, not Sub-Forums).
+
+To accomplish this apply 2 small localised patches to modules/Forums/index.php, viewforum.php and 
+viewtopic.php
+
+
+In modules/Forums/index.php look for:
+		$view_topic_url = getlink('&amp;file=viewtopic&amp;'.POST_TOPIC_URL."=$topic_id");
+
+and replace with these 2 lines:
+		$url_text = ($MAIN_CFG['pro_news']['text_on_url'] ? '&amp;'.str_replace(" ", ($MAIN_CFG['pro_news']['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($MAIN_CFG['pro_news']['url_lcase'] ? strtolower($topic_title) : $topic_title)))) : '');
+		$view_topic_url = getlink('&amp;file=viewtopic&amp;'.POST_TOPIC_URL."=$topic_id".$url_text);		// layingback - add title to url based on Pro_News settings
+
+
+In modules/Forums/viewforum.php look for:
+						if ($forum_data[$j]['forum_type'] == 2) {
+							$forumlink = getlink($forum_data[$j]['forum_link']);
+						} else if ($forum_data[$j]['forum_type'] == 3) {
+							$forumlink = $forum_data[$j]['forum_link'];
+						} else {
+							$forumlink = getlink('&amp;file=viewforum&amp;'.POST_FORUM_URL."=$forum_id");
+							$archivelink = getlink('&amp;file=viewarchive&amp;'.POST_FORUM_URL."=$forum_id");
+						}
+
+and replace with these 10 lines:
+						$url_text = ($MAIN_CFG['pro_news']['text_on_url'] ? '&amp;'.str_replace(" ", ($MAIN_CFG['pro_news']['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($MAIN_CFG['pro_news']['url_lcase'] ? strtolower($forum_data[$j]['forum_name']) : $forum_data[$j]['forum_name'])))) : '');
+						if ($forum_data[$j]['forum_type'] == 2) {
+							$forumlink = getlink($forum_data[$j]['forum_link'].$url_text);
+						} else if ($forum_data[$j]['forum_type'] == 3) {
+							$forumlink = $forum_data[$j]['forum_link'].$url_text;
+						} else {
+							$forumlink = getlink('&amp;file=viewforum&amp;'.POST_FORUM_URL."=$forum_id".$url_text);
+							$archivelink = getlink('&amp;file=viewarchive&amp;'.POST_FORUM_URL."=$forum_id".$url_text);
+						}
+					// layingback - add forum name to url based on Pro_News settings
+
+
+In modules/Forums/viewforum.php look for:
+	$mini_post_url = getlink('&amp;file=viewtopic&amp;'.POST_POST_URL.'='.$postrow[$i]['post_id']).'#'.$postrow[$i]['post_id'];
+
+and replace with these 2 lines:
+	$url_text = ($MAIN_CFG['pro_news']['text_on_url'] ? '&amp;'.str_replace(" ", ($MAIN_CFG['pro_news']['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($MAIN_CFG['pro_news']['url_lcase'] ? strtolower($topic_title) : $topic_title)))) : '');
+	$mini_post_url = getlink('&amp;file=viewtopic&amp;'.POST_POST_URL.'='.$postrow[$i]['post_id'].$url_text).'#'.$postrow[$i]['post_id'];
+
+
+It uses the same settings and options as pro_News, so if you replace hyphens with undersores, or 
+disable the feature, in Pro_News then the same will occur in Forums.
+

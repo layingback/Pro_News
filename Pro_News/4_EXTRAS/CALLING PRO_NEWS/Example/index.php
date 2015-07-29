@@ -5,7 +5,7 @@
 
 	Example module to use as calling module for Pro_News
 	Edit the meta description, keywords and page title to suit your page
-	Then activate and make it your home module through admin.php?op=modules
+	Then activate your module through admin.php?op=modules
 	You can allocate blocks left/right/center up/center down as usual
 
 
@@ -60,10 +60,10 @@ if (is_active($pn_module_name)) {
 # -------------------------------------- optional URL parameter capture ----------------------------------- #
 	$value = 'Default Category';
 
-	# optionally comment out and run module with url:  YOUR_DOMAIN/{YOUR_MODULE_NAME}/Default_Category
+	# optionally remove comment and run module with url:  YOUR_DOMAIN/{YOUR_MODULE_NAME}/Default_Category
 	# note use _ character for space in Category title - also for Section and Article titles
-	$value = isset($_GET['c']) ? Fix_Quotes($_GET['c'],1,1) : '';
-	$value = str_replace('_', ' ', $value);
+//	$value = isset($_GET['c']) ? Fix_Quotes($_GET['c'],1,1) : '';
+//	$value = str_replace('_', ' ', $value);
 // echo '<pre>'; print_r($_GET); echo '</pre>';
 // echo 'title parameter='.$value;
 

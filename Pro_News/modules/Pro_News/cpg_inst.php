@@ -29,9 +29,9 @@ eval("
 		// class constructor
 			function $mod_dirname() {
 				\$this->radmin = true;
-				\$this->version = '4.0.5';
-				\$this->modname = $mod_dirname;
-				\$this->description = 'Pro_News CM&#8482; - Ultra Configurable Content Management - interfaces to Forums,  Photo Gallery & Calendar &nbsp; (Ver 4: developed and extended from original beta module of same name by Kauragari)';
+				\$this->version = '4.0.6';
+				\$this->modname = \"$mod_dirname\";
+				\$this->description = 'Pro_News CM&#8482; - Ultra Configurable Content Management - interfaces to Forums, Photo Gallery & Calendar (v4: developed and extended from beta module of same name by Kauragari)';
 				\$this->author = 'layingback';
 				\$this->website = 'www.layingback.net';
 				\$this->dbtables = array('pronews_articles', 'pronews_cats', 'pronews_sections', 'pronews_blocks', 'pronews_schedule');
@@ -57,8 +57,8 @@ eval("
 					id int(11) NOT NULL auto_increment,
 					title varchar(255) NOT NULL default 'New Section',
 					description varchar(255) default NULL,
-					view tinyint(11) NOT NULL default '0',
-					admin tinyint(11) NOT NULL default '1',
+					view int(10) UNSIGNED NOT NULL default '0',
+					admin int(10) UNSIGNED NOT NULL default '1',
 					forum_id int(10) NULL,
 					sequence tinyint(11) NOT NULL default '0',
 					in_home tinyint(11) NOT NULL default '0',
@@ -80,10 +80,10 @@ eval("
 					secheadlines tinyint(11) NOT NULL default '0',
 					sectrunc1head int(11) NOT NULL default '0',
 					sectrunchead int(11) NOT NULL default '0',
-					post tinyint(11) NOT NULL default '1',
+					post int(10) UNSIGNED NOT NULL default '1',
 					secdsplyby tinyint(11) NOT NULL default '0',
 					keyusrfld int(11) NOT NULL default '0',
-					moderate tinyint(11) NOT NULL default '2',
+					moderate int(10) UNSIGNED NOT NULL default '2',
 						PRIMARY KEY (id)\", 'pronews_sections');
 			   \$installer->add_query('CREATE', 'pronews_articles', \"
 					id int(11) NOT NULL auto_increment,
@@ -484,6 +484,13 @@ eval("
 
 				if (\$prev_version <= '4.0.3') {
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'img_max_width_remote', ''\");
+				}
+
+				if (\$prev_version <= '4.0.5') {
+					\$installer->add_query('CHANGE', 'pronews_sections', \"'view view int(10) UNSIGNED NOT NULL default 0'\");
+					\$installer->add_query('CHANGE', 'pronews_sections', \"'admin admin int(10) UNSIGNED NOT NULL default 1'\");
+					\$installer->add_query('CHANGE', 'pronews_sections', \"'post post int(10) UNSIGNED NOT NULL default 1'\");
+					\$installer->add_query('CHANGE', 'pronews_sections', \"'moderate moderate int(10) UNSIGNED NOT NULL default 2'\");
 				}
 
 
