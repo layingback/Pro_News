@@ -132,7 +132,7 @@ class ProNews  {
 				if ((isset($list)) && ($list != '')) {
 					$content = '<div>';
 					foreach ($list as $row) {
-						$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title'])))) : '');
+						$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']))))) : '');
 						$content .= '<div class="pn_blklnk">'.($row['posttime'] > $userinfo['user_lastvisit'] ? '<img src="images/pro_news/bullet_red.png" title="New" alt="new" />' : '<img src="images/pro_news/bullet_blue.png" alt="" />').'&nbsp;'.'<a href="'.getlink("$pn_module_name&amp;aid=".$row['id'].$url_text).'" title="'.htmlentities($row['stitle']).' &raquo; '.htmlentities($row['ctitle']).' &raquo; '.htmlentities($row['title']).' &#10;- '.htmlentities($row['postby']).' - '.ProNews::create_date('d M y', $row['posttime']).'&nbsp;'.'">'.$row['title'].'</a></div>';
 					}
 					if ($bsets['section'] == 'ALL') {			// link to all
@@ -255,7 +255,7 @@ class ProNews  {
 							$db->sql_freeresult($result);
 							if (isset($list) && $list != '') {
 								foreach ($list as $row) {
-									$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title'])))) : '');
+									$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']))))) : '');
 									if (($pnsettings['display_by'] == '0' && $i == '0') || ($pnsettings['display_by'] == '1' && $last_sec != $rowc['stitle']) || (($pnsettings['display_by'] == '2' || $bsets['category'] != '') && $last_cat != $rowc['ctitle'])) {
 										$i = 1;
 										$bgcolor = "";
@@ -547,7 +547,7 @@ class ProNews  {
 					$last_sec = ''; $last_cat = '';
 					$i = 0;
 					foreach ($list as $key => $row) {
-						$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title'])))) : '');
+						$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']))))) : '');
 						if (($row['view'] == '0') || (can_admin($pn_module_name)) || (is_user() && (($row['view'] == '1') || (($row['view'] > 3) && (isset($userinfo['_mem_of_groups'][$row['view'] - 3])))))) {
 							if (($row['image'] != '') && ($row['image'] != '0')) {
 								$imagesize = getimagesize($pnsettings['imgpath'].'/'.$row['image']);  // fitted window - layingback 061119
@@ -1055,7 +1055,7 @@ function load() {var load = window.open("'.getlink($module_name.'&mode=slide&id=
 
 			$curr_discuss = $row['topic_id'];
 			$curr_sec = $row['sid'];
-			$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title'])))) : '';
+			$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']))))) : '';
 			$cpgtpl->assign_block_vars('newsarticle', array(
 				'S_SECBRK' => ProNews::getsctrnslt('_PN_SECTITLE_', $row['stitle'], $row['sid']),
 				'U_SECDESC' => ProNews::getsctrnslt('_PN_SECDESC_', $row['sdescription'], $row['sid']),
@@ -1591,9 +1591,9 @@ echo '<br />m/l='.$multilingual.' sec='.$row['id'].' st='.$sectitle_lit.' sd='.$
 								));
 							}
 
-
+							$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower($row['title']) : $row['title']))))) : '';
 							$cpgtpl->assign_block_vars('sec_list', array(
-								'S_SECTION' => '<a href="'.getlink("&amp;sid=".$row['id']).'">'.(ProNews::getsctrnslt('_PN_SECTITLE_', $row['title'], $row['id'])).'</a>',
+								'S_SECTION' => '<a href="'.getlink("&amp;sid=".$row['id'].$url_text).'">'.(ProNews::getsctrnslt('_PN_SECTITLE_', $row['title'], $row['id'])).'</a>',
 								'S_SECDESC' => ProNews::getsctrnslt('_PN_SECDESC_', $row['description'], $row['id']),
 								'S_SID' => $row['id'],
 								'T_RSSSEC' => ($rss && ((($pnsettings['enbl_rss'] == '2' || $pnsettings['enbl_rss'] == '4') && $row['in_home'] == '1') || $pnsettings['enbl_rss'] == '3' || $pnsettings['enbl_rss'] == '5')) ? '<a href="'.$BASEHREF."rss/pro_news.php?sid=".$row['id'].'"><img src="images/pro_news/rss.png" alt="rss" title="RSS" /></a>' : ($pnsettings['enbl_rss'] == '2' || $pnsettings['enbl_rss'] == '4' ? '<img src="images/pro_news/icons/clearpixel.gif" width="16" height="16" alt="" />' : '')
@@ -1617,11 +1617,12 @@ echo '<br />m/l='.$multilingual.' sec='.$row['id'].' st='.$sectitle_lit.' sd='.$
 								}
 echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 */
+								$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower($cat['title'].($pnsettings['sec_in_url'] ? '/'.$row['title'] : '')) : $cat['title'].'/'.$row['title']))))) : '';
 								$cpgtpl->assign_block_vars('sec_list.cat_list', array(
 									'S_ICON' => ($cat['icon'] == ' ' || $cat['icon'] == '') ? 'clearpixel.gif' : $cat['icon'],
-									'U_LINK' => getlink("&amp;cid=".$cat['id']),
+									'U_LINK' => getlink("&amp;cid=".$cat['id'].$url_text),
 									'S_TITLE' => $re_use = ProNews::getsctrnslt('_PN_CATTITLE_', $cat['title'], $cat['id']),
-									'U_TITLE' => '<a href="'.getlink("&amp;cid=".$cat['id']).'">'.$re_use.'</a>',
+									'U_TITLE' => '<a href="'.getlink("&amp;cid=".$cat['id'].$url_text).'">'.$re_use.'</a>',
 									'S_DESC' => ProNews::getsctrnslt('_PN_CATDESC_', $cat['description'], $cat['id']),
 									'S_CID' => $cat['id'],
 									'T_RSSCAT' => ($rss && (($pnsettings['enbl_rss'] == '4' && $row['in_home'] == '1') || $pnsettings['enbl_rss'] == '5')) ? '<a href="'.$BASEHREF."rss/pro_news.php?sid=".$row['id']."&amp;cid=".$cat['id'].'"><img src="images/pro_news/rss_s.png" alt="rss" title="RSS" /></a>' : ($pnsettings['enbl_rss'] == '4' ? '<img src="images/pro_news/icons/clearpixel.gif" width=12 height=12 alt="rss" title="RSS" />' : ''),
@@ -1713,7 +1714,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 														$text = $art['intro'];
 													}
 												}
-												$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $art['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $art['ctitle'].'/' : '').$art['title']) : ($pnsettings['sec_in_url'] ? $art['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $art['ctitle'].'/' : '').$art['title'])))) : '';
+												$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $art['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $art['ctitle'].'/' : '').$art['title']) : ($pnsettings['sec_in_url'] ? $art['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $art['ctitle'].'/' : '').$art['title']))))) : '';
 												$cpgtpl->assign_block_vars('sec_list.cat_list.art_list', array(
 													'A_TITLE' => $art['title'],
 													'U_TITLE' => '<a href="'.getlink("&amp;aid=".$art['id'].$url_text).'">'.$art['title'].'</a>',
@@ -1772,19 +1773,20 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 				$menuul = '<ul id=\'pn_menutree\'>';
 				foreach ($sec_list as $row) {
 					if (($row['view'] == '0') || ($row['view'] == '3' && !is_user()) || (can_admin($pn_module_name)) || (is_user() && (($row['view'] == '1') || (($row['view'] > 3) && (isset($userinfo['_mem_of_groups'][$row['view'] - 3])))))) {
-//						$nullcheck = 'notnull';
 						$sql = 'SELECT c.*, COUNT(a.id) artnum FROM '.$prefix.'_pronews_cats as c,';
-						$sql .= ' '.$prefix.'_pronews_articles as a WHERE a.catid=c.id';						// changed outer join to inner join to hide empty Sections/Categories - layingback 061201
-						$sql .= ' AND sid="'.$row['id'].'" AND approved="1" AND active="1"';					// check active & approved to show correct count - layingback 061229
+						$sql .= ' '.$prefix.'_pronews_articles as a WHERE a.catid=c.id';
+						$sql .= ' AND sid="'.$row['id'].'" AND approved="1" AND active="1"';
 						$sql .= ' AND (alanguage="" OR alanguage="'.$currentlang.'")';
 						$sql .= ' GROUP BY catid ORDER BY c.sequence';
 						$result = $db->sql_query($sql);
 						$cats = $db->sql_fetchrowset($result);
 						$db->sql_freeresult($result);
 						if ((isset($cats)) && ($cats != '')) {
-							$menuul .= '<li class=\'pn_hide\'><div class=\'clk\' onclick=\'pn_toggle(this.parentNode)\'><a href="'.getlink("$pn_module_name&amp;sid=".$row['id']).'">'.$row['title'].'</a></div><ul>';
+							$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower($row['title']) : $row['title']))))) : '';
+							$menuul .= '<li class=\'pn_hide\'><div class=\'clk\' onclick=\'pn_toggle(this.parentNode)\'><a href="'.getlink("$pn_module_name&amp;sid=".$row['id'].$url_text).'">'.$row['title'].'</a></div><ul>';
 							foreach ($cats as $cat) {
-								$menuul .= '<li class=\'pn_cat\'><a href="'.getlink("$pn_module_name&amp;cid=".$cat['id']).'">'.$cat['title'].'</a></li>';
+								$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower($row['title'].'/'.$cat['title']) : $row['title'].'/'.$cat['title']))))) : '';
+								$menuul .= '<li class=\'pn_cat\'><a href="'.getlink("$pn_module_name&amp;cid=".$cat['id'].$url_text).'" title="'.$cat['artnum'].' '._PNNUMARTS.'">'.$cat['title'].'</a></li>';
 							}
 							$menuul .= '</ul></li>';
 						}
@@ -2257,7 +2259,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 					}
 				}
 				if (($row['view'] == '0') || (can_admin($module_name)) || (is_user() && (($row['view'] == '1') || (($row['view'] > 3) && (isset($userinfo['_mem_of_groups'][$row['view'] - 3])))))) {
-					$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title'])))) : '';
+					$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $row['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $row['ctitle'].'/' : '').$row['title']))))) : '';
 					if (($row['image'] != '') && ($row['image'] != '0')) {
 						$imagesize = getimagesize($pnsettings['imgpath'].'/'.$row['image']);  // fitted window - layingback 061119
 						$imagesizeX = $imagesize[0] + 16; $imagesizeY = $imagesize[1] + 16;
@@ -2706,7 +2708,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 									} else {
 										$canedit = '';
 									}
-									$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $rowc['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $rowc['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $rowc['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $rowc['ctitle'].'/' : '').$row['title'])))) : '');
+									$url_text = ($pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $rowc['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $rowc['ctitle'].'/' : '').$row['title']) : ($pnsettings['sec_in_url'] ? $rowc['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $rowc['ctitle'].'/' : '').$row['title']))))) : '');
 									$tpl = ($rowc['template'] != '') ? $rowc['template'] : $pnsettings['template'];
 									if ($pnsettings['display_by'] == '0') { $tpl = $pnsettings['template']; }
 // echo ' theme='.$CPG_SESS['theme'].' tpl='.$tpl.' lasttpl='.$lasttpl.' #='.$artcnt++.'<br>';
@@ -3047,7 +3049,7 @@ echo ' | cat='.$cat['id'].' ct='.$cattitle_lit.' cd='.$catdesc_lit;
 		$story = $db->sql_fetchrow($res);
 		$db->sql_freeresult($res);
 
-		$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', ($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $story['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $story['ctitle'].'/' : '').$story['title']) : ($pnsettings['sec_in_url'] ? $story['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $story['ctitle'].'/' : '').$story['title'])))) : '';
+		$url_text = $pnsettings['text_on_url'] ? '&amp;'.str_replace(" ", ($pnsettings['url_hyphen'] ? "-" : "_"), preg_replace('/[^\w\d\s\/-]+/', '', iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', str_replace('&amp;','',($pnsettings['url_lcase'] ? strtolower(($pnsettings['sec_in_url'] ? $story['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $story['ctitle'].'/' : '').$story['title']) : ($pnsettings['sec_in_url'] ? $story['stitle'].'/' : '').($pnsettings['cat_in_url'] ? $story['ctitle'].'/' : '').$story['title']))))) : '';
 
 		$forum_module = ($story['cforum_module'] && $story['cforum_module'] != 0) ? $story['cforum_module'] : $story['sforum_module'];
 		$forumspro_name = ($story['cforumspro_name']) ? $story['cforumspro_name'] : $story['sforumspro_name'];

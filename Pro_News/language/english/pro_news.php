@@ -145,7 +145,7 @@ define('_SRCHSHOWIMG_HLP','Select to Display or Supress Images in Articles in Se
 define('_SRCHNUMLIST_HLP','Number of Articles to display per page in Search Results when By Article is selected - default 25');
 // Blocks prefix with B
 define('_BTITLE_HLP','Title to appear in Block<br />NOTE1: Can be changed later in Admin => General => Blocks<br />NOTE2: Omitting a title is possible, but will make identifying it in General => Blocks more difficult');
-define('_BTYPES_HLP','Select the type of block to be used<br />NOTE1: Those not marked as CENTER may be used in Left or Right Blocks<br />NOTE2: Those marked Center may only be used in Center Up or Center Down Blocks due to size<br />NOTE3: Center blocks <i>Using Section template</i> will use a centerblock template entry in the normal template file for the Section (eg. index2alb.html) instead of the single centerblock template file (eg. ctrblkup.html)<br />NOTE4: Left/Right and Up/Down positions are selected in General => Blocks');
+define('_BTYPES_HLP','Select the type of block to be used<br />NOTE1: Those not marked as CENTER may be used in Left or Right Blocks<br />NOTE2: Those marked Center may only be used in Center Up or Center Down Blocks due to size<br />NOTE3: Center blocks <i>Using Section template</i> will use a centerblock template entry in the normal template file for the Section (eg. index2alb.html) instead of the single centerblock template file (eg. ctrblkup.html)<br />NOTE4: Left or Right and Up or Down positions are selected in General > Blocks');
 define('_BSEC_HLP','Select the single Section to select articles from or select All to display articles from all Sections<br />- OR -<br />Select the single Category to select articles from<br />NOTE: IF a Category is selected then the Section selection is ignored');
 define('_BCAT_HLP','After selecting initial Category, check More? to enable input of additional Categories to search - as Category Ids');
 define('_BMORECAT_HLP','Enter additional Categories to search as a Comma Separated list, eg. 1 or 2,3 or 4, 5, 6 etc. using Category Id numbers only<br />NOTE: Ideally all categories will be from the same Section, but if using Categories from multiple Sections <i>and a <b>Using Section template</b> Block Type</i> be aware that the Section template used will be determined solely by the first article returned.');
@@ -817,3 +817,5 @@ define('_PNMORECOMMA','Category Id Numbers only, Comma Separated');
 
 define('_PNDSPYFULART','If Only a Single Article Display as Full');
 define('_PNIMGMAXRMTE','Max Width of Remote Image');
+
+define('_PNNUMARTS','Articles');
