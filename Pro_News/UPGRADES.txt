@@ -17,6 +17,11 @@ UPGRADE INSTRUCTIONS:  Copy all files to server, in their appropriate locations,
 Administration > Modules > Pro_News select Edit and then Upgrade to latest release.
 
 ______________________________________________________
+UPGRADING FROM PRO_NEWS 4.0.6
+
+There are database changes since the prior version release, so an upgrade is required.
+
+______________________________________________________
 UPGRADING FROM PRO_NEWS 4.0.5
 
 There are database changes since the prior version release, so an upgrade is required.

@@ -192,7 +192,7 @@ class ProNewsAdm {
 					'L_TARGETCAT' => _PNTARGETCAT,
 					'L_ACTIVATE' => '',
 					'L_APPROVE' => '',
-					'L_CATLIST' => ProNewsAdm::admin_seccat('cat2','',false,''),
+					'L_CATLIST' => ProNewsAdm::admin_seccat('cat2','',false,'',''),
 					'L_COPY' => '<a href="javascript:domod(&quot;copy&quot;)">'._PNCOPY.'</a>',
 					'L_MOVE' => '<a href="javascript:domod(&quot;move&quot;)">'._PNMOVE.'</a>',
 					'L_DEL' => '<a href="javascript:domod(&quot;delete&quot;)">'._DELETE.'</a>'
@@ -371,7 +371,7 @@ class ProNewsAdm {
 		$sections .= '<option value="ALL"'.$selected.'>-- '._PNALL.' --</option></select>';
 		$type_list[_PNLSIDEONLY] = array('moderator' => _PNMODERATOR);
 		$type_list[_PNLSIDE] = array('latest' => _PNMSTRCNT, 'popular' => _PNMSTPPLR, 'rated' => _PNRATED);
-		$type_list[_PNLMENU] = array('menu' => _PNMENU);
+		$type_list[_PNLMENU] = array('menu' => _PNMENU, 'menuwa' => _PNMENUWA);
 		$type_list[_PNLCENTER] = array('oldestctr' => _PNOLDSTCTR, 'latestctr' => _PNMSTRCNTCTR, 'randomctr' => _PNRANDOMCTR, 'headlines' => _PNHEADLINES);
 		$type_list[_PNLCENTERSECTN] = array('toldestctr' => _PNOLDSTCTR.' (t)', 'tlatestctr' => _PNMSTRCNTCTR.' (t)', 'trandomctr' => _PNRANDOMCTR.' (t)', 'theadlines' => _PNHEADLINES.' (t)');
 		$type_list[_PNLCOMMENT] = array('comments' => _PNCOMMENTS);
@@ -404,7 +404,7 @@ class ProNewsAdm {
 			'T_SEC' => $sections,
 			'L_OR' => _PNOR,
 			'S_CAT' => _PNCAT,
-			'T_CAT' => ProNewsAdm::admin_seccat('cat', $catlist['0'], false, _PNALL),
+			'T_CAT' => ProNewsAdm::admin_seccat('cat', $catlist['0'], false, _PNALL. ''),
 			'S_MOREC' => _PNMOREC,
 			'T_MOREC' => '<input type="checkbox" name="morec" value="" '.($catlist['1'] != '' ? 'checked' : '').' onclick="document.getElementById(\'morecat\').style.visibility = \'visible\'" />',
 			'S_MORECAT' => '<span style="color:red;font-weight:bold">+</span> '._PNMORECAT,
@@ -499,7 +499,7 @@ class ProNewsAdm {
 				} elseif ($_POST['type'] == 'comments') {
 					$blkpos = 'c';
 					$blkfile = 'block-ProNews_Comments_Center.php';
-				} elseif ($_POST['type'] == 'menu') {
+				} elseif ($_POST['type'] == 'menu' || $_POST['type'] == 'menuwa') {
 					$blkfile = 'block-ProNews_Menu.php';
 				} elseif ($_POST['type'] == 'moderator') {
 					$blkfile = 'block-ProNews_Moderators.php';
@@ -632,7 +632,7 @@ class ProNewsAdm {
 								case '2': $lby = 'C';
 					}
 					$template = explode('.', $row['template'], '-1');
-					$tlist .= '<tr'.$bgcolor.'><td><br /><a href="'.getlink("&amp;mode=allarts&amp;sec=".$row['id']).'">'.$row['title'].'</a><br /><span class="pn_tinygrey">'.$row['description'].'&nbsp;</span></td>';
+					$tlist .= '<tr'.$bgcolor.'><td><br /><a href="'.getlink("&amp;mode=allarts&amp;sec=".$row['id']).'">'.$row['title'].'</a><br /><span class="pn_tinygrey">'.make_clickable(decode_bb_all($row['description'], 1, true)).'&nbsp;</span></td>';
 					$tlist .= '<td align="center">'.$seqchngup.'<img src="images/pro_news/icons/clearpixel.gif" width="5" height="5" alt="" />'.$seqchngdn.'</td>';
 					$tlist .= '<td align="center" class="pn_tinygrey">'.$post.'</td>';
 					$tlist .= '<td align="center" class="pn_tiny">'.$view.'</td>';
@@ -858,7 +858,7 @@ class ProNewsAdm {
 						'S_ICON' => ($list[$i]['icon'] != '') ? $list[$i]['icon'] : '',
 						'S_COLOR' => $bgcolor,
 						'S_SECTION' => ($list[$i]['stitle'] != $list[$i-1]['stitle']) ? '<a href="'.getlink('&amp;sid='.$list[$i]['sid']).'">'.$list[$i]['stitle'].'</a>' : '&nbsp;',
-						'S_DESC' => $list[$i]['description'].'&nbsp;',
+						'S_DESC' => make_clickable(decode_bb_all($list[$i]['description'], 1, true)).'&nbsp;',
 						'S_TITLE_LNK' => '<a href="'.getlink("&amp;cid=".$list[$i]['id']).'">'.$list[$i]['title'].'</a>',
 						'S_TITLE' => $list[$i]['title'],
 						'S_SEQUP' => $seqchngup,
@@ -1426,7 +1426,7 @@ class ProNewsAdm {
 //					$assotop = '';
 //				}
 					$album_order = array(0=>'',1=>'title',2=>'title',3=>'filename',4=>'filename',5=>'ctime',6=>'ctime',7=>'pic_rating',8=>'pic_rating');
-					$sql = 'SELECT s.title stitle, c.title ctitle, s.id sid, s.forum_id sforum_id, c.forum_id cforum_id, icon, template, usrfld0, usrfld1, usrfld2, usrfld3, usrfld4, usrfld5, usrfld6, usrfld7, usrfld8, usrfld9, usrfldttl';
+					$sql = 'SELECT s.title stitle, c.title ctitle, s.id sid, s.forum_id sforum_id, s.description sdescription, c.forum_id cforum_id, c.description cdescription, icon, template, usrfld0, usrfld1, usrfld2, usrfld3, usrfld4, usrfld5, usrfld6, usrfld7, usrfld8, usrfld9, usrfldttl';
 					$sql .= ' FROM '.$prefix.'_pronews_cats as c, '.$prefix.'_pronews_sections as s';
 					$sql .= ' WHERE c.sid=s.id AND c.id="'.$category.'"';
 					$result = $db->sql_query($sql);
@@ -1454,7 +1454,7 @@ class ProNewsAdm {
 					$user_fld_7 = ProNewsAdm::cleanse($user_fld_7);
 					$user_fld_8 = ProNewsAdm::cleanse($user_fld_8);
 					$user_fld_9 = ProNewsAdm::cleanse($user_fld_9);
-					$row = array('stitle'=>$list['stitle'], 'ctitle'=>$list['ctitle'], 'sforum_id'=>$list['sforum_id'], 'cforum_id'=>$list['cforum_id'], 'icon'=>$list['icon'], 'id'=>$id, 'catid'=>$category, 'sid'=>$list['sid'], 'title'=>$title, 'seod'=>$seod, 'intro'=>$intro, 'content'=>$content, 'image'=>$image, 'caption'=>$caption, 'allow_comment'=>$comment, 'postby'=>$postby, 'postby_show'=>$postby_show, 'posttime'=>$post_time, 'show_cat'=>$show_cat, 'active'=>$active, 'approved'=>$approved, 'viewable'=>$viewable, 'display_order'=>$display_order, 'alanguage'=>$alanguage, 'album_id'=>$album_id, 'album_cnt'=>$album_cnt, 'album_seq'=>$album_seq, 'slide_show'=>$slide_gallery, 'image2'=>$image2, 'caption2'=>$caption2, 'user_fld_0'=>$user_fld_0, 'user_fld_1'=>$user_fld_1, 'user_fld_2'=>$user_fld_2, 'user_fld_3'=>$user_fld_3, 'user_fld_4'=>$user_fld_4, 'user_fld_5'=>$user_fld_5, 'user_fld_6'=>$user_fld_6, 'user_fld_7'=>$user_fld_7, 'user_fld_8'=>$user_fld_8, 'user_fld_9'=>$user_fld_9, 'usrfld0'=>$list['usrfld0'], 'usrfld1'=>$list['usrfld1'], 'usrfld2'=>$list['usrfld2'], 'usrfld3'=>$list['usrfld3'], 'usrfld4'=>$list['usrfld4'], 'usrfld5'=>$list['usrfld5'], 'usrfld6'=>$list['usrfld6'], 'usrfld7'=>$list['usrfld7'], 'usrfld8'=>$list['usrfld8'], 'usrfld9'=>$list['usrfld9'], 'usrfldttl'=>$list['usrfldttl'], 'df_topic'=>$df_topic, 'topictext'=>$tlist['topictext'], 'topicimage'=>$tlist['topicimage'], 'template'=>$list['template'], 'clsdttime'=>$clsdttime, 'cledttime'=>$cledttime, 'sdttime'=>$sdttime, 'edttime'=>$edttime, 'associated'=>$associated, 'display'=>$display );
+					$row = array('stitle'=>$list['stitle'], 'ctitle'=>$list['ctitle'], 'sdesc'=>$list['sdescription'], 'cdesc'=>$list['cdescription'], 'sforum_id'=>$list['sforum_id'], 'cforum_id'=>$list['cforum_id'], 'icon'=>$list['icon'], 'id'=>$id, 'catid'=>$category, 'sid'=>$list['sid'], 'title'=>$title, 'seod'=>$seod, 'intro'=>$intro, 'content'=>$content, 'image'=>$image, 'caption'=>$caption, 'allow_comment'=>$comment, 'postby'=>$postby, 'postby_show'=>$postby_show, 'posttime'=>$post_time, 'show_cat'=>$show_cat, 'active'=>$active, 'approved'=>$approved, 'viewable'=>$viewable, 'display_order'=>$display_order, 'alanguage'=>$alanguage, 'album_id'=>$album_id, 'album_cnt'=>$album_cnt, 'album_seq'=>$album_seq, 'slide_show'=>$slide_gallery, 'image2'=>$image2, 'caption2'=>$caption2, 'user_fld_0'=>$user_fld_0, 'user_fld_1'=>$user_fld_1, 'user_fld_2'=>$user_fld_2, 'user_fld_3'=>$user_fld_3, 'user_fld_4'=>$user_fld_4, 'user_fld_5'=>$user_fld_5, 'user_fld_6'=>$user_fld_6, 'user_fld_7'=>$user_fld_7, 'user_fld_8'=>$user_fld_8, 'user_fld_9'=>$user_fld_9, 'usrfld0'=>$list['usrfld0'], 'usrfld1'=>$list['usrfld1'], 'usrfld2'=>$list['usrfld2'], 'usrfld3'=>$list['usrfld3'], 'usrfld4'=>$list['usrfld4'], 'usrfld5'=>$list['usrfld5'], 'usrfld6'=>$list['usrfld6'], 'usrfld7'=>$list['usrfld7'], 'usrfld8'=>$list['usrfld8'], 'usrfld9'=>$list['usrfld9'], 'usrfldttl'=>$list['usrfldttl'], 'df_topic'=>$df_topic, 'topictext'=>$tlist['topictext'], 'topicimage'=>$tlist['topicimage'], 'template'=>$list['template'], 'clsdttime'=>$clsdttime, 'cledttime'=>$cledttime, 'sdttime'=>$sdttime, 'edttime'=>$edttime, 'associated'=>$associated, 'display'=>$display );
 //print_r($row);
 					$target = 'pn'.uniqid(rand());
 					if ($image_error) {
@@ -1589,8 +1589,11 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 //					$introtext = decode_bb_all($row['intro'], 1, true);
 //					$combotext = $introtext.'<br /><br />'.decode_bb_all($row['content'], 1, true);
 					$cpgtpl->assign_block_vars('newsarticle', array(
+						'G_PREVIEW' => '1',
 						'S_SECBRK' => $row['stitle'],
 						'S_CATBRK' => $row['ctitle'],
+						'U_CATDESC' => make_clickable(decode_bb_all($row['cdesc'], 1, true)),
+						'U_SECDESC' => make_clickable(decode_bb_all($row['sdesc'], 1, true)),
 						'S_INTRO' => make_clickable(decode_bb_all($row['intro'], 1, true)),
 						'S_CONTENT' => make_clickable(decode_bb_all($row['content'], 2, true)),
 						'S_ICON' => ($row['icon'] != '') ? $row['icon'] : '',
@@ -2021,7 +2024,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 			'S_TITLE' => _PNTITLE,
 			'T_TITLE' => '<input type="text" name="title" size="25" value="'.$title.'" />',
 			'S_DESC' => _PNDESC,
-			'T_DESC' => '<textarea cols="54" rows="1" name="descrip" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onchange="storeCaret(this);">'.$description.'</textarea>',
+			'T_DESC' => '<textarea cols="54" rows="3" name="descrip" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onchange="storeCaret(this);">'.$description.'</textarea>',
 			'S_SEC' => _PNSECTION,
 			'T_SEC' => $sections,
 			'L_ADVANCED' => _PNADVANCED,
@@ -2426,7 +2429,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 				$forum_id = '';
 			}
 			if (isset($_POST['title'])) { $title = Fix_Quotes($_POST['title'],1); }
-			if (isset($_POST['descrip'])) { $description =  Fix_Quotes($_POST['descrip'],1); }
+			if (isset($_POST['descrip'])) { $description = Fix_Quotes($_POST['descrip'],1); }
 			if (isset($_POST['view'])) { $view = intval($_POST['view']); }
 			if (isset($_POST['post'])) { $post =  intval($_POST['post']); }
 			if (isset($_POST['admin'])) { $admin = intval($_POST['admin']); }
@@ -2635,28 +2638,26 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 			foreach ($list as $row) {
 				$list2[$row['stitle']][$row['title']][] = $row['id'];
 			}
-// print_r($list2);
+// echo '<br />'.$pending.'<pre>';print_r($list2);echo '</pre>';
 			$selected = ($id != '') ? $id : '';
 			$seccat = '<select '.($onchange ? 'onchange="this.form.submit()" ' : '').'name="'.$name.'"'.'><option value="">-- '.($selecttext != '' ? $selecttext : _PNSELONE).' --</option>';
+			$pending_arts = '';
 			foreach ($list2 as $row => $value) {
 				$seccat .= '<optgroup label="'.$row.'">';
 				foreach ($value as $op => $tid) {
-					foreach ($tid as $op2 => $dup) {
 						if ($pending) {
-							$result = $db->sql_query('SELECT * FROM '.$prefix.'_pronews_articles WHERE catid='.$dup.' AND approved="0" AND active="1"');
-							$pending = $db->sql_numrows($result);
+							$result = $db->sql_query('SELECT * FROM '.$prefix.'_pronews_articles WHERE catid='.$tid['0'].' AND approved="0" AND active="1"');
+							$pending_arts = $db->sql_numrows($result);
 							$db->sql_freeresult($result);
-							$pending = ($pending == 0) ? '' : '*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ '.$pending.' ]';  // indicate # of Pending Arts in Cat - layingback 061129
+							$pending_arts = ($pending_arts == 0) ? '' : '*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ '.$pending_arts.' ]';  // indicate # of Pending Arts in Cat - layingback 061129
 						}
-						$select = ($dup == $selected) ? ' selected="selected"' : '';
-						$seccat .= '<option value="'.$dup.'"'.$select.'>'.$op.' '.$pending.'</option>';
-					}
+						$select = ($tid['0'] == $selected) ? ' selected="selected"' : '';
+						$seccat .= '<option value="'.$tid['0'].'"'.$select.'>'.$op.' '.$pending_arts.'</option>';
 				}
 				$seccat .= '</optgroup>';
 			}
 			$seccat .= '</select>';
 		}
-
 
 		return $seccat;
 	}
@@ -2665,7 +2666,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 		global $db, $prefix, $pnsettings, $userinfo, $cpgtpl, $multilingual, $CPG_SESS;
 
 		if ($edit == '' && $cat == '') {
-			$categories = ProNewsAdm::admin_seccat('cat','',true,'');
+			$categories = ProNewsAdm::admin_seccat('cat','',true,'','');
 			$cpgtpl->assign_block_vars('newarticle_form', array(
 				'S_MSG' => _PNSELECTCAT,
 				'S_CAT' => _PNCAT,
@@ -2736,7 +2737,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 				$topics = '';
 			}
 
-			$categories = ProNewsAdm::admin_seccat('cat',$edit['catid'],false,'');
+			$categories = ProNewsAdm::admin_seccat('cat',$edit['catid'],false,'','');
 			$albums = ProNewsAdm::admin_album('album_id', $edit['album_id']);
 
 			$clsdttime = intval($edit['clsdttime']);
@@ -2819,18 +2820,20 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 				'T_INTROS' => ($pnsettings['show_smilies']) ? smilies_table('inline', 'intro', 'adminbbadd') : '',
 				'S_IMAGE' => ($edit['image'] != '') ? _PNDELIMAGE.'<br /><input type="checkbox" name="delimage" value="" />' : _IMAGE,
 				'T_IMAGE' => ($edit['image'] != '') ? '<input type="hidden" name="image" value="'.$edit['image'].'" /><img src="'.$pnsettings['imgpath'].$thumb.$edit['image'].'" alt=""/>' : '<input type="file" name="iname" size="35" />',
+				'S_IMGIMAGE' => $pnsettings['imgpath'].'/'.$edit['image'],
 				'G_IMAGEDISPLAY' => ($edit['image'] != '') ? '1' : '',
 				'S_CAP' => _PNIMGCAP,
-				'T_CAP' => '<input type="text" name="imgcap" size="35" value="'.$edit['caption'].'" />&nbsp;<span class="pn_tinygrey">('._PNOPTIONAL.')</span>',
+				'T_CAP' => '<input type="text" name="imgcap" size="50" value="'.$edit['caption'].'" />&nbsp;<span class="pn_tinygrey">('._PNOPTIONAL.')</span>',
 				'S_STORY' => _PNSTORY,
 				'L_STORY' => bbcode_table('addtext', 'adminbbadd', 2),
 				'T_STORY' => '<textarea cols="66" rows="15" name="addtext" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" onchange="storeCaret(this);">'.$edit['content'].'</textarea>',
 				'T_STORYS' => ($pnsettings['show_smilies']) ? smilies_table('inline', 'addtext', 'adminbbadd') : '',
 				'S_IMAGE2' => ($edit['image2'] != '') ? _PNDELIMAGE.'<br /><input type="checkbox" name="delimage2" value="" />' : _IMAGE,
 				'T_IMAGE2' => ($edit['image2'] != '') ? '<input type="hidden" name="image2" value="'.$edit['image2'].'" /><img src="'.$pnsettings['imgpath'].$thumb2.$edit['image2'].'" alt=""/>' : '<input type="file" name="iname2" size="35" />',
+				'S_IMGIMAGE2' => $pnsettings['imgpath'].'/'.$edit['image2'],
 				'G_IMAGE2DISPLAY' => ($edit['image2'] != '') ? '1' : '',
 				'S_CAP2' => _PNIMGCAP,
-				'T_CAP2' => '<input type="text" name="imgcap2" size="35" value="'.$edit['caption2'].'" />&nbsp;<span class="pn_tinygrey">('._PNOPTIONAL.')</span>',
+				'T_CAP2' => '<input type="text" name="imgcap2" size="50" value="'.$edit['caption2'].'" />&nbsp;<span class="pn_tinygrey">('._PNOPTIONAL.')</span>',
 
 				'G_CALENDAR' => ($pnsettings['cal_module']) ? '1' : '',
 				'S_CALSDTTIME' => _PNEVENT.' '._PNCALSTART.'<input type="hidden" name="calid" value="'.(($edit['cal_id']) ? $edit['cal_id'] : 0).'" />',
@@ -2885,7 +2888,7 @@ function load() {var load = window.open("'.getlink('Pro_News&amp;mode=slide&id='
 				'L_LSTLNKS'  => _PNLSTLNKS,
 				'T_ALRDYASSOC' => $assoc,
 				'L_SEL_ASSC'  => ($pnsettings['related_arts'] >= '1' || $edit['associated']) ? _PNSELRELATEDART : '',
-				'T_RLDTCAT' => ($pnsettings['related_arts'] >= '1' || $edit['associated']) ? ProNewsAdm::admin_seccat('relcat',$relcat,false,'').'<noscript><input type="submit" name="dsply" value="'._PNDISPLAY.'" /></noscript>' : '',
+				'T_RLDTCAT' => ($pnsettings['related_arts'] >= '1' || $edit['associated']) ? ProNewsAdm::admin_seccat('relcat',$relcat,false,'','').'<noscript><input type="submit" name="dsply" value="'._PNDISPLAY.'" /></noscript>' : '',
 				'L_INCL_ASSC'  => ($pnsettings['related_arts'] >= '1' || $edit['associated']) ? _PNINCL.' ' : '',
 				'S_INCL_ASSC'  => ($pnsettings['related_arts'] >= '1' || $edit['associated']) ? select_box('inclnum', $inclnum, array(0=>_PNNO, 99=>_PNALL, 12=>_PNLAST.' 12', 11=>_PNLAST.' 11', 10=>_PNLAST.' 10', 6=>_PNLAST.' 6', 5=>_PNLAST.' 5')).' '._PNINCLASSOC : '',
 				'T_INCL_CATSEC' => ($pnsettings['related_arts'] >= '1' || $edit['associated']) ? select_box('inclcatsec', $inclcatsec, array(0=>_PNRALCAT, 1=>_PNRALSEC, 2=>_PNRALUSER, 3=>_PNRALUSRSEC)) : '',

@@ -122,13 +122,13 @@
 		<tr><td>{cfg_form.S_NOTIFYAMPA}</td><td>{cfg_form.T_NOTIFYAMPA}</td><td onmouseover="tip('_NOTIFYAMPA')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td> &nbsp; &nbsp; {cfg_form.S_SENDMAILPA}</td><td>{cfg_form.T_SENDMAILPA}</td><td onmouseover="tip('_SENDMAILPA')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<!-- IF cfg_form.G_MULTILANG -->
-			<tr><td></td><td>{cfg_form.S_MULTILANG_WARN}<br /><span class="pn_tiny">{cfg_form.S_MULTILANG_WARN2}</span></td><td>&nbsp;</td></tr>
+			<tr><td></td><td><i>{cfg_form.S_MULTILANG_WARN}</i><br /><span class="pn_tinygrey">{cfg_form.S_MULTILANG_WARN2}</span></td><td>&nbsp;</td></tr>
 		<!-- ENDIF -->
 		<tr><td> &nbsp; &nbsp; {cfg_form.S_SUBJMAILPA}</td><td>{cfg_form.T_SUBJMAILPA}</td><td>&nbsp;</td></tr>
 		<tr><td valign="top"> &nbsp; &nbsp; {cfg_form.S_MESSBODYPA}</td><td>{cfg_form.T_MESSBODYPA}</td><td>&nbsp;</td></tr>
 		<tr><td>{cfg_form.S_NOTIFYUSER}</td><td>{cfg_form.T_NOTIFYUSER}</td><td onmouseover="tip('_NOTIFYUSER')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<!-- IF cfg_form.G_MULTILANG -->
-			<tr><td></td><td>{cfg_form.S_MULTILANG_WARN}<br /><span class="pn_tiny">{cfg_form.S_MULTILANG_WARN2}</span></td><td>&nbsp;</td></tr>
+			<tr><td></td><td><i>{cfg_form.S_MULTILANG_WARN}</i><br /><span class="pn_tinygrey">{cfg_form.S_MULTILANG_WARN2}</span></td><td>&nbsp;</td></tr>
 		<!-- ENDIF -->
 		<tr><td> &nbsp; &nbsp; {cfg_form.S_SUBJAPPRV}</td><td>{cfg_form.T_SUBJAPPRV} <span style="color:grey;">{cfg_form.L_SUBJAPPRV}</span></td><td>&nbsp;</td></tr>
 		<tr><td valign="top"> &nbsp; &nbsp; {cfg_form.S_MESSAPPRV}</td><td><span style="color:grey;">{cfg_form.L_MESSAPPRV}</span>{cfg_form.T_MESSAPPRV} <span style="color:grey;">{cfg_form.M_MESSAPPRV}</span></td><td>&nbsp;</td></tr>
@@ -179,6 +179,7 @@ maketip('_MEMBERPAGE','','_(MEMBERPAGE_HLP)');
 maketip('_SECINSEC','','_(SECINSEC_HLP)');
 maketip('_MEMINSEC','','_(MEMINSEC_HLP)');
 maketip('_ARTINSEC','','_(ARTINSEC_HLP)');
+maketip('_INCINTRO','','_(INCINTRO_HLP)');
 maketip('_NUMARTSEC','','_(NUMARTSEC_HLP)');
 maketip('_ENBLRSS','','_(ENBLRSS_HLP)');
 maketip('_RSSINSEC','','_(RSSINSEC_HLP)');
@@ -386,7 +387,7 @@ maketip('_SPNDEFKKYFLD','','_(SPNDEFKKYFLD_HLP)');
 		<tr><td>&nbsp;</td><td>- <i>{block_form.L_OR}</i> -</td><td>&nbsp;</td></tr>
 		<tr><td>{block_form.S_CAT} *</td><td>{block_form.T_CAT} &nbsp; {block_form.S_MOREC} {block_form.T_MOREC}</td><td onmouseover="tip('_BCAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr id="morecat" style="visibility:{block_form.G_MORECAT}"><td>&nbsp; &nbsp; {block_form.S_MORECAT} *</td><td>{block_form.T_MORECAT} &nbsp; <span class="pn_tiny">({block_form.L_MORECAT})</span></td><td onmouseover="tip('_BMORECAT')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
-		<tr><td>{block_form.S_NUM} *</td><td>{block_form.T_NUM}</td><td onmouseover="tip('_BNUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
+		<tr><td>{block_form.S_NUM}</td><td>{block_form.T_NUM}</td><td onmouseover="tip('_BNUM')" onmouseout="untip()"><img src="images/pro_news/help.png" alt=""/></td></tr>
 		<tr><td colspan="3"><br /><span class="pn_tiny">{block_form.L_TEXT}</span></td></tr>
 	</table>
 	{block_form.G_ID}{block_form.G_SAVE}

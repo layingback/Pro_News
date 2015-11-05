@@ -446,9 +446,22 @@ _________________________________________________________
 Current release is for Dragonfly 9.4, 9.3, 9.2 and 9.1 (and 9.0.6.1 with simple manual changes) only.
 
 ______________________________________________________
+Significant Changes in 4.0.7 Version (from 4.0.6 version):
+
+Support for longer descriptions in Sections and Categories (was limited to 255)
+Support for BBCode in descriptions for Sections and Categories
+Support added for Section and Category descriptions in Full Article template
+Support added for display of Section descriptions in default Pro_News page
+ - but disabled in pro_news.css for backward compatibility (.pn_catalog_section .pn_secdesc)
+Option to list Articles in Pro_News Menu Block
+Image1 and Image2 filenames added to Template variables for Preview (S_IMGIMAGE, S_IMGIMAGE2)
+Add 'Preview' Template Variable to allow test of <!-- IF G.PREVIEW -->
+Various bug fixes
+
+______________________________________________________
 Significant Changes in 4.0.6 Version (from 4.0.5 version):
 
-Change group fileds (4 of) in pro_news_sections from tinyint to int to match DF
+Change group fields (4 of) in pro_news_sections from tinyint to int to match DF
 Additional edits and comments to Calling Pro_News example code
 Add hack to add title_in_url feature, matching that of Pro_News, to Forums.
 
