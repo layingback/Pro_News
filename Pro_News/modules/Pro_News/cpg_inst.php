@@ -29,7 +29,7 @@ eval("
 		// class constructor
 			function $mod_dirname() {
 				\$this->radmin = true;
-				\$this->version = '4.0.6';
+				\$this->version = '4.0.7';
 				\$this->modname = \"$mod_dirname\";
 				\$this->description = 'Pro_News CM&#8482; - Ultra Configurable Content Management - interfaces to Forums, Photo Gallery & Calendar (v4: developed and extended from beta module of same name by Kauragari)';
 				\$this->author = 'layingback';
@@ -44,7 +44,7 @@ eval("
 					id int(11) NOT NULL auto_increment,
 					sid tinyint(11) default '0',
 					title varchar(255) NOT NULL default 'New Cat',
-					description varchar(255) default NULL,
+					description text default NULL,
 					icon varchar(255) NULL default 'clearpixel.gif',
 					view tinyint(11) NOT NULL default '0',
 					admin tinyint(11) NOT NULL default '2',
@@ -56,7 +56,7 @@ eval("
 				\$installer->add_query('CREATE', 'pronews_sections', \"
 					id int(11) NOT NULL auto_increment,
 					title varchar(255) NOT NULL default 'New Section',
-					description varchar(255) default NULL,
+					description text default NULL,
 					view int(10) UNSIGNED NOT NULL default '0',
 					admin int(10) UNSIGNED NOT NULL default '1',
 					forum_id int(10) NULL,
@@ -129,7 +129,7 @@ eval("
 					display tinyint(1) NOT NULL default '1',
 					updtby varchar(50) NULL default '',
 					updttime varchar(14) NULL default '',
-					seod varchar(255) NOT NULL default '');
+					seod varchar(255) NULL default '');
 						PRIMARY KEY (id),
 							KEY (topic_id)\", 'pronews_articles');
 
@@ -260,12 +260,12 @@ eval("
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'show_usrflds', '1'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'cal_module', '0'\");
 
-					\$installer->add_query('ADD', 'pronews_sections', \"'forum_module int(11) NOT NULL DEFAULT 1'\");
-					\$installer->add_query('ADD', 'pronews_sections', \"'forumspro_name varchar(20) DEFAULT NULL'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'album_id int(11) NOT NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'album_cnt tinyint(1) NOT NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'album_seq tinyint(1) NOT NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'slide_show tinyint(1) NOT NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'forum_module int(11) NOT NULL default 1'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'forumspro_name varchar(20) default NULL'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'album_id int(11) NOT NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'album_cnt tinyint(1) NOT NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'album_seq tinyint(1) NOT NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'slide_show tinyint(1) NOT NULL default 0'\");
 					\$installer->add_query('ADD', 'pronews_articles', \"'image2 varchar(255) NOT NULL'\");
 					\$installer->add_query('ADD', 'pronews_articles', \"'caption2 varchar(255) NOT NULL'\");
 					\$installer->add_query('ADD', 'pronews_articles', \"'user_fld_0 varchar(255) NOT NULL'\");
@@ -287,9 +287,9 @@ eval("
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'show_reads', '1'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'ratings', '1'\");
 
-					\$installer->add_query('ADD', 'pronews_articles', \"'counter mediumint(9) NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'score int(11) NOT NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'ratings int(11) NOT NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'counter mediumint(9) NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'score int(11) NOT NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'ratings int(11) NOT NULL default 0'\");
 					\$installer->add_query('ADD', 'pronews_sections', \"'usrfld0 varchar(50) NOT NULL'\");
 					\$installer->add_query('ADD', 'pronews_sections', \"'usrfld1 varchar(50) NOT NULL'\");
 					\$installer->add_query('ADD', 'pronews_sections', \"'usrfld2 varchar(50) NOT NULL'\");
@@ -327,8 +327,8 @@ eval("
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'lmt_fulart', '0'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'art_ordr', '1'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'topic_lnk', '0'\");
-					\$installer->add_query('ADD', 'pronews_articles', \"'df_topic int(10) DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_sections', \"'art_ord tinyint(11) NOT NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'df_topic int(10) default 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'art_ord tinyint(11) NOT NULL default 0'\");
 				}
 
 				if ((\$prev_version >= '2.1.0.3') && (\$prev_version <= '2.3.0.1')) {		// Fix for 2.1.0.3 CLEAN (only) Install creating single primary key
@@ -348,13 +348,13 @@ eval("
 
 				if (\$prev_version <= '3.0.0.1') {
 					//fishingfan upgrade
-					\$installer->add_query('ADD', 'pronews_sections', \"'secheadlines tinyint(11) NOT NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_sections', \"'sectrunc1head int(11) NOT NULL DEFAULT 0'\");
-					\$installer->add_query('ADD', 'pronews_sections', \"'sectrunchead int(11) NOT NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'secheadlines tinyint(11) NOT NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'sectrunc1head int(11) NOT NULL default 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'sectrunchead int(11) NOT NULL default 0'\");
 				}
 
 				if (\$prev_version <= '3.0.0.2') {
-					\$installer->add_query('ADD', 'pronews_articles', \"'cal_id int(11) NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'cal_id int(11) NULL default 0'\");
 				}
 
 				if (\$prev_version <= '3.1.0.0') {
@@ -372,8 +372,8 @@ eval("
 				}
 
 				if (\$prev_version <= '3.2.0.0') {
-					\$installer->add_query('ADD', 'pronews_articles', \"'display tinyint(1) NOT NULL DEFAULT 1'\");
-					\$installer->add_query('ADD', 'pronews_sections', \"'post tinyint(11) NOT NULL DEFAULT 1'\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'display tinyint(1) NOT NULL default 1'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'post tinyint(11) NOT NULL default 1'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'per_admn_page', '25'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'forum_per-cat', '0'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'related_arts', '0'\");
@@ -386,7 +386,7 @@ eval("
 				}
 
 				if (\$prev_version <= '3.2.1.2') {
-					\$installer->add_query('ADD', 'pronews_sections', \"'secdsplyby tinyint(11) NOT NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'secdsplyby tinyint(11) NOT NULL default 0'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'secat_hdgs', '3'\");
 				}
 
@@ -422,7 +422,7 @@ eval("
 				}
 
 				if (\$prev_version <= '3.3.2.4') {
-					\$installer->add_query('ADD', 'pronews_sections', \"'keyusrfld int(11) NOT NULL DEFAULT 0'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'keyusrfld int(11) NOT NULL default 0'\");
 				}
 
 				if (\$prev_version <= '3.3.2.6') {
@@ -469,7 +469,7 @@ eval("
 
 				if (\$prev_version <= '3.4.7') {
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'disply_full', '1'\");
-					\$installer->add_query('ADD', 'pronews_sections', \"'moderate tinyint(11) NOT NULL DEFAULT 2'\");
+					\$installer->add_query('ADD', 'pronews_sections', \"'moderate tinyint(11) NOT NULL default 2'\");
 				}
 
 				if (\$prev_version <= '3.4.8') {
@@ -477,7 +477,7 @@ eval("
 				}
 
 				if (\$prev_version <= '4.0.1') {
-					\$installer->add_query('ADD', 'pronews_articles', \"'seod varchar(255) NOT NULL default \'\''\");
+					\$installer->add_query('ADD', 'pronews_articles', \"'seod varchar(255) default NULL'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'aspect', '0'\");
 					\$installer->add_query('INSERT', 'config_custom', \"'pro_news', 'opn_grph', '0'\");
 				}
@@ -491,6 +491,11 @@ eval("
 					\$installer->add_query('CHANGE', 'pronews_sections', \"'admin admin int(10) UNSIGNED NOT NULL default 1'\");
 					\$installer->add_query('CHANGE', 'pronews_sections', \"'post post int(10) UNSIGNED NOT NULL default 1'\");
 					\$installer->add_query('CHANGE', 'pronews_sections', \"'moderate moderate int(10) UNSIGNED NOT NULL default 2'\");
+				}
+
+				if (\$prev_version <= '4.0.6') {
+					\$installer->add_query('CHANGE', 'pronews_sections', \"'description description text default NULL'\");
+					\$installer->add_query('CHANGE', 'pronews_cats', \"'description description text default NULL'\");
 				}
 
 
