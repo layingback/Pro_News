@@ -29,7 +29,7 @@ eval("
 		// class constructor
 			function $mod_dirname() {
 				\$this->radmin = true;
-				\$this->version = '4.0.7';
+				\$this->version = '4.0.8';
 				\$this->modname = \"$mod_dirname\";
 				\$this->description = 'Pro_News CM&#8482; - Ultra Configurable Content Management - interfaces to Forums, Photo Gallery & Calendar (v4: developed and extended from beta module of same name by Kauragari)';
 				\$this->author = 'layingback';
