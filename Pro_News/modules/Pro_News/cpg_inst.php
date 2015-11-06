@@ -44,7 +44,7 @@ eval("
 					id int(11) NOT NULL auto_increment,
 					sid tinyint(11) default '0',
 					title varchar(255) NOT NULL default 'New Cat',
-					description text default NULL,
+					description text NULL,
 					icon varchar(255) NULL default 'clearpixel.gif',
 					view tinyint(11) NOT NULL default '0',
 					admin tinyint(11) NOT NULL default '2',
@@ -56,7 +56,7 @@ eval("
 				\$installer->add_query('CREATE', 'pronews_sections', \"
 					id int(11) NOT NULL auto_increment,
 					title varchar(255) NOT NULL default 'New Section',
-					description text default NULL,
+					description text NULL,
 					view int(10) UNSIGNED NOT NULL default '0',
 					admin int(10) UNSIGNED NOT NULL default '1',
 					forum_id int(10) NULL,
@@ -494,8 +494,8 @@ eval("
 				}
 
 				if (\$prev_version <= '4.0.6') {
-					\$installer->add_query('CHANGE', 'pronews_sections', \"'description description text default NULL'\");
-					\$installer->add_query('CHANGE', 'pronews_cats', \"'description description text default NULL'\");
+					\$installer->add_query('CHANGE', 'pronews_sections', \"'description description text NULL'\");
+					\$installer->add_query('CHANGE', 'pronews_cats', \"'description description text NULL'\");
 				}
 
 
