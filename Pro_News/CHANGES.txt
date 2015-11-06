@@ -446,6 +446,11 @@ _________________________________________________________
 Current release is for Dragonfly 9.4, 9.3, 9.2 and 9.1 (and 9.0.6.1 with simple manual changes) only.
 
 ______________________________________________________
+Significant Changes in 4.0.8 Version (from 4.0.7 version):
+
+Bug fix for cpg_inst.php install (only file changed)
+
+______________________________________________________
 Significant Changes in 4.0.7 Version (from 4.0.6 version):
 
 Support for longer descriptions in Sections and Categories (was limited to 255)
